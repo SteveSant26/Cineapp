@@ -2,7 +2,7 @@ from cartelera import datos_peliculas as DP
 import utils
 
 from . import crear_asientos_img as CAI
-from . import utils_asientos as UA
+from . import utils_asientos as U
 
 
 
@@ -63,4 +63,4 @@ def select_mejor_asiento(base) -> None:
         fila, columna = base.mejor_asiento
         asiento = base.frame_sala.grid_slaves(row=fila, column=columna)[0]
         asiento.configure(image=CAI.ASIENTOS_IMAGEN["asiento_mejor"])
-        UA.bind_asiento(asiento,CAI.ASIENTOS_IMAGEN["asiento_libre"],CAI.ASIENTOS_IMAGEN["asiento_mejor"])
+        U.bind_asiento(asiento,CAI.ASIENTOS_IMAGEN["asiento_libre"],CAI.ASIENTOS_IMAGEN["asiento_mejor"])

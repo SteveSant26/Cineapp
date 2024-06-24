@@ -50,10 +50,7 @@ def crear_cartelera(base, peliculas:dict[dict], columnas:int):
             command=lambda p=pelicula: seleccionar_pelicula(
                 base, p),
         )
-        if ctk.get_appearance_mode() == "Dark":
-            boton_pelicula.configure(text_color="white")
-        else:
-            boton_pelicula.configure(text_color="black")
+        utils.cambiar_color_texto(boton_pelicula)
             
 
         boton_pelicula.grid(row=fila, column=columna, padx=10, pady=0)

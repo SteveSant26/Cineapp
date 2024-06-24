@@ -12,7 +12,6 @@ def configurar_ventana(base: ctk.CTk)->None:
     base.geometry(f"{ancho}x{alto}+0+0")
     base.state("zoomed")
 
-import customtkinter as ctk
 def limpiar_widgets_base(base:ctk.CTk)->None:
     """ Esta funcion elimina todos los widgets de la base."""
     for widget in base.winfo_children():
@@ -22,3 +21,10 @@ def configurar_apariencia()->None:
     """ Se configura la apariencia de la aplicación."""
     ctk.set_appearance_mode("dark")  # light, dark
     ctk.set_default_color_theme("dark-blue")  # blue, green, dark-blue
+    
+def cambiar_color_texto(boton)->None:
+    """ Cambia el color del texto de un widget."""
+    if ctk.get_appearance_mode() == "Dark":
+        boton.configure(text_color="white")
+    else:
+        boton.configure(text_color="black")

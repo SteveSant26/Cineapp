@@ -1,5 +1,5 @@
 import customtkinter as ctk
-from . import botones_side_bar as BSB
+from . import funcion_botones_side_bar as BSB
 
 
 def crear_side_bar(base: ctk.CTk):

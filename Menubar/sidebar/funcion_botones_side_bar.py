@@ -27,6 +27,7 @@ def crear_frame_administrar_salas(base:ctk.CTkFrame):
 
 def cambiar_tema(switch: ctk.CTkSwitch, base: ctk.CTk):
     """Cambia el tema de la aplicación."""
+    
     if switch.get() == 1:
         ctk.set_appearance_mode("light")
         text_color = "black"
@@ -40,7 +41,6 @@ def cambiar_tema(switch: ctk.CTkSwitch, base: ctk.CTk):
         for widget in base.frame_peliculas.winfo_children():
             if isinstance(widget, ctk.CTkButton):
                 widget.configure(text_color=text_color)
-
 
     # Actualiza el color del texto del botón de desplegar menubar
     base.desplegar_menu_boton.configure(text_color=text_color)
