@@ -1,6 +1,6 @@
 import customtkinter as ctk
-import Utils
-import Cartelera
+import utils
+import cartelera
 
 def validar_login(usuario_entry:ctk.CTkEntry,contrasena_entry:ctk.CTkEntry,base:ctk.CTk)->bool:
 
@@ -19,9 +19,9 @@ def validar_login(usuario_entry:ctk.CTkEntry,contrasena_entry:ctk.CTkEntry,base:
         print("Usuario loggeado")
         
     
-        Utils.configurar_ventana(base)
+        utils.configurar_ventana(base)
     
         #Se llama la funcion de Cartelera.py para mostrar las peliculas
-        Cartelera.mostrar_peliculas(base)
+        cartelera.mostrar_peliculas(base)
     else:
-        Utils.mostrar_error("Error de login", "Usuario o contraseña incorrectos")
+        utils.mostrar_error("Error de login", "Usuario o contraseña incorrectos")

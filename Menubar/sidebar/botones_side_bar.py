@@ -1,16 +1,16 @@
 import customtkinter as ctk
 
 
-import Utils.Colores_Temas as CT
-from Menubar.Administrar_sala import administrar_peliculas
-import Pantalla_cine.Funcion_botones_opciones as FB
+from .administrar_sala import administrar_peliculas
+from utils import limpiar_widgets_base
 
 
 def crear_frame_administrar_peliculas(base: ctk.CTkFrame):
     """Agrega una pelicula a la base de datos."""
+    from menubar import crear_menu_bar
+    
     # Limpiar los widgets existentes
-    from Menubar.Menu_bar import crear_menu_bar
-    FB.limpiar_widgets_base(base)
+    limpiar_widgets_base(base)
     crear_menu_bar(base, busqueda=False)
     administrar_peliculas(base)
 
@@ -44,14 +44,6 @@ def cambiar_tema(switch: ctk.CTkSwitch, base: ctk.CTk):
     # Actualiza el color del texto del botón de desplegar menubar
     base.desplegar_menu_boton.configure(text_color=text_color)
 
-def enter_hover_text(base):
-    base.desplegar_menu_boton.configure(text_color="#31AF9C")
-
-def leave_hover_text(base):
-    if ctk.get_appearance_mode() == "Dark":
-        base.desplegar_menu_boton.configure(text_color="white")
-    else:
-        base.desplegar_menu_boton.configure(text_color="black")
 
 
 

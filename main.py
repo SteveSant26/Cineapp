@@ -28,13 +28,13 @@ def inicializar_app():
     base.boton_barra_de_busqueda
     
     """
-    import Login
-    import Utils
+    import login
+    import utils
     
     
     try:
         
-        Utils.configurar_apariencia()
+        utils.configurar_apariencia()
 
         base = ctk.CTk()
         base.title("")
@@ -44,11 +44,11 @@ def inicializar_app():
         
         #Se configura la apariencia de la ventana
         #Se crea el frame principal de la aplicación
-        Login.crear_login(base)
+        login.crear_login(base)
                 
         base.mainloop()
     except Exception as e:
-        Utils.mostrar_error("Error al inicializar",
+        utils.mostrar_error("Error al inicializar",
                       f"El siguiente error ocurrió al intentar crear la app:\n{e}")
 
 

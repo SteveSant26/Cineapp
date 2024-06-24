@@ -1,6 +1,6 @@
 import customtkinter as ctk
 
-import Barra_busqueda.crear_busqueda_img as CBI
+from . import crear_busqueda_img as CBI
 
 def crear_barra_busqueda(base:ctk.CTk):
     """

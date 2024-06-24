@@ -1,8 +1,7 @@
-import Cartelera.datos_peliculas as DP
-import Pantalla_cine.Funcion_botones_opciones as FB
-import Pantalla_cine.Asientos.crear_asientos_img as CAI
-import Pantalla_cine.Asientos.utils as U
-from Utils.gui_related import mostrar_error
+import cartelera.datos_peliculas as DP
+import pantalla_cine.asientos.crear_asientos_img as CAI
+import pantalla_cine.asientos.utils as U
+from utils import mostrar_error
 
 
 

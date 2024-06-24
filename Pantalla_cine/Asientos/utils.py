@@ -1,8 +1,7 @@
 import customtkinter as ctk
-import customtkinter as ctk
-import Cartelera.datos_peliculas as DP
-import Pantalla_cine.Funcion_botones_opciones as FB
-import Pantalla_cine.Asientos.crear_asientos_img as CAI
+
+from cartelera import datos_peliculas as DP
+from . import crear_asientos_img as CAI
 
 def seleccionar_asiento(fila: int, columna: int, base) -> None:
     """

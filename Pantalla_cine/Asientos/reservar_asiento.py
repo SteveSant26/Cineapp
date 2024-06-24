@@ -1,10 +1,9 @@
 import customtkinter as ctk
-import Cartelera.datos_peliculas as DP
-import Pantalla_cine.Funcion_botones_opciones as FB
+import cartelera.datos_peliculas as DP
 from tkinter import messagebox
-import Pantalla_cine.Asientos.crear_asientos_img as CAI
-import Pantalla_cine.Asientos.utils as U
-from Utils.gui_related import mostrar_error
+from . import crear_asientos_img as CAI
+from . import utils as U
+from utils import mostrar_error
 
         
         

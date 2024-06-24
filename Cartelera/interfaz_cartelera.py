@@ -1,10 +1,8 @@
 import customtkinter as ctk
 
-import Pantalla_cine as PC
-import Utils
-import Menubar as MB
+import utils
+import menubar as MB
 
-from . import datos_peliculas as DP
 
 
 
@@ -32,7 +30,7 @@ def crear_cartelera(base, peliculas:dict[dict], columnas:int):
     peliculas_a_mostrar = {}
     for pelicula, info in peliculas.items():
         try:
-            peliculas_a_mostrar[pelicula] = Utils.conseguir_imagen_ctk(info["path"],250,300)
+            peliculas_a_mostrar[pelicula] = utils.conseguir_imagen_ctk(info["path"],250,300)
         except Exception as e:
             print(f"Error al cargar la imagen de la película {pelicula}: {e}")
 
@@ -72,7 +70,9 @@ def mostrar_peliculas(base: ctk.CTk):
     Args:
         base (ctk.CTk): El frame principal donde se mostrará el frame de las películas.
     """
-    Utils.limpiar_widgets_base(base)
+    from . import datos_peliculas as DP
+
+    utils.limpiar_widgets_base(base)
 
     # Se crea el frame de las películas
     base.frame_peliculas = ctk.CTkScrollableFrame(
@@ -104,10 +104,12 @@ def seleccionar_pelicula(base:ctk.CTk, pelicula: str):
         base (ctk.CTk): La base de la GUI.
         pelicula (str): El nombre de la película seleccionada.
     """
+    from pantalla_cine import crear_vista_cine
+
     base.sala_actual = None
     base.mejor_asiento = None
     base.botones_funciones  = {}
     base.titulo_pelicula = pelicula
     
-    PC.crear_vista_pantalla_cine(base)
+    crear_vista_cine(base)
 

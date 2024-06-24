@@ -1,10 +1,9 @@
 import customtkinter as ctk
 
-import Menubar.Opciones_menu_bar as OMB
 
-import Menubar.Barra_busqueda.barra_busqueda as BB
+from .barra_busqueda import crear_barra_busqueda as BB
 
-import Menubar.side_bar as SB
+from .sidebar import crear_side_bar as SB
 
 
 def crear_menu_bar(base: ctk.CTk, busqueda=True) -> None:
@@ -36,9 +35,9 @@ def crear_menu_bar(base: ctk.CTk, busqueda=True) -> None:
         base.desplegar_menu_boton.configure(text_color="black")
 
     base.desplegar_menu_boton.bind(
-        "<Enter>", lambda e: OMB.enter_hover_text(base))
+        "<Enter>", lambda e: enter_hover_text(base))
     base.desplegar_menu_boton.bind(
-        "<Leave>", lambda e: OMB.leave_hover_text(base))
+        "<Leave>", lambda e: leave_hover_text(base))
 
     titulo_app = ctk.CTkLabel(
         base.menu_bar_frame, text="INTERCINES", font=("Arial", 30, "bold"))
@@ -49,4 +48,13 @@ def crear_menu_bar(base: ctk.CTk, busqueda=True) -> None:
     separator = ctk.CTkFrame(base, height=2, fg_color="black")
     separator.pack(side="top", fill="x")
 
+
+def enter_hover_text(base):
+    base.desplegar_menu_boton.configure(text_color="#31AF9C")
+
+def leave_hover_text(base):
+    if ctk.get_appearance_mode() == "Dark":
+        base.desplegar_menu_boton.configure(text_color="white")
+    else:
+        base.desplegar_menu_boton.configure(text_color="black")
 

@@ -1,5 +1,5 @@
 import customtkinter as ctk
-import Menubar.Opciones_menu_bar as OMB
+from . import botones_side_bar as OMB
 
 
 def crear_side_bar(base: ctk.CTk):
@@ -39,7 +39,7 @@ def crear_opciones_side_bar(base: ctk.CTk):
 
 
 def colocar_boton_inicio(base: ctk.CTk):
-    import Cartelera.interfaz_cartelera as Cartelera
+    from cartelera import mostrar_peliculas
     boton_inicio = ctk.CTkButton(base.toggle_menu,
                                  text="Inicio",
                                  width=250,
@@ -49,7 +49,7 @@ def colocar_boton_inicio(base: ctk.CTk):
                                  fg_color="#329ADF",
                                  font=("Arial", 15, "bold"),
                                  hover_color="#31AF9C",
-                                 command=lambda: Cartelera.mostrar_peliculas(base))
+                                 command=lambda: mostrar_peliculas(base))
     boton_inicio.place(x=20, y=30)
 
 

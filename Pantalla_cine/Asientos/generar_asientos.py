@@ -1,7 +1,7 @@
 import customtkinter as ctk
 from .. import salas
 
-import Cartelera.datos_peliculas as DP
+import cartelera.datos_peliculas as DP
 
 from . import crear_asientos_img as CAI
 from . import utils as U
