@@ -28,9 +28,7 @@ def inicializar_app():
     base.boton_barra_de_busqueda
     
     """
-    import login
-    import utils
-    
+    from frontend import login,utils
     
     try:
         
