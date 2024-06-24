@@ -1,0 +1,1 @@
+from .interfaz_cartelera import mostrar_peliculas
