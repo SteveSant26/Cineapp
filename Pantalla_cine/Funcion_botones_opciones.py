@@ -1,9 +1,11 @@
 import customtkinter as ctk
 
 from cartelera import datos_peliculas as DP
-from utils import limpiar_widgets_base
+import utils
 
-from .asientos import generar_asientos as AS
+import pantalla_cine.asientos as AS
+
+from . import frame_vista_cine as FVC 
 
 
 def actualizar_sala_por_combobox(event, base)->None:
@@ -17,7 +19,6 @@ def actualizar_sala_por_combobox(event, base)->None:
     Returns:
         None
     """
-    from botones_opciones import actualizar_frames
 
 
     nueva_sala = base.combobox_sala.get()
@@ -39,14 +40,13 @@ def actualizar_sala_por_combobox(event, base)->None:
         
         base.frame_opciones.destroy()
         # Actualiza los frames de la sala y opciones
-        actualizar_frames(base)
+        FVC.actualizar_frames(base)
 
 
 def actualizar_botones_funciones(base)->None:
-    from utils import limpiar_widgets_base
     """ Actualiza los botones de las funciones de la sala de cine."""
     # Se eliminan los botones de las funciones actuales
-    limpiar_widgets_base(base.frame_funciones)
+    utils.limpiar_widgets_base(base.frame_funciones)
 
     #Se obtienen las funciones de la sala actual
     base.funciones = list(
@@ -98,12 +98,12 @@ def actualizar_sala_por_funcion(funcion:str, base)->None:
 
 
 def regresar(base:ctk.CTkFrame)->None:
-    from cartelera import mostrar_peliculas
+    import cartelera
     """ Regresa al frame principal de la aplicación."""
     # Se eliminan los widgets del frame principal
-    limpiar_widgets_base(base)
+    utils.limpiar_widgets_base(base)
     #Se importa la funcion de Cartelera.py para mostrar las peliculas
-    mostrar_peliculas(base)
+    cartelera.mostrar_peliculas(base)
 
 
 

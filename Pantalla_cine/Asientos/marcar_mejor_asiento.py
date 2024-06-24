@@ -1,7 +1,8 @@
-import cartelera.datos_peliculas as DP
-import pantalla_cine.asientos.crear_asientos_img as CAI
-import pantalla_cine.asientos.utils as U
-from utils import mostrar_error
+from cartelera import datos_peliculas as DP
+import utils
+
+from . import crear_asientos_img as CAI
+from . import utils_asientos as UA
 
 
 
@@ -31,7 +32,7 @@ def encontrar_mejor_asiento(base) -> tuple:
 
     # Si no hay asientos disponibles se muestra un mensaje de error
     if not asientos_disponibles:
-        mostrar_error("Sin asientos", "Ya no hay más asientos para seleccionar")
+        utils.mostrar_error("Sin asientos", "Ya no hay más asientos para seleccionar")
         return
 
     # Se ordenan los asientos disponibles por fila y por la distancia al centro
@@ -42,7 +43,7 @@ def encontrar_mejor_asiento(base) -> tuple:
 
     return asientos_disponibles[0]
 
-def marcar_mejor_asiento(base) -> None:
+def select_mejor_asiento(base) -> None:
     """
     Marca el mejor asiento disponible en la sala de cine.
 
@@ -62,4 +63,4 @@ def marcar_mejor_asiento(base) -> None:
         fila, columna = base.mejor_asiento
         asiento = base.frame_sala.grid_slaves(row=fila, column=columna)[0]
         asiento.configure(image=CAI.ASIENTOS_IMAGEN["asiento_mejor"])
-        U.bind_asiento(asiento,CAI.ASIENTOS_IMAGEN["asiento_libre"],CAI.ASIENTOS_IMAGEN["asiento_mejor"])
+        UA.bind_asiento(asiento,CAI.ASIENTOS_IMAGEN["asiento_libre"],CAI.ASIENTOS_IMAGEN["asiento_mejor"])

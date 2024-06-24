@@ -4,10 +4,10 @@ import tkinter as tk
 from cartelera import datos_peliculas as DP
 from utils import Colores_Temas as CT
 
-from . import funcion_botones_opciones as FB
+import pantalla_cine.asientos as AS
 
-from .asientos import reservar_asiento as RA
-from .asientos import marcar_mejor_asiento as MMA
+
+from . import funcion_botones_opciones as FBO
 
 
 def crear_combobox(base)->None:
@@ -36,7 +36,7 @@ def crear_combobox(base)->None:
     base.combobox_sala = ctk.CTkComboBox(base.frame_opciones,
                                              font=("Arial", 15, "bold"),
                                              values=base.salas, 
-                                             command=lambda event: FB.actualizar_sala_por_combobox(event, base)) #Se le da un comando que ejecuta cada que se elije algo con el combobox
+                                             command=lambda event: FBO.actualizar_sala_por_combobox(event, base)) #Se le da un comando que ejecuta cada que se elije algo con el combobox
     base.combobox_sala.grid(row=2, column=1, pady=10, padx=20, sticky="ew")
 
     base.combobox_sala.set(base.sala_actual) #Se inicializa el combobox con la sala actual
@@ -80,7 +80,7 @@ def colocar_boton_mejor_asiento(base)->None:
     # Se crea el boton de mejor asiento
     boton_mejor_asiento = ctk.CTkButton(
         base.frame_opciones, text="Mejor Asiento", fg_color="#329ADF",
-hover_color="#31AF9C",command=lambda: MMA.marcar_mejor_asiento(base), height=45, font=("Arial", 16, "bold"))
+hover_color="#31AF9C",command=lambda: AS.select_mejor_asiento(base), height=45, font=("Arial", 16, "bold"))
     boton_mejor_asiento.grid(
         row=6, column=0, columnspan=2, pady=10, padx=10, sticky="nsew")
 
@@ -89,7 +89,7 @@ def colocar_boton_reservar(base)->None:
     """ Se crea el boton de reservar asientos y se coloca en el frame de las opciones."""
     # Se crea el boton de reservar asientos
     boton_reservar = ctk.CTkButton(
-        base.frame_opciones, text="Reservar Asientos", fg_color="#329ADF",hover_color="#31AF9C",command=lambda: RA.preguntar_reservar(base), height=45, font=("Arial", 16, "bold"))
+        base.frame_opciones, text="Reservar Asientos", fg_color="#329ADF",hover_color="#31AF9C",command=lambda: AS.preguntar_reservar(base), height=45, font=("Arial", 16, "bold"))
     boton_reservar.grid(
         row=7, column=0, columnspan=2, pady=10, padx=10, sticky="nsew")
 
@@ -98,7 +98,7 @@ def colocar_boton_habilitar_reservar(base)->None:
     """ Se crea el boton de habilitar reservados y se coloca en el frame de las opciones."""
     # Se crea el boton de habilitar reservados
     boton_eliminar_reserva = ctk.CTkButton(
-        base.frame_opciones, text="Habilitar reservados", fg_color="#329ADF",hover_color="#31AF9C",command=lambda: RA.habilitar_reservados(base), height=45, font=("Arial", 16, "bold"))
+        base.frame_opciones, text="Habilitar reservados", fg_color="#329ADF",hover_color="#31AF9C",command=lambda: AS.habilitar_reservados(base), height=45, font=("Arial", 16, "bold"))
     boton_eliminar_reserva.grid(
         row=8, column=0, columnspan=2, pady=10, padx=10, sticky="nsew")
 
@@ -118,7 +118,7 @@ def colocar_boton_regresar(base)->None:
         fg_color="#329ADF",
         font=("Arial", 16, "bold"),
         height=45,
-        command=lambda: FB.regresar(base)
+        command=lambda: FBO.regresar(base)
     )
     boton_regresar.grid(row=9, column=0, columnspan=2,
                         pady=15, padx=10, sticky="ew")

@@ -4,8 +4,6 @@ import utils
 import menubar as MB
 
 
-
-
 def crear_cartelera(base, peliculas:dict[dict], columnas:int):
     """
     Crea los botones de las películas y los ubica en el frame_peliculas.
@@ -104,12 +102,12 @@ def seleccionar_pelicula(base:ctk.CTk, pelicula: str):
         base (ctk.CTk): La base de la GUI.
         pelicula (str): El nombre de la película seleccionada.
     """
-    from pantalla_cine import crear_vista_cine
+    import pantalla_cine as PC
 
     base.sala_actual = None
     base.mejor_asiento = None
     base.botones_funciones  = {}
     base.titulo_pelicula = pelicula
     
-    crear_vista_cine(base)
+    PC.crear_vista_cine(base)
 

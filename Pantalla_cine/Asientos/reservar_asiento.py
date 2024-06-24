@@ -1,9 +1,11 @@
 import customtkinter as ctk
-import cartelera.datos_peliculas as DP
 from tkinter import messagebox
+
+from cartelera import datos_peliculas as DP
+import utils
+
 from . import crear_asientos_img as CAI
-from . import utils as U
-from utils import mostrar_error
+from . import utils_asientos as UA
 
         
         
@@ -23,7 +25,7 @@ def reservar_asientos(base:ctk.CTk)->None:
         DP.PELICULAS[base.titulo_pelicula]["salas"][base.sala_actual][base.funcion_actual]["seleccionados"].add(base.mejor_asiento)
         fila, columna = base.mejor_asiento
         # Se obtiene el asiento y se cambia su imagen a asiento_hover
-        U.unbind_asiento(base.frame_sala.grid_slaves(row=fila, column=columna)[0])
+        UA.unbind_asiento(base.frame_sala.grid_slaves(row=fila, column=columna)[0])
         
         # Se vuelve a dar el valor de none al mejor asiento
         base.mejor_asiento = None
@@ -32,7 +34,7 @@ def reservar_asientos(base:ctk.CTk)->None:
     for asiento in DP.PELICULAS[base.titulo_pelicula]["salas"][base.sala_actual][base.funcion_actual]["seleccionados"]:
         # Se obtiene la fila y columna del asiento para habilitarlo y cambiar su color a gris
         fila, columna = asiento
-        U.unbind_asiento(base.frame_sala.grid_slaves(row=fila, column=columna)[0])
+        UA.unbind_asiento(base.frame_sala.grid_slaves(row=fila, column=columna)[0])
             
         base.frame_sala.grid_slaves(
             row=fila, column=columna)[0].configure(image=CAI.ASIENTOS_IMAGEN["asiento_reservado"], state="disabled")
@@ -62,7 +64,7 @@ def preguntar_reservar(base)->None:
         None
     """
     if not DP.PELICULAS[base.titulo_pelicula]["salas"][base.sala_actual][base.funcion_actual]["seleccionados"] and not base.mejor_asiento:
-        mostrar_error(
+        utils.mostrar_error(
             "Sin selecciones", "No ha seleccionado ningún asiento para reservar")
         return
 
@@ -87,7 +89,7 @@ def habilitar_reservados(base:ctk.CTk)->None:
     """
     # Si no hay asientos reservados, se muestra un mensaje de error
     if not DP.PELICULAS[base.titulo_pelicula]["salas"][base.sala_actual][base.funcion_actual]["reservados"]:
-        mostrar_error("Sin asientos reservados", "No hay asientos reservados")
+        utils.mostrar_error("Sin asientos reservados", "No hay asientos reservados")
         return
 
     # Se recorren los asientos reservados
@@ -103,7 +105,7 @@ def habilitar_reservados(base:ctk.CTk)->None:
 
         asiento_reservado.bind("<Button-1>", lambda event, row=fila, col=columna: click_en_asiento(row, col, base)) #se aplica este comando unicamente en estos asientos
 
-        U.bind_asiento(asiento_reservado,CAI.ASIENTOS_IMAGEN["asiento_libre"],CAI.ASIENTOS_IMAGEN["asiento_habilitado"])
+        UA.bind_asiento(asiento_reservado,CAI.ASIENTOS_IMAGEN["asiento_libre"],CAI.ASIENTOS_IMAGEN["asiento_habilitado"])
 
 
 def click_en_asiento(fila:int, columna:int, base:ctk.CTk)->None:
@@ -126,12 +128,12 @@ def click_en_asiento(fila:int, columna:int, base:ctk.CTk)->None:
             asiento = base.frame_sala.grid_slaves(row=fila, column=columna)[0]
             #Se remueve el comando de seleccionar asiento
             asiento.unbind("<Button-1>")
-            U.unbind_asiento(asiento)
+            UA.unbind_asiento(asiento)
 
             # Se restaura el color original y se habilita el asiento
             asiento.configure(image=CAI.ASIENTOS_IMAGEN["asiento_libre"], state="normal")
             
-            U.bind_asiento(asiento,CAI.ASIENTOS_IMAGEN["asiento_hover"],CAI.ASIENTOS_IMAGEN["asiento_libre"])
+            UA.bind_asiento(asiento,CAI.ASIENTOS_IMAGEN["asiento_hover"],CAI.ASIENTOS_IMAGEN["asiento_libre"])
             
             print(f"Asiento en la fila {fila}, columna {columna} deseleccionado")
             # Se remueve de la lista de asientos reservados

@@ -1,0 +1,1 @@
+from .generar_barra_busqueda import crear_barra_busqueda

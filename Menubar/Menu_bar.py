@@ -1,9 +1,9 @@
 import customtkinter as ctk
 
 
-from .barra_busqueda import crear_barra_busqueda as BB
+import menubar.barra_busqueda as BB
 
-from .sidebar import crear_side_bar as SB
+import menubar.sidebar as SB
 
 
 def crear_menu_bar(base: ctk.CTk, busqueda=True) -> None:

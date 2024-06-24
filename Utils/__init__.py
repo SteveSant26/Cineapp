@@ -1,3 +1,2 @@
 from .conseguir_imagen import conseguir_imagen_ctk
 from .gui_related import limpiar_widgets_base,configurar_ventana,mostrar_error,configurar_apariencia
-from . import Colores_Temas

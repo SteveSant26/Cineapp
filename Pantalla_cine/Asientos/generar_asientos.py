@@ -1,13 +1,13 @@
 import customtkinter as ctk
 from .. import salas
 
-import cartelera.datos_peliculas as DP
+from cartelera import datos_peliculas as DP
 
 from . import crear_asientos_img as CAI
-from . import utils as U
+from . import utils_asientos as UA
 
 
-def generar_asientos(base) -> None:
+def crear_asientos(base) -> None:
     """Crea los asientos de la sala seleccionada y los muestra en el frame de la sala."""
     # Se obtienen las filas y columnas de la sala seleccionada
     base.filas_sala = salas.SALAS[base.sala_actual]["tamano"][0]
@@ -53,22 +53,22 @@ def generar_asientos(base) -> None:
                                     border_width=2,
                                     image=CAI.ASIENTOS_IMAGEN["asiento_libre"],
                                     fg_color="transparent",
-                                    command=lambda fila=i + 2, columna=j + 1: U.seleccionar_asiento(fila, columna, base))
+                                    command=lambda fila=i + 2, columna=j + 1: UA.seleccionar_asiento(fila, columna, base))
             asiento.grid(row=i + 2, column=j + 1, padx=5, pady=5, sticky="nsew")
             
-            U.bind_asiento(asiento,CAI.ASIENTOS_IMAGEN["asiento_hover"],CAI.ASIENTOS_IMAGEN["asiento_libre"])
+            UA.bind_asiento(asiento,CAI.ASIENTOS_IMAGEN["asiento_hover"],CAI.ASIENTOS_IMAGEN["asiento_libre"])
 
 
 
             asientos[(i+2, j+1)] = asiento
 
     for (i, j), asiento in asientos.items():
-        U.unbind_asiento(asiento)
+        UA.unbind_asiento(asiento)
         try:
             # Si el asiento está seleccionado, se cambia su imagen a asiento_hover
             if (i, j) in DP.PELICULAS[base.titulo_pelicula]["salas"][base.sala_actual][base.funcion_actual]["seleccionados"]:
                 asiento.configure(image=CAI.ASIENTOS_IMAGEN["asiento_hover"], state="normal")
-                U.bind_asiento(asiento,CAI.ASIENTOS_IMAGEN["asiento_libre"],CAI.ASIENTOS_IMAGEN["asiento_hover"])
+                UA.bind_asiento(asiento,CAI.ASIENTOS_IMAGEN["asiento_libre"],CAI.ASIENTOS_IMAGEN["asiento_hover"])
 
             # Si el asiento está reservado, se cambia su imagen a asiento_reservado y se deshabilita
             elif (i, j) in DP.PELICULAS[base.titulo_pelicula]["salas"][base.sala_actual][base.funcion_actual]["reservados"]:
@@ -77,7 +77,7 @@ def generar_asientos(base) -> None:
             else:
             # Si el asiento está libre, se cambia su imagen a asiento_libre
                 asiento.configure(image=CAI.ASIENTOS_IMAGEN["asiento_libre"], state="normal")
-                U.bind_asiento(asiento,CAI.ASIENTOS_IMAGEN["asiento_hover"],CAI.ASIENTOS_IMAGEN["asiento_libre"])
+                UA.bind_asiento(asiento,CAI.ASIENTOS_IMAGEN["asiento_hover"],CAI.ASIENTOS_IMAGEN["asiento_libre"])
                 
         except KeyError as e:
             print(f"KeyError: {e} not found in the data structure.")

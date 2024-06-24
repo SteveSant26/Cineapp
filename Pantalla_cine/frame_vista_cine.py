@@ -1,8 +1,12 @@
 import customtkinter as ctk
 
+import utils
 
-from utils import limpiar_widgets_base
-from . import funcion_botones_opciones as FB
+import pantalla_cine.asientos as AS
+
+from . import funcion_botones_opciones as FBO
+from . import botones_opciones as BO
+
 
 
 
@@ -15,7 +19,7 @@ def crear_vista_cine(base:ctk.CTk)->None:
         base (ctk.CTkFrame): El frame principal donde se mostrarán las opciones de la sala.
         pelicula (str): El título de la película seleccionada.
     """
-    limpiar_widgets_base(base)
+    utils.limpiar_widgets_base(base)
     # Se inicializa el diccionario de variables
     crear_frame_vista_cine(base)
     # Se actualizan todos los frames
@@ -42,7 +46,6 @@ def crear_frame_vista_cine(base)->None:
 
 def crear_frame_opciones(base)->None:
     """ Se crea el frame que almacena las opciones para seleccionar la sala y la función de la pelicula seleccionada."""
-    from pantalla_cine import colocar_botones
 
     # Se crea el frame de las opciones
     base.frame_opciones = ctk.CTkFrame(base.frame_opciones_sala,
@@ -65,10 +68,9 @@ def crear_frame_opciones(base)->None:
                      columnspan=2, sticky="nsew")
 
     #Se colocan los botones de las opciones
-    colocar_botones(base)
+    BO.colocar_botones(base)
     
 def actualizar_frames(base)->None:
-    from .asientos import generar_asientos as GA
 
     
     # Se crea la sala de la pelicula seleccionada
@@ -76,7 +78,7 @@ def actualizar_frames(base)->None:
     # Se crea el frame de las opciones
     crear_frame_opciones(base)
     # Se generan los asientos de la sala seleccionada
-    GA.generar_asientos(base)
+    AS.crear_asientos(base)
 
 
 def crear_frame_sala(base)->None:
@@ -108,5 +110,5 @@ def crear_frame_funciones(base)->None:
     
     
     #Se llama a la funcion que ubica los botones de las funciones
-    FB.actualizar_botones_funciones(base)
+    FBO.actualizar_botones_funciones(base)
 

@@ -1,5 +1,5 @@
 import customtkinter as ctk
-from . import botones_side_bar as OMB
+from . import botones_side_bar as BSB
 
 
 def crear_side_bar(base: ctk.CTk):
@@ -63,7 +63,7 @@ def colocar_boton_administrar_peliculas(base: ctk.CTk):
                                                 fg_color="#329ADF",
                                                 font=("Arial", 15, "bold"),
                                                 hover_color="#31AF9C",
-                                                command=lambda: OMB.crear_frame_administrar_peliculas(base))
+                                                command=lambda: BSB.crear_frame_administrar_peliculas(base))
     boton_administrar_peliculas.place(x=20, y=90)
 
 
@@ -86,7 +86,7 @@ def colocar_boton_administrar_funciones(base: ctk.CTk):
                                                 fg_color="#329ADF",
                                                 font=("Arial", 15, "bold"),
                                                 hover_color="#31AF9C",
-                                                command=lambda: OMB.crear_frame_administrar_funciones(base))
+                                                command=lambda: BSB.crear_frame_administrar_funciones(base))
     boton_administrar_funciones.place(x=20, y=150)
 
 
@@ -110,7 +110,7 @@ def colocar_boton_administrar_salas(base: ctk.CTk):
                                             fg_color="#329ADF",
                                             font=("Arial", 15, "bold"),
                                             hover_color="#31AF9C",
-                                            command=lambda: OMB.crear_frame_administrar_salas(base))
+                                            command=lambda: BSB.crear_frame_administrar_salas(base))
     boton_administrar_salas.place(x=20, y=210)
 
 
@@ -134,7 +134,7 @@ def colocar_boton_cambiar_tema(base: ctk.CTk):
         text="Cambiar tema",
         button_hover_color="#31AF9C",
         font=("Arial", 15, "bold"),
-        command=lambda: OMB.cambiar_tema(switch_tema, base)
+        command=lambda: BSB.cambiar_tema(switch_tema, base)
     )
 
     # Establece el estado inicial del switch
@@ -166,7 +166,7 @@ def colocar_boton_salir(base: ctk.CTk):
                                 border_color="black",
                                 font=("Arial", 15, "bold"),
                                 hover_color="#31AF9C",
-                                command=lambda: OMB.salir(base))
+                                command=lambda: BSB.salir(base))
     boton_salir.place(x=20, y=330)
 
 

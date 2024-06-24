@@ -1,8 +1,9 @@
 import customtkinter as ctk
 
 
-from .administrar_sala import administrar_peliculas
-from utils import limpiar_widgets_base
+import utils
+
+from . import crear_frame_administrar_sala as CFAS
 
 
 def crear_frame_administrar_peliculas(base: ctk.CTkFrame):
@@ -10,9 +11,9 @@ def crear_frame_administrar_peliculas(base: ctk.CTkFrame):
     from menubar import crear_menu_bar
     
     # Limpiar los widgets existentes
-    limpiar_widgets_base(base)
+    utils.limpiar_widgets_base(base)
     crear_menu_bar(base, busqueda=False)
-    administrar_peliculas(base)
+    CFAS.administrar_peliculas(base)
 
 
 def crear_frame_administrar_funciones(base:ctk.CTkFrame):
