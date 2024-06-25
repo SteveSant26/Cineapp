@@ -2,7 +2,7 @@ import customtkinter as ctk
 
 from frontend import utils
 
-import frontend.pantalla_cine.asientos as AS
+from . import asientos as AS
 
 from . import funcion_botones_opciones as FBO
 from . import botones_opciones as BO

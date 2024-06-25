@@ -1,18 +1,18 @@
 import customtkinter as ctk
 
 
-import frontend.utils as utils
+from frontend import utils
 
 from . import crear_frame_administrar_sala as CFAS
 
 
 def crear_frame_administrar_peliculas(base: ctk.CTkFrame):
     """Agrega una pelicula a la base de datos."""
-    from frontend.menubar import crear_menu_bar
+    from frontend import menubar as MB
     
     # Limpiar los widgets existentes
     utils.limpiar_widgets_base(base)
-    crear_menu_bar(base, busqueda=False)
+    MB.crear_menu_bar(base, busqueda=False)
     CFAS.administrar_peliculas(base)
 
 

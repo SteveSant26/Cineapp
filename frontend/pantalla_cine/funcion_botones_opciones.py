@@ -1,10 +1,10 @@
 import customtkinter as ctk
 
 from frontend.cartelera import datos_peliculas as DP
-import frontend.utils as utils
 
-import frontend.pantalla_cine.asientos as AS
+from frontend import utils
 
+from . import asientos as AS
 from . import frame_vista_cine as FVC 
 
 
@@ -94,11 +94,11 @@ def actualizar_sala_por_funcion(funcion:str, base)->None:
         #Se actualiza la funcion actual
         base.funcion_actual = funcion
         #Se generan los asientos de la sala actual
-        AS.generar_asientos(base)
+        AS.crear_asientos(base)
 
 
 def regresar(base:ctk.CTkFrame)->None:
-    import frontend.cartelera as cartelera
+    from frontend import cartelera
     """ Regresa al frame principal de la aplicación."""
     # Se eliminan los widgets del frame principal
     utils.limpiar_widgets_base(base)

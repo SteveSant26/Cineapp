@@ -4,7 +4,7 @@ import tkinter as tk
 from frontend.cartelera import datos_peliculas as DP
 from frontend.utils import Colores_Temas as CT
 
-import frontend.pantalla_cine.asientos as AS
+from .import asientos as AS
 
 
 from . import funcion_botones_opciones as FBO

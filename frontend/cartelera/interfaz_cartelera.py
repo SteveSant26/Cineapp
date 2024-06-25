@@ -98,7 +98,7 @@ def seleccionar_pelicula(base:ctk.CTk, pelicula: str):
         base (ctk.CTk): La base de la GUI.
         pelicula (str): El nombre de la película seleccionada.
     """
-    import frontend.pantalla_cine as PC
+    from frontend import pantalla_cine as PC
 
     base.sala_actual = None
     base.mejor_asiento = None

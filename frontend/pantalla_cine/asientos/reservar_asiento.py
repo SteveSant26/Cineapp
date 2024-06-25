@@ -2,7 +2,7 @@ import customtkinter as ctk
 from tkinter import messagebox
 
 from frontend.cartelera import datos_peliculas as DP
-import frontend.utils as utils
+from frontend import utils
 
 from . import crear_asientos_img as CAI
 from . import utils_asientos as U

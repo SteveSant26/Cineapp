@@ -1,6 +1,7 @@
 import customtkinter as ctk
 
 from frontend.cartelera import datos_peliculas as DP
+
 from . import crear_asientos_img as CAI
 
 def seleccionar_asiento(fila: int, columna: int, base) -> None:
