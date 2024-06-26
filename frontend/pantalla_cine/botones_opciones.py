@@ -4,7 +4,7 @@ import tkinter as tk
 from frontend.cartelera import datos_peliculas as DP
 from frontend.utils import Colores_Temas as CT
 
-from .import asientos as AS
+from .import asientos as A
 
 
 from . import funcion_botones_opciones as FBO
@@ -48,9 +48,9 @@ def referencia_colores(base):
     COLORES = {}
     
     if ctk.get_appearance_mode().lower() == "dark":
-        COLORES = CT.COLORES_TEMA_OSCURO
+        COLORES = CT.COLORES_ASIENTO_TEMA_OSCURO
     else:
-        COLORES = CT.COLORES_TEMA_CLARO
+        COLORES = CT.COLORES_ASIENTO_TEMA_CLARO
     
     frame_colores = ctk.CTkFrame(base.frame_opciones)
     frame_colores.grid(row=1, column=0, columnspan=2, pady=10, padx=10, sticky="nsew")
@@ -59,7 +59,7 @@ def referencia_colores(base):
     fila_index = 0
     columna_index = 0
     for nombre, color in COLORES.items():
-        canvas[nombre] = tk.Canvas(frame_colores, width=30,height=30,background=CT.TEMAS["tema_oscuro"]["color_border"], borderwidth=1, highlightthickness=0)
+        canvas[nombre] = tk.Canvas(frame_colores, width=30,height=30,background="black", borderwidth=1, highlightthickness=0)
         
         dibujar_canvas(canvas[nombre], color)
         label = ctk.CTkLabel(frame_colores, text=f"{nombre}:", font=("Arial", 15,"bold"))
@@ -80,7 +80,7 @@ def colocar_boton_mejor_asiento(base)->None:
     # Se crea el boton de mejor asiento
     boton_mejor_asiento = ctk.CTkButton(
         base.frame_opciones, text="Mejor Asiento", fg_color="#329ADF",
-hover_color="#31AF9C",command=lambda: AS.select_mejor_asiento(base), height=45, font=("Arial", 16, "bold"))
+hover_color="#31AF9C",command=lambda: A.select_mejor_asiento(base), height=45, font=("Arial", 16, "bold"))
     boton_mejor_asiento.grid(
         row=6, column=0, columnspan=2, pady=10, padx=10, sticky="nsew")
 
@@ -89,7 +89,7 @@ def colocar_boton_reservar(base)->None:
     """ Se crea el boton de reservar asientos y se coloca en el frame de las opciones."""
     # Se crea el boton de reservar asientos
     boton_reservar = ctk.CTkButton(
-        base.frame_opciones, text="Reservar Asientos", fg_color="#329ADF",hover_color="#31AF9C",command=lambda: AS.preguntar_reservar(base), height=45, font=("Arial", 16, "bold"))
+        base.frame_opciones, text="Reservar Asientos", fg_color="#329ADF",hover_color="#31AF9C",command=lambda: A.preguntar_reservar(base), height=45, font=("Arial", 16, "bold"))
     boton_reservar.grid(
         row=7, column=0, columnspan=2, pady=10, padx=10, sticky="nsew")
 
@@ -98,7 +98,7 @@ def colocar_boton_habilitar_reservar(base)->None:
     """ Se crea el boton de habilitar reservados y se coloca en el frame de las opciones."""
     # Se crea el boton de habilitar reservados
     boton_eliminar_reserva = ctk.CTkButton(
-        base.frame_opciones, text="Habilitar reservados", fg_color="#329ADF",hover_color="#31AF9C",command=lambda: AS.habilitar_reservados(base), height=45, font=("Arial", 16, "bold"))
+        base.frame_opciones, text="Habilitar reservados", fg_color="#329ADF",hover_color="#31AF9C",command=lambda: A.habilitar_reservados(base), height=45, font=("Arial", 16, "bold"))
     boton_eliminar_reserva.grid(
         row=8, column=0, columnspan=2, pady=10, padx=10, sticky="nsew")
 
@@ -116,6 +116,7 @@ def colocar_boton_regresar(base)->None:
         base.frame_opciones,
         text="Volver a la cartelera",
         fg_color="#329ADF",
+        hover_color="#31AF9C",
         font=("Arial", 16, "bold"),
         height=45,
         command=lambda: FBO.regresar(base)

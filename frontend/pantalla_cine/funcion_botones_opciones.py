@@ -4,7 +4,7 @@ from frontend.cartelera import datos_peliculas as DP
 
 from frontend import utils
 
-from . import asientos as AS
+from . import asientos as A
 from . import frame_vista_cine as FVC 
 
 
@@ -94,7 +94,7 @@ def actualizar_sala_por_funcion(funcion:str, base)->None:
         #Se actualiza la funcion actual
         base.funcion_actual = funcion
         #Se generan los asientos de la sala actual
-        AS.crear_asientos(base)
+        A.crear_asientos(base)
 
 
 def regresar(base:ctk.CTkFrame)->None:

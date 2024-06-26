@@ -1,49 +1,48 @@
 import customtkinter as ctk
-
-
 from frontend import utils
 
-from . import crear_frame_administrar_sala as CFAS
 
 
 def crear_frame_administrar_peliculas(base: ctk.CTkFrame):
     """Agrega una pelicula a la base de datos."""
     from frontend import menubar as MB
+    from . import administrar_peliculas as AP
     
-    # Limpiar los widgets existentes
     utils.limpiar_widgets_base(base)
-    MB.crear_menu_bar(base, busqueda=False)
-    CFAS.administrar_peliculas(base)
-
-
-def crear_frame_administrar_funciones(base:ctk.CTkFrame):
-    """ Agrega una función a la base de datos."""
-    pass
+    MB.crear_menu_bar(base)
+    AP.administrar_peliculas(base)
 
 def crear_frame_administrar_salas(base:ctk.CTkFrame):
     """ Agrega una sala a la base de datos."""
-    pass
+    from frontend import menubar as MB
+    from . import administrar_salas as AS
+    utils.limpiar_widgets_base(base)
+    MB.crear_menu_bar(base)
+    AS.administrar_salas(base)
+
+def crear_frame_administrar_funciones(base:ctk.CTkFrame):
+    """ Agrega una función a la base de datos."""
+    from frontend import menubar as MB
+    from . import administrar_funciones as AF
+    
+    utils.limpiar_widgets_base(base)
+    MB.crear_menu_bar(base)
+    AF.administrar_funciones(base)
+    
+
 
 
 def cambiar_tema(switch: ctk.CTkSwitch, base: ctk.CTk):
     """Cambia el tema de la aplicación."""
-    
-    if switch.get() == 1:
-        ctk.set_appearance_mode("light")
-        text_color = "black"
-    else:
-        ctk.set_appearance_mode("dark")
-        text_color = "white"
-
-
-    # Actualiza el color del texto de los botones de la cartelera
-    if base.frame_peliculas and base.frame_peliculas.winfo_exists():
-        for widget in base.frame_peliculas.winfo_children():
-            if isinstance(widget, ctk.CTkButton):
-                widget.configure(text_color=text_color)
-
-    # Actualiza el color del texto del botón de desplegar menubar
-    base.desplegar_menu_boton.configure(text_color=text_color)
+    try:
+        if switch.get() == 1:
+            ctk.set_appearance_mode("light")
+            utils.configurar_treeview_claro()
+        else:
+            ctk.set_appearance_mode("dark")
+            utils.configurar_treeview_oscuro()
+    except Exception as e:
+        print(f"Error changing theme: {e}")
 
 
 

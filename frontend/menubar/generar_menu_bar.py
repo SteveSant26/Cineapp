@@ -6,7 +6,7 @@ from . import barra_busqueda as BB
 from . import sidebar as SB
 
 
-def crear_menu_bar(base: ctk.CTk, busqueda=True) -> None:
+def crear_menu_bar(base: ctk.CTk, busqueda=False) -> None:
     """
     Crea la barra de menú de la aplicación.
 
@@ -21,18 +21,16 @@ def crear_menu_bar(base: ctk.CTk, busqueda=True) -> None:
     base.menu_bar_frame.pack_propagate(False)
 
     base.desplegar_menu_boton = ctk.CTkButton(base.menu_bar_frame,
-                                              text="≡",
                                               fg_color="transparent",
                                               hover=False,
+                                              text="≡",
+                                              text_color=("black","White"),
                                               font=("Arial", 40, "bold"),
                                               width=20, height=20,
                                               command=lambda: SB.crear_side_bar(base))
     base.desplegar_menu_boton.pack(side="left", padx=10)
 
-    if ctk.get_appearance_mode() == "Dark":
-        base.desplegar_menu_boton.configure(text_color="white")
-    else:
-        base.desplegar_menu_boton.configure(text_color="black")
+
 
     base.desplegar_menu_boton.bind(
         "<Enter>", lambda e: enter_hover_text(base))
@@ -53,8 +51,6 @@ def enter_hover_text(base):
     base.desplegar_menu_boton.configure(text_color="#31AF9C")
 
 def leave_hover_text(base):
-    if ctk.get_appearance_mode() == "Dark":
-        base.desplegar_menu_boton.configure(text_color="white")
-    else:
-        base.desplegar_menu_boton.configure(text_color="black")
+    base.desplegar_menu_boton.configure(text_color=("black","White"))
+
 

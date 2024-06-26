@@ -1,8 +1,7 @@
 import customtkinter as ctk
 
-from frontend import utils
 
-from . import asientos as AS
+from . import asientos as A
 
 from . import funcion_botones_opciones as FBO
 from . import botones_opciones as BO
@@ -19,8 +18,12 @@ def crear_vista_cine(base:ctk.CTk)->None:
         base (ctk.CTkFrame): El frame principal donde se mostrarán las opciones de la sala.
         pelicula (str): El título de la película seleccionada.
     """
+    from frontend import utils, menubar as MB
     utils.limpiar_widgets_base(base)
+    
+    MB.crear_menu_bar(base)
     # Se inicializa el diccionario de variables
+    
     crear_frame_vista_cine(base)
     # Se actualizan todos los frames
     actualizar_frames(base)
@@ -37,7 +40,6 @@ def crear_frame_vista_cine(base)->None:
     base.frame_opciones_sala.pack(fill="both", expand=True)
 
     # Se configura el frame para que no se expanda con el resto de la ventana
-    base.frame_opciones_sala.pack_propagate(False)
 
     # Se configuran las filas y columnas para que los widgets dentro se expandan uniformemente
     base.frame_opciones_sala.rowconfigure(0, weight=1)
@@ -51,11 +53,14 @@ def crear_frame_opciones(base)->None:
     base.frame_opciones = ctk.CTkFrame(base.frame_opciones_sala,
                                           border_color="black",
                                           border_width=2,
-                                          width=550)
+                                          width=500)
 
     base.frame_opciones.grid(
         row=0, column=0, sticky="nsew", padx=5, pady=10)
 
+
+    base.frame_opciones.columnconfigure(0, weight=1)
+    base.frame_opciones.columnconfigure(1, weight=1)
     # Se configura el frame para que no se expanda con el resto de la ventana
 
     base.frame_opciones.grid_propagate(False)
@@ -70,16 +75,6 @@ def crear_frame_opciones(base)->None:
     #Se colocan los botones de las opciones
     BO.colocar_botones(base)
     
-def actualizar_frames(base)->None:
-
-    
-    # Se crea la sala de la pelicula seleccionada
-    crear_frame_sala(base)
-    # Se crea el frame de las opciones
-    crear_frame_opciones(base)
-    # Se generan los asientos de la sala seleccionada
-    AS.crear_asientos(base)
-
 
 def crear_frame_sala(base)->None:
     """ Se crea el frame que almacena los asientos de la sala de la pelicula seleccionada."""
@@ -88,13 +83,21 @@ def crear_frame_sala(base)->None:
         base.frame_opciones_sala,
         border_color="black",
         border_width=2,
-        width=1200,
-        height=700)
+        width=1100)
     base.frame_sala.grid(row=0, column=1, sticky="nsew", padx=5, pady=10)
     
     # Se configura el frame para que no se expanda con el resto de la ventana
     base.frame_sala.grid_propagate(False)
+    
+def actualizar_frames(base)->None:
 
+    
+    # Se crea la sala de la pelicula seleccionada
+    crear_frame_sala(base)
+    # Se crea el frame de las opciones
+    crear_frame_opciones(base)
+    # Se generan los asientos de la sala seleccionada
+    A.crear_asientos(base)
 
 def crear_frame_funciones(base)->None:
     """ Se crea el frame que almacena las funciones de la sala seleccionada."""

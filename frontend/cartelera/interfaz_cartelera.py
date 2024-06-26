@@ -38,10 +38,11 @@ def crear_cartelera(base, peliculas:dict[dict], columnas:int):
         columna = i % columnas
         boton_pelicula = ctk.CTkButton(
             base.frame_peliculas,
-            text=pelicula,
             image=imagen,
             hover_color="#31AF9C",
             compound="top",
+            text=pelicula,
+            text_color=("black","White"),
             font=("Arial", 15, "bold"),
             fg_color="transparent",
             # Se le da la referencia al comando de seleccionar pelicula a cada boton
@@ -49,7 +50,6 @@ def crear_cartelera(base, peliculas:dict[dict], columnas:int):
             command=lambda p=pelicula: seleccionar_pelicula(
                 base, p),
         )
-        utils.cambiar_color_texto(boton_pelicula)
             
 
         boton_pelicula.grid(row=fila, column=columna, padx=10, pady=0)
@@ -73,7 +73,7 @@ def mostrar_peliculas(base: ctk.CTk):
         base, fg_color="transparent", border_color="black")
 
     #Ubico el menu aqui para que se cree despues del frame de las peliculas
-    MB.crear_menu_bar(base)
+    MB.crear_menu_bar(base,busqueda=True)
     
     base.frame_peliculas.pack(fill="both", expand=True)
     base.frame_peliculas.pack_propagate(False)

@@ -1,0 +1,37 @@
+import tkinter as tk
+from tkinter import ttk
+
+def configure_treeview_style():
+    style = ttk.Style()
+    
+    # Configure the Treeview style
+    style.configure('Treeview', 
+                    font=('Arial', 14), 
+                    rowheight=25, 
+                    background='#E5E5E5', 
+                    fieldbackground='#E5E5E5')
+        
+    # Configure the Treeview Heading style
+    style.configure('Treeview.Heading', 
+                    font=('Arial', 20), 
+                    background='lightblue')
+    
+    style.map('Treeview',background=[('selected', 'red'), ('!selected', 'black')])
+    style.map('Treeview.Heading',background=[('active', 'black')])
+
+
+w = tk.Tk()
+w.geometry("400x300")
+
+configure_treeview_style()
+
+tree = ttk.Treeview(w, columns=('Name', 'Age', 'ID'), show='headings')
+tree.pack(expand=True, fill='both', padx=10, pady=10)
+tree.heading('Name', text='Name')
+tree.heading('Age', text='Age')
+tree.heading('ID', text='ID')
+
+tree.insert('', 'end', values=('John', '25', '123'))
+tree.insert('', 'end', values=('Alice', '30', '456'))
+
+w.mainloop()

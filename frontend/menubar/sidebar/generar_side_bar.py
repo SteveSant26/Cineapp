@@ -28,15 +28,6 @@ def crear_side_bar(base: ctk.CTk):
     crear_opciones_side_bar(base)
 
 
-def crear_opciones_side_bar(base: ctk.CTk):
-
-    colocar_boton_inicio(base)
-    colocar_boton_administrar_peliculas(base)
-    colocar_boton_administrar_funciones(base)
-    colocar_boton_administrar_salas(base)
-    colocar_boton_cambiar_tema(base)
-    colocar_boton_salir(base)
-
 
 def colocar_boton_inicio(base: ctk.CTk):
     from frontend.cartelera import mostrar_peliculas
@@ -66,30 +57,6 @@ def colocar_boton_administrar_peliculas(base: ctk.CTk):
                                                 command=lambda: BSB.crear_frame_administrar_peliculas(base))
     boton_administrar_peliculas.place(x=20, y=90)
 
-
-def colocar_boton_administrar_funciones(base: ctk.CTk):
-    """
-    Coloca un botón en la interfaz gráfica para administrar funciones.
-
-    Parameters:
-        base (obj): Objeto base de la interfaz gráfica.
-
-    Returns:
-        None
-    """
-    boton_administrar_funciones = ctk.CTkButton(base.toggle_menu,
-                                                text="Administrar funciones",
-                                                width=250,
-                                                height=40,
-                                                border_width=1,
-                                                border_color="black",
-                                                fg_color="#329ADF",
-                                                font=("Arial", 15, "bold"),
-                                                hover_color="#31AF9C",
-                                                command=lambda: BSB.crear_frame_administrar_funciones(base))
-    boton_administrar_funciones.place(x=20, y=150)
-
-
 def colocar_boton_administrar_salas(base: ctk.CTk):
     """
     Coloca un botón en la interfaz para administrar las salas.
@@ -111,7 +78,31 @@ def colocar_boton_administrar_salas(base: ctk.CTk):
                                             font=("Arial", 15, "bold"),
                                             hover_color="#31AF9C",
                                             command=lambda: BSB.crear_frame_administrar_salas(base))
-    boton_administrar_salas.place(x=20, y=210)
+    boton_administrar_salas.place(x=20, y=150)
+
+def colocar_boton_administrar_funciones(base: ctk.CTk):
+    """
+    Coloca un botón en la interfaz gráfica para administrar funciones.
+
+    Parameters:
+        base (obj): Objeto base de la interfaz gráfica.
+
+    Returns:
+        None
+    """
+    boton_administrar_funciones = ctk.CTkButton(base.toggle_menu,
+                                                text="Administrar funciones",
+                                                width=250,
+                                                height=40,
+                                                border_width=1,
+                                                border_color="black",
+                                                fg_color="#329ADF",
+                                                font=("Arial", 15, "bold"),
+                                                hover_color="#31AF9C",
+                                                command=lambda: BSB.crear_frame_administrar_funciones(base))
+    boton_administrar_funciones.place(x=20, y=210)
+
+
 
 
 def colocar_boton_cambiar_tema(base: ctk.CTk):
@@ -169,6 +160,15 @@ def colocar_boton_salir(base: ctk.CTk):
                                 command=lambda: BSB.salir(base))
     boton_salir.place(x=20, y=330)
 
+
+def crear_opciones_side_bar(base: ctk.CTk):
+
+    colocar_boton_inicio(base)
+    colocar_boton_administrar_peliculas(base)
+    colocar_boton_administrar_funciones(base)
+    colocar_boton_administrar_salas(base)
+    colocar_boton_cambiar_tema(base)
+    colocar_boton_salir(base)
 
 def ocultar_side_bar(base: ctk.CTk, separador):
     """
