@@ -34,6 +34,7 @@ def inicializar_app():
         
         utils.configurar_apariencia()
 
+        
         base = ctk.CTk()
         base.title("")
 
