@@ -1,6 +1,6 @@
 import customtkinter as ctk
 from tkinter import ttk
-from . import funciones_administrar_salas as FAF
+from . import funciones_administrar_funciones as FAF
 
 def administrar_funciones(base):
     

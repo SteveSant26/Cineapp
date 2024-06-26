@@ -1,7 +1,7 @@
 import customtkinter as ctk
 from CTkSpinbox import *
 from tkinter import ttk
-from . import funciones_administrar_salas as FAF
+from . import funciones_administrar_salas as FAS
 
 def administrar_salas(base):
     
@@ -39,7 +39,7 @@ def formulario_salas(frame_administrar_salas,base):
     frame_formulario.update()
 
 def colocar_boton_agregar_sala(frame_formulario,base):
-    boton_agregar_sala = ctk.CTkButton(frame_formulario,text="Agregar Sala",fg_color="#329ADF",hover_color="#31AF9C",font=("Arial", 20, "bold"), command=lambda: FAF.agregar_sala(base))
+    boton_agregar_sala = ctk.CTkButton(frame_formulario,text="Agregar Sala",fg_color="#329ADF",hover_color="#31AF9C",font=("Arial", 20, "bold"), command=lambda: FAS.agregar_sala(base))
     boton_agregar_sala.grid(row=1, columnspan = 2,column=0, pady=10, padx=20, sticky="nsew")
 
 def agregar_separador(frame_formulario,fila):
@@ -86,15 +86,15 @@ def entries_datos_sala(frame_formulario,base):
     }
 
 def colocar_boton_editar_sala(frame_formulario,base):
-    boton_editar_pelicula = ctk.CTkButton(frame_formulario, text="Editar Sala",fg_color="#329ADF",hover_color="#31AF9C",font=("Arial", 20, "bold"), command=lambda: FAF.editar_sala(base))
+    boton_editar_pelicula = ctk.CTkButton(frame_formulario, text="Editar Sala",fg_color="#329ADF",hover_color="#31AF9C",font=("Arial", 20, "bold"), command=lambda: FAS.editar_sala(base))
     boton_editar_pelicula.grid(row=8, columnspan = 2,column=0, pady=10, padx=20, sticky="nsew")
 
 def colocar_boton_eliminar_sala(frame_formulario,base):
-    boton_eliminar_pelicula = ctk.CTkButton(frame_formulario, text="Eliminar Sala",fg_color="#329ADF",hover_color="#31AF9C",font=("Arial", 20, "bold"), command=lambda: FAF.eliminar_sala(base))
+    boton_eliminar_pelicula = ctk.CTkButton(frame_formulario, text="Eliminar Sala",fg_color="#329ADF",hover_color="#31AF9C",font=("Arial", 20, "bold"), command=lambda: FAS.eliminar_sala(base))
     boton_eliminar_pelicula.grid(row=9, columnspan = 2,column=0, pady=10, padx=20, sticky="nsew")
 
 def colocar_boton_salir(frame_formulario,base):
-    boton_volver = ctk.CTkButton(frame_formulario, text="Volver",fg_color="#329ADF",hover_color="#31AF9C",font=("Arial", 20, "bold"), command=lambda: FAF.volver(base))
+    boton_volver = ctk.CTkButton(frame_formulario, text="Volver",fg_color="#329ADF",hover_color="#31AF9C",font=("Arial", 20, "bold"), command=lambda: FAS.volver(base))
     boton_volver.grid(row=10, columnspan = 2,column=0, pady=10, padx=20, sticky="nsew")
 
 def treeview_salas(frame_administrar_salas,base):

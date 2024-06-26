@@ -6,7 +6,7 @@ from frontend import utils
 def crear_frame_administrar_peliculas(base: ctk.CTkFrame):
     """Agrega una pelicula a la base de datos."""
     from frontend import menubar as MB
-    from . import administrar_peliculas as AP
+    from .peliculas import administrar_peliculas as AP
     
     utils.limpiar_widgets_base(base)
     MB.crear_menu_bar(base)
@@ -15,7 +15,7 @@ def crear_frame_administrar_peliculas(base: ctk.CTkFrame):
 def crear_frame_administrar_salas(base:ctk.CTkFrame):
     """ Agrega una sala a la base de datos."""
     from frontend import menubar as MB
-    from . import administrar_salas as AS
+    from .salas import administrar_salas as AS
     utils.limpiar_widgets_base(base)
     MB.crear_menu_bar(base)
     AS.administrar_salas(base)
@@ -23,7 +23,7 @@ def crear_frame_administrar_salas(base:ctk.CTkFrame):
 def crear_frame_administrar_funciones(base:ctk.CTkFrame):
     """ Agrega una función a la base de datos."""
     from frontend import menubar as MB
-    from . import administrar_funciones as AF
+    from .funciones import administrar_funciones as AF
     
     utils.limpiar_widgets_base(base)
     MB.crear_menu_bar(base)
