@@ -15,7 +15,7 @@ def conseguir_datos_pelicula(base):
     if not (id and titulo and duracion and estreno and ruta_imagen):
         mostrar_error("Error de Validación", "Todos los campos obligatorios deben estar llenos.")
         return
-    datos = (ruta_imagen, titulo, sinopsis, genero, duracion, estreno, prom_votos, id)
+    datos = (ruta_imagen, titulo, sinopsis, genero, duracion, estreno, prom_votos, int(id))
     return datos
 
 def editar_pelicula(base):
@@ -54,7 +54,6 @@ def insertar_peliculas_tree(treeview):
         votacion_pelicula = pelicula[7]
         ruta_imagen = pelicula[1]
         datos_pelicula = [pelicula_id, pelicula_titulo, sinopsis_pelicula, genero_pelicula, duracion_pelicula, estreno_pelicula, votacion_pelicula,ruta_imagen]
-        print(pelicula)
         treeview.insert("", "end", values=datos_pelicula)
     
 def volver(base):

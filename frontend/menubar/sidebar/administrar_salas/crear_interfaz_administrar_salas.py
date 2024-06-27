@@ -103,7 +103,7 @@ def treeview_salas(frame_administrar_salas,base):
 
     columnas_nombres = [key.capitalize() for key in base.entries_salas.keys()]
     
-    tree = ttk.Treeview(frame_tree, columns=columnas_nombres, show="headings")
+    base.tree_salas = ttk.Treeview(frame_tree, columns=columnas_nombres, show="headings")
     
     ancho_columnas = {
         "Id": 50,
@@ -113,14 +113,14 @@ def treeview_salas(frame_administrar_salas,base):
     }
     
     from ..utils import configurar_insertar_columnas_treeview
-    configurar_insertar_columnas_treeview(tree, columnas_nombres, ancho_columnas)
+    configurar_insertar_columnas_treeview(base.tree_salas, columnas_nombres, ancho_columnas)
     
-    tree.pack(fill="both", expand=True,padx=10,pady=10)
-    tree.pack_propagate(False)
+    base.tree_salas.pack(fill="both", expand=True,padx=10,pady=10)
+    base.tree_salas.pack_propagate(False)
     
-    tree.bind("<<TreeviewSelect>>", lambda event: seleccionar_fila(event, base, tree))
+    base.tree_salas.bind("<<TreeviewSelect>>", lambda event: seleccionar_fila(event, base, base.tree_salas))
     
-    FAS.insertar_salas_tree(tree)    
+    FAS.insertar_salas_tree(base.tree_salas)    
     frame_tree.update()
 
 def seleccionar_fila(event, base, tree):

@@ -4,35 +4,23 @@ from frontend.utils import mostrar_error, mostrar_mensaje
 from backend import API
 import threading
 
-# Variable global para verificar si la ventana está abierta
-ventana_agregar_pelicula_abierta = False
 # Variable global para almacenar el temporizador
 consulta_temporizador = None
 
 def crear_ventana_agregar_pelicula(base):
     global ventana_agregar_pelicula_abierta
 
-    if not ventana_agregar_pelicula_abierta:
-        ventana_agregar_pelicula_abierta = True
+    ventana_agregar_pelicula_abierta = True
 
-        ventana_agregar_pelicula = ctk.CTkToplevel(base)
-        ventana_agregar_pelicula.title("Agregar Pelicula")
-        
-        ventana_agregar_pelicula.geometry("1400x500")
-        ventana_agregar_pelicula.resizable(False, False)
-        ventana_agregar_pelicula.transient(base)
-        
-        frame_opciones_agregar_pelicula(ventana_agregar_pelicula,base)
-        tree_agregar_pelicula(ventana_agregar_pelicula, base)
-        
-        def on_close():
-            global ventana_agregar_pelicula_abierta
-            ventana_agregar_pelicula_abierta = False
-            ventana_agregar_pelicula.destroy()
-
-        ventana_agregar_pelicula.protocol("WM_DELETE_WINDOW", on_close)
-    else:
-        print("Ventana de agregar pelicula ya abierta")
+    ventana_agregar_pelicula = ctk.CTkToplevel(base)
+    ventana_agregar_pelicula.title("Agregar Pelicula")
+    
+    ventana_agregar_pelicula.geometry("1400x500")
+    ventana_agregar_pelicula.resizable(False, False)
+    ventana_agregar_pelicula.transient(base)
+    
+    frame_opciones_agregar_pelicula(ventana_agregar_pelicula,base)
+    tree_agregar_pelicula(ventana_agregar_pelicula, base)
 
 def frame_opciones_agregar_pelicula(ventana_agregar_pelicula,base):
     frame_opciones = ctk.CTkFrame(ventana_agregar_pelicula, border_color="black", fg_color="transparent")

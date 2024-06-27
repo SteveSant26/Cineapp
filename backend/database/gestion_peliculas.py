@@ -27,6 +27,28 @@ def editar_pelicula_bd(datos_pelicula: tuple):
     try:
         with conexion:
             cursor = conexion.cursor()
+            
+            cursor.execute("SELECT ruta_imagen, titulo, sinopsis, genero, duracion, estreno, promedio_votos FROM peliculas WHERE id = %s", (datos_pelicula[7],))
+            datos_actuales = cursor.fetchone()
+            if datos_actuales is None:
+                mostrar_error("Error al editar pelicula", "No se ha encontrado la pelicula a editar.")
+                return False
+
+            datos_actuales_convertidos = (
+                datos_actuales[0], 
+                datos_actuales[1], 
+                datos_actuales[2], 
+                datos_actuales[3], 
+                datos_actuales[4], 
+                str(datos_actuales[5]),  # convertir fecha a str
+                str(datos_actuales[6])   # convertir Decimal a str
+            )
+            nuevos_datos = datos_pelicula[:-1]
+            
+            if datos_actuales_convertidos == nuevos_datos:
+                mostrar_error("Error al editar pelicula", "No se ha modificado ningún campo de la pelicula.")
+                return False
+            
             cursor.execute(query, datos_pelicula)
             conexion.commit()
         return True
