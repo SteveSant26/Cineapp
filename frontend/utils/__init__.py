@@ -1,2 +1,2 @@
 from .conseguir_imagen import conseguir_imagen_ctk
-from .gui_related import limpiar_widgets_base,configurar_ventana,mostrar_error,configurar_apariencia,cambiar_color_texto, configurar_treeview_claro,configurar_treeview_oscuro
+from .gui_related import limpiar_widgets_base,configurar_ventana,mostrar_error,configurar_apariencia,cambiar_color_texto

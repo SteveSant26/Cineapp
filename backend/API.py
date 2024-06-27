@@ -13,7 +13,7 @@ def obtener_peliculas(nombre):
         response = requests.get(url, headers=headers, params=parametros)
         
         if response.status_code == 200:
-            pprint.pprint(response.json())
+            # pprint.(response.json())
             return response.json()
         else:
             print(f"Error: {response.status_code}")
@@ -49,7 +49,13 @@ def obtener_datos_pelicula(pelicula_id):
         print(f"No se pudieron obtener los detalles de la película: {e}")
         return None
 
-respuesta = obtener_peliculas("Avengers")
+respuesta = obtener_peliculas("Dragon Ball")
+# if respuesta:
+#     for value in respuesta.get("results", []):
+#         datos_pelicula = obtener_datos_pelicula(value["id"])
+#         if datos_pelicula:
+#             pprint.pprint(datos_pelicula)
+            
+datos_pelicula = obtener_datos_pelicula(respuesta["results"][0]["id"])
 
-
-
+pprint.pprint(datos_pelicula)

@@ -1,37 +1,58 @@
 import tkinter as tk
 from tkinter import ttk
 
-def configure_treeview_style():
+def configurar_treeview_oscuro() -> None:
+    """Se configura el estilo global para todos los Treeview de la aplicación."""
     style = ttk.Style()
     
-    # Configure the Treeview style
-    style.configure('Treeview', 
-                    font=('Arial', 14), 
-                    rowheight=25, 
-                    background='#E5E5E5', 
-                    fieldbackground='#E5E5E5')
-        
-    # Configure the Treeview Heading style
-    style.configure('Treeview.Heading', 
-                    font=('Arial', 20), 
-                    background='lightblue')
+    style.theme_use("clam")
     
-    style.map('Treeview',background=[('selected', 'red'), ('!selected', 'black')])
-    style.map('Treeview.Heading',background=[('active', 'black')])
+    style.configure("Treeview", 
+                    font=("Arial", 14),
+                    rowheight=30,
+                    background="#1c1c1c",
+                    fieldbackground="#1c1c1c",
+                    foreground="white")
+    
+    style.configure("Treeview.Heading", 
+                    font=("Arial", 16, "bold"),
+                    background="#329ADF",
+                    foreground="white",
+                    relief="flat")
+    
+    style.map('Treeview', background=[('selected', '#31AF9C')])
+    style.map('Treeview.Heading', background=[('active', '#31AF9C')])
 
+def configurar_ancho_columnas(treeview: ttk.Treeview) -> None:
+    """Configura el ancho de las columnas para un Treeview dado."""
+    treeview.column("#0", width=100, minwidth=100, stretch=tk.NO)
+    for col in treeview["columns"]:
+        if "sep" in col:
+            treeview.column(col, width=10, minwidth=10, stretch=tk.NO)
+        else:
+            treeview.column(col, width=150, minwidth=150, stretch=tk.NO)
 
-w = tk.Tk()
-w.geometry("400x300")
+root = tk.Tk()
 
-configure_treeview_style()
+# Llamar a la función para configurar el estilo oscuro globalmente
+configurar_treeview_oscuro()
 
-tree = ttk.Treeview(w, columns=('Name', 'Age', 'ID'), show='headings')
-tree.pack(expand=True, fill='both', padx=10, pady=10)
-tree.heading('Name', text='Name')
-tree.heading('Age', text='Age')
-tree.heading('ID', text='ID')
+# Crear y configurar Treeview
+columns = ("col1", "sep1", "col2", "sep2", "col3")
+treeview = ttk.Treeview(root, columns=columns)
+configurar_ancho_columnas(treeview)
 
-tree.insert('', 'end', values=('John', '25', '123'))
-tree.insert('', 'end', values=('Alice', '30', '456'))
+# Configurar encabezados, incluyendo los separadores
+treeview.heading("#0", text="Columna 0")
+treeview.heading("col1", text="Columna 1")
+treeview.heading("sep1", text=" ")
+treeview.heading("col2", text="Columna 2")
+treeview.heading("sep2", text=" ")
+treeview.heading("col3", text="Columna 3")
 
-w.mainloop()
+# Insertar datos de ejemplo
+treeview.insert("", "end", text="Item 1", values=("1A", "", "1B", "", "1C"))
+treeview.insert("", "end", text="Item 2", values=("2A", "", "2B", "", "2C"))
+
+treeview.pack()
+root.mainloop()
