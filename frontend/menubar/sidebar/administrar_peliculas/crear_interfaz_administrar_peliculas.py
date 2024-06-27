@@ -1,6 +1,8 @@
 import customtkinter as ctk
 from tkinter import ttk
+from frontend.utils import mostrar_error
 from . import funciones_administrar_peliculas as FAP
+from . import agregar_pelicula as AP
 
 def administrar_peliculas(base):
     frame_administrar_peliculas = ctk.CTkFrame(base, fg_color="transparent")
@@ -37,7 +39,7 @@ def formulario_pelicula(frame_administrar_peliculas, base):
     frame_formulario.update()
 
 def colocar_boton_agregar_pelicula(frame_formulario, base):
-    boton_agregar_pelicula = ctk.CTkButton(frame_formulario, text="Agregar Pelicula", fg_color="#329ADF", hover_color="#31AF9C", font=("Arial", 20, "bold"), command=lambda: FAP.agregar_pelicula(base))
+    boton_agregar_pelicula = ctk.CTkButton(frame_formulario, text="Agregar Pelicula", fg_color="#329ADF", hover_color="#31AF9C", font=("Arial", 20, "bold"), command=lambda: AP.crear_ventana_agregar_pelicula(base))
     boton_agregar_pelicula.grid(row=1, columnspan=2, column=0, pady=10, padx=20, sticky="nsew")
 
 def agregar_separador(frame_formulario, fila):
@@ -115,7 +117,7 @@ def treeview_peliculas(frame_administrar_peliculas, base):
 
     columnas_nombres = [key.capitalize() for key in base.entries_pelicula.keys() if key != "ruta_imagen"]
 
-    tree = ttk.Treeview(frame_tree, columns=columnas_nombres, show="headings")
+    base.tree_peliculas = ttk.Treeview(frame_tree, columns=columnas_nombres, show="headings")
 
     
     ancho_columnas = {
@@ -127,15 +129,15 @@ def treeview_peliculas(frame_administrar_peliculas, base):
         "Estreno": 75,
     }
 
-    tree.pack(fill="both", expand=True, padx=10, pady=10)
-    tree.pack_propagate(False)
+    base.tree_peliculas.pack(fill="both", expand=True, padx=10, pady=10)
+    base.tree_peliculas.pack_propagate(False)
     
-    tree.bind("<<TreeviewSelect>>", lambda event: seleccionar_fila(event, base, tree))
+    base.tree_peliculas.bind("<<TreeviewSelect>>", lambda event: seleccionar_fila(event, base, base.tree_peliculas))
     
     from ..utils import configurar_insertar_columnas_treeview
     
-    configurar_insertar_columnas_treeview(tree, columnas_nombres, ancho_columnas)
-    FAP.insertar_peliculas_tree(tree)
+    configurar_insertar_columnas_treeview(base.tree_peliculas, columnas_nombres, ancho_columnas)
+    FAP.insertar_peliculas_tree(base.tree_peliculas)
         
     frame_tree.update()
     
@@ -153,5 +155,5 @@ def seleccionar_fila(event, base, tree):
                     entry.insert(0, values[index])
                 
     except Exception as e:
-        print(f"Error al seleccionar la fila: {e}")
+        mostrar_error("Error al seleccionar fila", f"Ocurrio un error al seleccionar la fila: {e}")
 

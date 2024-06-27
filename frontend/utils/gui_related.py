@@ -6,7 +6,10 @@ def mostrar_error(titulo:str, mensaje:str)->None:
     """ Muestra error en un messagebox y en consola."""
     messagebox.showerror(titulo, mensaje)
     print(mensaje)
-    
+def mostrar_mensaje(titulo:str, mensaje:str)->None:
+    """ Muestra mensaje en un messagebox y en consola."""
+    messagebox.showinfo(titulo, mensaje)
+    print(mensaje)
 def configurar_ventana(base: ctk.CTk)->None:
     """ Se configurar la ventana principal de la aplicación."""
     from frontend.menubar.sidebar import configurar_treeview_oscuro

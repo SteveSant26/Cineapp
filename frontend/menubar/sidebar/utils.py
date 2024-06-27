@@ -44,6 +44,10 @@ def configurar_treeview_oscuro()->None:
     style.map('Treeview.Heading',background=[('active', '#31AF9C')])
     
     
+def limpiar_treeview(tree):
+    """ Limpia el contenido del treeview."""
+    for i in tree.get_children():
+        tree.delete(i)
     
 def configurar_insertar_columnas_treeview(tree, columnas_nombres,ancho_columnas):
     for columna in columnas_nombres:

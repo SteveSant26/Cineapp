@@ -30,11 +30,8 @@
 -- CREATE TABLE asientos_reservados (
 --     id INT AUTO_INCREMENT PRIMARY KEY,
 --     funcion_id INT,
---     fila INT,
---     columna INT,
---     reservado BOOLEAN DEFAULT TRUE,
---     FOREIGN KEY (funcion_id) REFERENCES funciones(id) ON DELETE CASCADE,
---     UNIQUE (funcion_id, fila, columna)
+--     asientos JSON,
+--     FOREIGN KEY (funcion_id) REFERENCES funciones(id) ON DELETE CASCADE
 -- );
 
 -- INSERT INTO peliculas (id, ruta_imagen, titulo, sinopsis, genero, duracion, estreno, promedio_votos) 
