@@ -70,18 +70,18 @@ def entries_datos_funcion(frame_formulario,base):
         "id": entry_id,
         "id pelicula": entry_id_pelicula,
         "id sala": entry_id_sala,
-        "fecha_hora": entry_hora
+        "fecha y hora": entry_hora
     }
 def colocar_boton_agregar_funcion(frame_formulario,base):
-    boton_agregar_sala = ctk.CTkButton(frame_formulario,text="Agregar funcion",fg_color="#329ADF",hover_color="#31AF9C",font=("Arial", 20, "bold"), command=lambda: FAF.agregar_sala(base))
+    boton_agregar_sala = ctk.CTkButton(frame_formulario,text="Agregar funcion",fg_color="#329ADF",hover_color="#31AF9C",font=("Arial", 20, "bold"), command=lambda: FAF.agregar_funcion(base))
     boton_agregar_sala.grid(row=7, columnspan = 2,column=0, pady=10, padx=20, sticky="nsew")
     
 def colocar_boton_editar_funcion(frame_formulario,base):
-    boton_editar_pelicula = ctk.CTkButton(frame_formulario, text="Editar Funcion",fg_color="#329ADF",hover_color="#31AF9C",font=("Arial", 20, "bold"), command=lambda: FAF.editar_sala(base))
+    boton_editar_pelicula = ctk.CTkButton(frame_formulario, text="Editar Funcion",fg_color="#329ADF",hover_color="#31AF9C",font=("Arial", 20, "bold"), command=lambda: FAF.editar_funcion(base))
     boton_editar_pelicula.grid(row=8, columnspan = 2,column=0, pady=10, padx=20, sticky="nsew")
 
 def colocar_boton_eliminar_funcion(frame_formulario,base):
-    boton_eliminar_pelicula = ctk.CTkButton(frame_formulario, text="Eliminar Funcion",fg_color="#329ADF",hover_color="#31AF9C",font=("Arial", 20, "bold"), command=lambda: FAF.eliminar_sala(base))
+    boton_eliminar_pelicula = ctk.CTkButton(frame_formulario, text="Eliminar Funcion",fg_color="#329ADF",hover_color="#31AF9C",font=("Arial", 20, "bold"), command=lambda: FAF.eliminar_funcion(base))
     boton_eliminar_pelicula.grid(row=9, columnspan = 2,column=0, pady=10, padx=20, sticky="nsew")
 
 def colocar_boton_salir(frame_formulario,base):
@@ -102,16 +102,16 @@ def treeview_funciones(frame_administrar_salas,base):
         "Fecha y Hora": 300
     }
         
-    tree = ttk.Treeview(frame_tree, columns=columnas_nombres, show="headings")
-    tree.pack(fill="both", expand=True,padx=10,pady=10)
-    tree.pack_propagate(False)
+    base.tree_funciones = ttk.Treeview(frame_tree, columns=columnas_nombres, show="headings")
+    base.tree_funciones.pack(fill="both", expand=True,padx=10,pady=10)
+    base.tree_funciones.pack_propagate(False)
     
-    tree.bind("<<TreeviewSelect>>", lambda event: seleccionar_fila(event, base, tree))
+    base.tree_funciones.bind("<<TreeviewSelect>>", lambda event: seleccionar_fila(event, base, base.tree_funciones))
 
     
     from ..utils import configurar_insertar_columnas_treeview
-    configurar_insertar_columnas_treeview(tree, columnas_nombres, ancho_columnas)
-    FAF.insertar_funciones_tree(tree)
+    configurar_insertar_columnas_treeview(base.tree_funciones, columnas_nombres, ancho_columnas)
+    FAF.insertar_funciones_tree(base.tree_funciones)
     
     
     
@@ -123,7 +123,7 @@ def seleccionar_fila(event, base, tree):
         values = tree.item(item_seleccionado)["values"]
         if values:
             print(values)
-            for index, (key, entry) in enumerate(base.entries_funciones.items()):
+            for index, (entry) in enumerate(base.entries_funciones.values()):
                 entry.delete(0, "end")
                 entry.insert(0, values[index])
                 

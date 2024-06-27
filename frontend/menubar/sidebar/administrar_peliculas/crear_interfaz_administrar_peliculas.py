@@ -94,7 +94,7 @@ def entries_datos_pelicula(frame_formulario, base):
         "genero": entry_genero,
         "duracion": entry_duracion,
         "estreno": entry_estreno,
-        "prom_votos" : entry_prom_votos,
+        "promedio votos" : entry_prom_votos,
         "ruta_imagen": entry_ruta_imagen,
     }
 

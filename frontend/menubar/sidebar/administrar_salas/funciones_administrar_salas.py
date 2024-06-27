@@ -1,4 +1,4 @@
-from frontend.utils import mostrar_error, mostrar_mensaje
+from frontend.utils import limpiar_widgets_base,mostrar_error, mostrar_mensaje
 from backend.database import obtener_salas_bd,agregar_sala_bd,editar_sala_bd,eliminar_sala_bd
 from ..utils import limpiar_treeview
 
@@ -16,7 +16,6 @@ def conseguir_datos_sala(base):
 
 def agregar_sala(base):
     datos = conseguir_datos_sala(base)
-    print(datos)
     try:
         if agregar_sala_bd(datos):
             mostrar_mensaje("Sala Agregada", "La sala ha sido agregada correctamente.")
@@ -29,7 +28,6 @@ def agregar_sala(base):
 def editar_sala(base):
     datos = conseguir_datos_sala(base)
     datos = (datos[1], datos[2], datos[3], datos[0])
-    print(datos)
     try:
         if editar_sala_bd(datos):
             mostrar_mensaje("Sala Editada", "La sala ha sido editada correctamente.")
@@ -57,7 +55,6 @@ def insertar_salas_tree(treeview):
         
 def volver(base):
     from frontend import cartelera
-    from frontend.utils import limpiar_widgets_base
     
     limpiar_widgets_base(base)
     cartelera.mostrar_peliculas(base)

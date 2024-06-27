@@ -9,7 +9,7 @@ def conseguir_datos_pelicula(base):
     genero = base.entries_pelicula["genero"].get()
     duracion = base.entries_pelicula["duracion"].get()
     estreno = base.entries_pelicula["estreno"].get()
-    prom_votos = base.entries_pelicula["prom_votos"].get()
+    prom_votos = base.entries_pelicula["promedio votos"].get()
     ruta_imagen = base.entries_pelicula["ruta_imagen"].get()
 
     if not (id and titulo and duracion and estreno and ruta_imagen):
