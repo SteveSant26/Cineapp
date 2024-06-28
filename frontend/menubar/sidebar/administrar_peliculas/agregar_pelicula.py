@@ -139,7 +139,7 @@ def agregar_pelicula(ventana_agregar_pelicula,base):
 
 
 def insertar_peliculas_tree_agregar(tree, peliculas):
-    from ..utils import limpiar_treeview
+    from ..utils_menu_bar import limpiar_treeview
     limpiar_treeview(tree)
     
     # Insertar nuevas películas

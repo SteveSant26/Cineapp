@@ -1,2 +1,2 @@
 from .generar_side_bar import crear_side_bar
-from .utils import configurar_treeview_claro,configurar_treeview_oscuro
+from .utils_menu_bar import configurar_treeview_claro,configurar_treeview_oscuro

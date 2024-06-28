@@ -1,6 +1,7 @@
 import customtkinter as ctk
 from CTkSpinbox import *
 from tkinter import ttk
+from ..utils_menu_bar import agregar_separador
 from . import funciones_administrar_salas as FAS
 
 def administrar_salas(base):
@@ -37,11 +38,6 @@ def formulario_salas(frame_administrar_salas,base):
     colocar_boton_salir(frame_formulario,base)
     
     frame_formulario.update()
-
-
-def agregar_separador(frame_formulario,fila):
-    separador = ctk.CTkFrame(frame_formulario, height=2,fg_color="black")
-    separador.grid(row=fila, column=0, columnspan=2, sticky="nsew",pady=10,padx=20)
 
 def entries_datos_sala(frame_formulario,base):
     label_id = ctk.CTkLabel(frame_formulario, text="ID Sala:", font=("Arial",16))
@@ -112,7 +108,7 @@ def treeview_salas(frame_administrar_salas,base):
         "Columnas": 300
     }
     
-    from ..utils import configurar_insertar_columnas_treeview
+    from ..utils_menu_bar import configurar_insertar_columnas_treeview
     configurar_insertar_columnas_treeview(base.tree_salas, columnas_nombres, ancho_columnas)
     
     base.tree_salas.pack(fill="both", expand=True,padx=10,pady=10)
@@ -126,8 +122,8 @@ def treeview_salas(frame_administrar_salas,base):
 def seleccionar_fila(event, base, tree):
     try:
         item_seleccionado = tree.focus()
-        if item_seleccionado:
-            values = tree.item(item_seleccionado)["values"]
+        values = tree.item(item_seleccionado)["values"]
+        if values:
             
             
             base.entries_salas["id"].delete(0, "end")

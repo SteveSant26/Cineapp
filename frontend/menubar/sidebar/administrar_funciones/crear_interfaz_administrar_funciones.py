@@ -1,6 +1,7 @@
 import customtkinter as ctk
 from tkinter import ttk
 from . import funciones_administrar_funciones as FAF
+from ..utils_menu_bar import agregar_separador
 
 def administrar_funciones(base):
     
@@ -39,9 +40,7 @@ def formulario_funciones(frame_administrar_salas,base):
 
 
 
-def agregar_separador(frame_formulario,fila):
-    separador = ctk.CTkFrame(frame_formulario, height=2,fg_color="black")
-    separador.grid(row=fila, column=0, columnspan=2, sticky="nsew",pady=10,padx=20)
+
 
 def entries_datos_funcion(frame_formulario,base):
     label_id = ctk.CTkLabel(frame_formulario, text="ID Funcion:", font=("Arial",16))
@@ -109,13 +108,14 @@ def treeview_funciones(frame_administrar_salas,base):
     base.tree_funciones.bind("<<TreeviewSelect>>", lambda event: seleccionar_fila(event, base, base.tree_funciones))
 
     
-    from ..utils import configurar_insertar_columnas_treeview
+    from ..utils_menu_bar import configurar_insertar_columnas_treeview
     configurar_insertar_columnas_treeview(base.tree_funciones, columnas_nombres, ancho_columnas)
     FAF.insertar_funciones_tree(base.tree_funciones)
     
     
     
     frame_tree.update()
+
 
 def seleccionar_fila(event, base, tree):
     try:

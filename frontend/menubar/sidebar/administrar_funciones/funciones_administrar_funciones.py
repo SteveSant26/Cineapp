@@ -1,6 +1,6 @@
 from frontend.utils import limpiar_widgets_base,mostrar_error,mostrar_mensaje
 from backend.database import obtener_funciones_bd,agregar_funcion_bd,editar_funcion_bd,eliminar_funcion_bd
-from ..utils import limpiar_treeview
+from ..utils_menu_bar import limpiar_treeview
 
 def conseguir_datos_funcion(base):
     id = base.entries_funciones["id"].get()
@@ -54,7 +54,6 @@ def insertar_funciones_tree(treeview):
     limpiar_treeview(treeview)
     for funcion in obtener_funciones_bd():
         treeview.insert("", "end", values=funcion)
-        print(funcion)
 
 def volver(base):
     from frontend import cartelera

@@ -1,4 +1,5 @@
 from tkinter import ttk
+import customtkinter as ctk
 def configurar_treeview_claro()->None:
     """ Se configura el treeview de la aplicación."""
     style = ttk.Style()
@@ -53,3 +54,7 @@ def configurar_insertar_columnas_treeview(tree, columnas_nombres,ancho_columnas)
     for columna in columnas_nombres:
         tree.column(columna, width=ancho_columnas.get(columna, 100), anchor="center")
         tree.heading(columna, text=columna)
+        
+def agregar_separador(frame,fila):
+    separador = ctk.CTkFrame(frame, height=2,fg_color="black")
+    separador.grid(row=fila, column=0, columnspan=2, sticky="nsew",pady=10,padx=20)

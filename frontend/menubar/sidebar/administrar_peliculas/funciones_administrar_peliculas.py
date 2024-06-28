@@ -42,7 +42,7 @@ def eliminar_pelicula(base):
     
 
 def insertar_peliculas_tree(treeview):
-    from ..utils import limpiar_treeview
+    from ..utils_menu_bar import limpiar_treeview
     limpiar_treeview(treeview)
     for pelicula in DB.obtener_peliculas_bd():
         pelicula_id = pelicula[0]

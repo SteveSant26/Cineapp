@@ -1,6 +1,6 @@
 from frontend.utils import limpiar_widgets_base,mostrar_error, mostrar_mensaje
 from backend.database import obtener_salas_bd,agregar_sala_bd,editar_sala_bd,eliminar_sala_bd
-from ..utils import limpiar_treeview
+from ..utils_menu_bar import limpiar_treeview
 
 def conseguir_datos_sala(base):
     id = base.entries_salas["id"].get()
