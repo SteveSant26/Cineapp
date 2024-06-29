@@ -41,34 +41,28 @@ def formulario_salas(frame_administrar_salas,base):
 
 def entries_datos_sala(frame_formulario,base):
     label_id = ctk.CTkLabel(frame_formulario, text="ID Sala:", font=("Arial",16))
-    label_id.grid(row=2, column=0, pady=10, padx=20, sticky="nsew")
+    label_id.grid(row=2, column=0, pady=10, padx=20,)
     entry_id = ctk.CTkEntry(frame_formulario, font=("Arial",16))
     entry_id.grid(row=2, column=1, pady=10, padx=20, sticky="nsew")
     
     label_nombre = ctk.CTkLabel(frame_formulario, text="Nombre Sala:", font=("Arial",16))   
-    label_nombre.grid(row=3, column=0, pady=10, padx=20, sticky="nsew")
+    label_nombre.grid(row=3, column=0, pady=10, padx=20)
     entry_nombre = ctk.CTkEntry(frame_formulario, font=("Arial",16))
     entry_nombre.grid(row=3, column=1, pady=10, padx=20, sticky="nsew")
     
     label_filas = ctk.CTkLabel(frame_formulario, text="Filas sala:", font=("Arial",16))
-    label_filas.grid(row=4, column=0, pady=10, padx=20, sticky="nsew")
+    label_filas.grid(row=4, column=0, pady=10, padx=20)
     
-    filas_var = ctk.IntVar()
-    spinbox_filas = CTkSpinbox(frame_formulario, min_value=1, max_value=20, start_value=4,button_color="#329ADF",button_hover_color="#31AF9C",variable=filas_var,font=("Arial",16))
+    spinbox_filas = CTkSpinbox(frame_formulario, min_value=1, max_value=20, start_value=4,button_color="#329ADF",button_hover_color="#31AF9C",font=("Arial",16))
     spinbox_filas.grid(row=4, column=1, pady=10, padx=20, sticky="nsew")
     
-    # entry_filas = ctk.CTkEntry(frame_formulario, font=("Arial",16))
-    # entry_filas.grid(row=5, column=1, pady=10, padx=20, sticky="nsew")
     
     label_columnas = ctk.CTkLabel(frame_formulario, text="Columnas sala:", font=("Arial",16))
-    label_columnas.grid(row=5, column=0, pady=10, padx=20, sticky="nsew")
+    label_columnas.grid(row=5, column=0, pady=10, padx=20)
     
     spinbox_columnas = CTkSpinbox(frame_formulario, min_value=1, max_value=20, start_value=4,button_color="#329ADF",button_hover_color="#31AF9C",font=("Arial",16))
     spinbox_columnas.grid(row=5, column=1, pady=10, padx=20, sticky="nsew")
     
-    # entry_columnas = ctk.CTkEntry(frame_formulario, font=("Arial",16))
-    # entry_columnas.grid(row=6, column=1, pady=10, padx=20, sticky="nsew")
-
     
     base.entries_salas = {
         "id": entry_id,
@@ -76,6 +70,7 @@ def entries_datos_sala(frame_formulario,base):
         "filas": spinbox_filas,
         "columnas": spinbox_columnas
     }
+    
 def colocar_boton_agregar_sala(frame_formulario,base):
     boton_agregar_sala = ctk.CTkButton(frame_formulario,text="Agregar Sala",fg_color="#329ADF",hover_color="#31AF9C",font=("Arial", 20, "bold"), command=lambda: FAS.agregar_sala(base))
     boton_agregar_sala.grid(row=7, columnspan = 2,column=0, pady=10, padx=20, sticky="nsew")

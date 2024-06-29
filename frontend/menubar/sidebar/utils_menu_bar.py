@@ -8,7 +8,7 @@ def configurar_treeview_claro()->None:
     
     style.configure("Treeview", 
                     font=("Arial", 14),
-                    rowheight=30,
+                    rowheight=50,
                     background="#E5E5E5",
                     fieldbackground="#E5E5E5",
                     foreground="black")
@@ -29,7 +29,7 @@ def configurar_treeview_oscuro()->None:
     
     style.configure("Treeview", 
                     font=("Arial", 14),
-                    rowheight=30,
+                    rowheight=50,
                     background="#1c1c1c",
                     fieldbackground="#1c1c1c",
                     foreground="white")
@@ -47,6 +47,7 @@ def configurar_treeview_oscuro()->None:
     
 def limpiar_treeview(tree):
     """ Limpia el contenido del treeview."""
+    
     for i in tree.get_children():
         tree.delete(i)
     

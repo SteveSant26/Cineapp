@@ -1,7 +1,6 @@
 import customtkinter as ctk
-
+from .utils_barra_busqueda import enter_hover_boton_busqueda, leave_hover_boton_busqueda
 from . import crear_busqueda_img as CBI
-
 def crear_barra_busqueda(base:ctk.CTk):
     """
     Crea una barra de búsqueda en la interfaz gráfica.
@@ -34,13 +33,6 @@ def crear_barra_busqueda(base:ctk.CTk):
                                             command=lambda: print("Buscando..."))
     base.boton_barra_de_busqueda.pack(side="left",padx=(0,200))
     
-    base.boton_barra_de_busqueda.bind("<Enter>", lambda e: enter_hover_img(base))
-    base.boton_barra_de_busqueda.bind("<Leave>", lambda e: leave_hover_img(base))
+    base.boton_barra_de_busqueda.bind("<Enter>", lambda e: enter_hover_boton_busqueda(base.boton_barra_de_busqueda))
+    base.boton_barra_de_busqueda.bind("<Leave>", lambda e: leave_hover_boton_busqueda(base.boton_barra_de_busqueda))
 
-def enter_hover_img(base):
-    imagen = CBI.BUSQUEDA_IMAGEN["imagen_busqueda_hover"]
-    base.boton_barra_de_busqueda.configure(image= imagen)
-
-def leave_hover_img(base):
-    imagen = CBI.BUSQUEDA_IMAGEN["imagen_busqueda"]
-    base.boton_barra_de_busqueda.configure(image=imagen)
