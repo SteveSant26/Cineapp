@@ -73,4 +73,4 @@ def volver(base):
     from frontend import cartelera
     
     limpiar_widgets_base(base)
-    cartelera.mostrar_peliculas(base)
+    cartelera.iniciar_hilo_mostrar_peliculas(base)

@@ -103,7 +103,7 @@ def regresar(base:ctk.CTkFrame)->None:
     # Se eliminan los widgets del frame principal
     utils.limpiar_widgets_base(base)
     #Se importa la funcion de Cartelera.py para mostrar las peliculas
-    cartelera.mostrar_peliculas(base)
+    cartelera.iniciar_hilo_mostrar_peliculas(base)
 
 
 

@@ -30,7 +30,7 @@ def crear_side_bar(base: ctk.CTk):
 
 
 def colocar_boton_inicio(base: ctk.CTk):
-    from frontend.cartelera import mostrar_peliculas
+    from frontend.cartelera import iniciar_hilo_mostrar_peliculas
     boton_inicio = ctk.CTkButton(base.toggle_menu,
                                  text="Inicio",
                                  width=250,
@@ -40,7 +40,7 @@ def colocar_boton_inicio(base: ctk.CTk):
                                  fg_color="#329ADF",
                                  font=("Arial", 15, "bold"),
                                  hover_color="#31AF9C",
-                                 command=lambda: mostrar_peliculas(base))
+                                 command=lambda: iniciar_hilo_mostrar_peliculas(base))
     boton_inicio.place(x=20, y=30)
 
 

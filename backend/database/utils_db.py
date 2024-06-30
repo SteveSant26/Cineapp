@@ -93,8 +93,6 @@ def ejecutar_query_eliminar(query, id_dato, tabla):
 
 
 
-
-
 def verificar_funcion_existente(cursor, parametros,operacion):
     try:
         cursor.execute("SELECT id, sala_id, fecha_hora FROM funciones")

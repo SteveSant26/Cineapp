@@ -1,4 +1,4 @@
 from .crear_conexion import abrir_conexion
-from .gestion_peliculas import obtener_peliculas_bd,agregar_pelicula_bd,editar_pelicula_bd,eliminar_pelicula_bd,obtener_id_titulo_pelicula_bd,obtener_titulo_pelicula_por_id
-from .gestion_salas import obtener_salas_bd,agregar_sala_bd,editar_sala_bd,eliminar_sala_bd, obtener_id_nombre_sala_bd, obtener_nombre_sala_por_id
-from .gestion_funciones import obtener_funciones_bd,agregar_funcion_bd,editar_funcion_bd,eliminar_funcion_bd
+from .gestion_peliculas import obtener_peliculas_bd, agregar_pelicula_bd, editar_pelicula_bd, eliminar_pelicula_bd, obtener_id_titulo_pelicula_bd, obtener_titulo_pelicula_por_id, obtener_imagen_pelicula_por_id
+from .gestion_salas import obtener_salas_bd, agregar_sala_bd, editar_sala_bd, eliminar_sala_bd, obtener_id_nombre_sala_bd, obtener_nombre_sala_por_id
+from .gestion_funciones import obtener_funciones_bd, agregar_funcion_bd, editar_funcion_bd, eliminar_funcion_bd

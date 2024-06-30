@@ -1,7 +1,7 @@
 # Datos de las películas
 PELICULAS = {
     "Batman": {
-        "path": "C:\\Users\\Bryan\\OneDrive - ULEAM\\Tareas\\Segundo semestre\\Programacion estructurada\\Cine\\frontend\\cartelera\\portadas_peliculas\\Batman.jpg",
+        "path": "C:\\Users\\Bryan\\OneDrive - ULEAM\\Tareas\\Segundo semestre\\Programacion estructurada\\Cine\\frontend\\cartelera\\portadas_peliculas\\Batman.png",
         "salas": {
             "Sala 5": {
                 "10:00 AM": {"reservados": set(), "seleccionados": set()},
@@ -20,7 +20,7 @@ PELICULAS = {
         }
     },
     "Superman": {
-        "path": "C:\\Users\\Bryan\\OneDrive - ULEAM\\Tareas\\Segundo semestre\\Programacion estructurada\\Cine\\frontend\\cartelera\\portadas_peliculas\\Superman.jpeg",
+        "path": "C:\\Users\\Bryan\\OneDrive - ULEAM\\Tareas\\Segundo semestre\\Programacion estructurada\\Cine\\frontend\\cartelera\\portadas_peliculas\\Superman.png",
         "salas": {
             "Sala 2": {
                 "9:00 AM": {"reservados": set(), "seleccionados": set()},
@@ -39,7 +39,7 @@ PELICULAS = {
         }
     },
     "Spiderman": {
-        "path": "C:\\Users\\Bryan\\OneDrive - ULEAM\\Tareas\\Segundo semestre\\Programacion estructurada\\Cine\\frontend\\cartelera\\portadas_peliculas\\Spiderman.webp",
+        "path": "C:\\Users\\Bryan\\OneDrive - ULEAM\\Tareas\\Segundo semestre\\Programacion estructurada\\Cine\\frontend\\cartelera\\portadas_peliculas\\Spiderman.png",
         "salas": {
             "Sala 3": {
                 "10:30 AM": {"reservados": set(), "seleccionados": set()},
@@ -63,7 +63,7 @@ PELICULAS = {
         }
     },
     "Ironman": {
-        "path": "C:\\Users\\Bryan\\OneDrive - ULEAM\\Tareas\\Segundo semestre\\Programacion estructurada\\Cine\\frontend\\cartelera\\portadas_peliculas\\Ironman.webp",
+        "path": "C:\\Users\\Bryan\\OneDrive - ULEAM\\Tareas\\Segundo semestre\\Programacion estructurada\\Cine\\frontend\\cartelera\\portadas_peliculas\\Ironman.png",
         "salas": {
             "Sala 1": {
                 "11:30 AM": {"reservados": set(), "seleccionados": set()},
@@ -81,7 +81,7 @@ PELICULAS = {
         }
     },
     "Capitán América": {
-        "path": "C:\\Users\\Bryan\\OneDrive - ULEAM\\Tareas\\Segundo semestre\\Programacion estructurada\\Cine\\frontend\\cartelera\\portadas_peliculas\\Capitan america.jpg",
+        "path": "C:\\Users\\Bryan\\OneDrive - ULEAM\\Tareas\\Segundo semestre\\Programacion estructurada\\Cine\\frontend\\cartelera\\portadas_peliculas\\Capitan america.png",
         "salas": {
             "Sala 2": {
                 "10:00 AM": {"reservados": set(), "seleccionados": set()},
@@ -99,7 +99,7 @@ PELICULAS = {
         }
     },
     "Daredevil": {
-        "path": "C:\\Users\\Bryan\\OneDrive - ULEAM\\Tareas\\Segundo semestre\\Programacion estructurada\\Cine\\frontend\\cartelera\\portadas_peliculas\\Daredevil.webp",
+        "path": "C:\\Users\\Bryan\\OneDrive - ULEAM\\Tareas\\Segundo semestre\\Programacion estructurada\\Cine\\frontend\\cartelera\\portadas_peliculas\\Daredevil.png",
         "salas": {
             "Sala 4": {
                 "9:30 AM": {"reservados": set(), "seleccionados": set()},
@@ -117,7 +117,7 @@ PELICULAS = {
         }
     },
     "Hulk": {
-        "path": "C:\\Users\\Bryan\\OneDrive - ULEAM\\Tareas\\Segundo semestre\\Programacion estructurada\\Cine\\frontend\\cartelera\\portadas_peliculas\\Hulk.jpg",
+        "path": "C:\\Users\\Bryan\\OneDrive - ULEAM\\Tareas\\Segundo semestre\\Programacion estructurada\\Cine\\frontend\\cartelera\\portadas_peliculas\\Hulk.png",
         "salas": {
             "Sala 1": {
                 "10:00 AM": {"reservados": set(), "seleccionados": set()},
@@ -135,7 +135,7 @@ PELICULAS = {
         }
     },
     "Black widow": {
-        "path": "C:\\Users\\Bryan\\OneDrive - ULEAM\\Tareas\\Segundo semestre\\Programacion estructurada\\Cine\\frontend\\cartelera\\portadas_peliculas\\Black widow.webp",
+        "path": "C:\\Users\\Bryan\\OneDrive - ULEAM\\Tareas\\Segundo semestre\\Programacion estructurada\\Cine\\frontend\\cartelera\\portadas_peliculas\\Black widow.png",
         "salas": {
             "Sala 3": {
                 "9:00 AM": {"reservados": set(), "seleccionados": set()},
@@ -153,7 +153,7 @@ PELICULAS = {
         }
     },
     "Deadpool": {
-        "path": "C:\\Users\\Bryan\\OneDrive - ULEAM\\Tareas\\Segundo semestre\\Programacion estructurada\\Cine\\frontend\\cartelera\\portadas_peliculas\\Deadpool.jpg",
+        "path": "C:\\Users\\Bryan\\OneDrive - ULEAM\\Tareas\\Segundo semestre\\Programacion estructurada\\Cine\\frontend\\cartelera\\portadas_peliculas\\Deadpool.png",
         "salas": {
             "Sala 5": {
                 "9:30 AM": {"reservados": set(), "seleccionados": set()},
@@ -171,7 +171,7 @@ PELICULAS = {
         }
     },
     "Handcock": {
-        "path": "C:\\Users\\Bryan\\OneDrive - ULEAM\\Tareas\\Segundo semestre\\Programacion estructurada\\Cine\\frontend\\cartelera\\portadas_peliculas\\Handcock.jpg",
+        "path": "C:\\Users\\Bryan\\OneDrive - ULEAM\\Tareas\\Segundo semestre\\Programacion estructurada\\Cine\\frontend\\cartelera\\portadas_peliculas\\Handcock.png",
         "salas": {
             "Sala 1": {
                 "9:00 AM": {"reservados": set(), "seleccionados": set()},
@@ -190,7 +190,7 @@ PELICULAS = {
     }
     ,
     "The punisher": {
-        "path": "C:\\Users\\Bryan\\OneDrive - ULEAM\\Tareas\\Segundo semestre\\Programacion estructurada\\Cine\\frontend\\cartelera\\portadas_peliculas\\The punisher.webp",
+        "path": "C:\\Users\\Bryan\\OneDrive - ULEAM\\Tareas\\Segundo semestre\\Programacion estructurada\\Cine\\frontend\\cartelera\\portadas_peliculas\\The punisher.png",
         "salas": {
             "Sala 6": {
                 "9:00 AM": {"reservados": set(), "seleccionados": set()},

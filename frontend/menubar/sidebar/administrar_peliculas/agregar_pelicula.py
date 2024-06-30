@@ -1,7 +1,7 @@
 import threading
 import customtkinter as ctk
 from tkinter import ttk
-from concurrent.futures import ThreadPoolExecutor
+from concurrent.futures import ThreadPoolExecutor, as_completed
 
 from frontend.utils import mostrar_error, mostrar_mensaje
 from backend.database import agregar_pelicula_bd
@@ -42,7 +42,7 @@ def frame_opciones_agregar_pelicula(ventana_agregar_pelicula, base):
                                 fg_color="transparent",
                                 hover=False,
                                 corner_radius=15,
-                                command=lambda : iniciar_hilo_buscar_peliculas(entry_nombre.get(), ventana_agregar_pelicula))
+                                command=lambda : iniciar_hilo_buscar_peliculas(entry_nombre.get(), ventana_agregar_pelicula)) #lambda: buscar_peliculas(entry_nombre.get(), ventana_agregar_pelicula))
     boton_buscar.grid(row=0, column=2, pady=10, padx=10, sticky="w")
     
     boton_buscar.bind("<Enter>", lambda e: enter_hover_boton_busqueda(boton_buscar))
@@ -99,7 +99,6 @@ def buscar_peliculas(entry_result, ventana_agregar_pelicula):
         if not respuesta or not resultados:
             mostrar_error("Error", "No se encontraron peliculas")
             return
-        
         future_peliculas = [executor.submit(API.obtener_datos_pelicula, valor["id"]) for valor in resultados]
         insertar_peliculas_tree_agregar(future_peliculas, ventana_agregar_pelicula.tree)
         
@@ -158,13 +157,17 @@ def insertar_pelicula_tree_agregar(datos, treeview):
     treeview.insert("", "end", values=datos_pelicula)
 
 def insertar_peliculas_tree_agregar(future_peliculas, treeview):
-    for future in future_peliculas:
+    print(future_peliculas)
+    print()
+    for future in as_completed(future_peliculas):
         try:
             resultado = future.result()
             if resultado:
                 insertar_pelicula_tree_agregar(resultado, treeview)
         except Exception as e:
                 mostrar_error("Error", f"Error al obtener datos de la película: {e}")
+    print()
+    print(future_peliculas)
 
 def salir_ventana_agregar_pelicula(ventana_agregar_pelicula):
     ventana_agregar_pelicula.destroy()

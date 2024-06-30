@@ -1,6 +1,5 @@
 import requests
-from typing import Dict, Any, List
-from concurrent.futures import ThreadPoolExecutor, as_completed
+from typing import Dict
 
 BASE_URL = "https://api.themoviedb.org/3"
 IMAGE_BASE_URL = "https://image.tmdb.org/t/p/original/"

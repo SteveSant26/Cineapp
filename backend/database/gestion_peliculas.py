@@ -8,9 +8,15 @@ def obtener_id_titulo_pelicula_bd():
     query = "SELECT id, titulo FROM peliculas"
     return ejecutar_query_obtener(query,"peliculas")
 
+
 def obtener_titulo_pelicula_por_id(id_pelicula: int):
     query = "SELECT titulo FROM peliculas WHERE id = %s"
     return ejecutar_query_obtener(query, "peliculas", datos=(id_pelicula,))
+
+def obtener_imagen_pelicula_por_id(id_pelicula: int):
+    query = "SELECT ruta_imagen FROM peliculas WHERE id = %s"
+    return ejecutar_query_obtener(query, "peliculas", datos=(id_pelicula,))[0][0]
+
 
 def agregar_pelicula_bd(datos_pelicula: tuple):
     query = "INSERT INTO peliculas (id, ruta_imagen, titulo, sinopsis, genero, duracion, estreno, promedio_votos) VALUES (%s, %s, %s, %s, %s, %s, %s, %s)"
