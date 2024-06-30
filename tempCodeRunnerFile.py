@@ -1,5 +1,2 @@
 
-
-def inicializar_app():
-    """ 
-    Inicializa la aplicación de la sala de cines.
+    base.titulo_pelicula

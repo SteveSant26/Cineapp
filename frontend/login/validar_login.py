@@ -19,7 +19,7 @@ def validar_login(usuario_entry:ctk.CTkEntry,contrasena_entry:ctk.CTkEntry,base:
         
     
         utils.configurar_ventana(base)
-    
+        
         #Se llama la funcion de Cartelera.py para mostrar las peliculas
         cartelera.iniciar_hilo_mostrar_peliculas(base)
     else:

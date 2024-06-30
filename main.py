@@ -1,6 +1,5 @@
 import customtkinter as ctk
 
-
 def inicializar_app():
     """ 
     Inicializa la aplicación de la sala de cines.
@@ -31,7 +30,6 @@ def inicializar_app():
     from frontend import login,utils
     
     try:
-        
         utils.configurar_apariencia()
 
         
@@ -52,7 +50,7 @@ def inicializar_app():
 
 
 
-
+    
 
 if __name__ == "__main__":
     inicializar_app()

@@ -10,7 +10,7 @@ from ..utils_menu_bar import limpiar_treeview, configurar_insertar_columnas_tree
 from ...barra_busqueda import enter_hover_boton_busqueda, leave_hover_boton_busqueda, crear_busqueda_img as CBI
 from backend import API
 
-executor = ThreadPoolExecutor(max_workers=3)
+executor = ThreadPoolExecutor(max_workers=8)
 
 
 def crear_ventana_agregar_pelicula(base):
@@ -83,13 +83,12 @@ def tree_agregar_pelicula(ventana_agregar_pelicula, base):
 
 
 def iniciar_hilo_buscar_peliculas(entry_result, ventana_agregar_pelicula):
+    limpiar_treeview(ventana_agregar_pelicula.tree)
     hilo_buscar_peliculas = threading.Thread(target=buscar_peliculas, args=(entry_result, ventana_agregar_pelicula))
     hilo_buscar_peliculas.start()
-    print(f"Hilos activos: {threading.active_count()}")
 
 
 def buscar_peliculas(entry_result, ventana_agregar_pelicula):
-    limpiar_treeview(ventana_agregar_pelicula.tree)
     if not entry_result:
         mostrar_error("Error", "No se ha ingresado un nombre de pelicula")
         return
@@ -106,12 +105,11 @@ def buscar_peliculas(entry_result, ventana_agregar_pelicula):
         mostrar_error("Error", f"No se pudo buscar las peliculas: {e}")
 
 def iniciar_hilo_peliculas_mas_recientes(ventana_agregar_pelicula):
+    limpiar_treeview(ventana_agregar_pelicula.tree)
     hilo_mas_recientes = threading.Thread(target=peliculas_mas_recientes, args=(ventana_agregar_pelicula,))
     hilo_mas_recientes.start()
-    print(f"Hilos activos: {threading.active_count()}")
 
 def peliculas_mas_recientes(ventana_agregar_pelicula):
-    limpiar_treeview(ventana_agregar_pelicula.tree)
     respuesta = API.obtener_peliculas_mas_recientes()
     try:
         resultados = respuesta.get("results")
@@ -157,8 +155,6 @@ def insertar_pelicula_tree_agregar(datos, treeview):
     treeview.insert("", "end", values=datos_pelicula)
 
 def insertar_peliculas_tree_agregar(future_peliculas, treeview):
-    print(future_peliculas)
-    print()
     for future in as_completed(future_peliculas):
         try:
             resultado = future.result()
@@ -166,8 +162,6 @@ def insertar_peliculas_tree_agregar(future_peliculas, treeview):
                 insertar_pelicula_tree_agregar(resultado, treeview)
         except Exception as e:
                 mostrar_error("Error", f"Error al obtener datos de la película: {e}")
-    print()
-    print(future_peliculas)
 
 def salir_ventana_agregar_pelicula(ventana_agregar_pelicula):
     ventana_agregar_pelicula.destroy()

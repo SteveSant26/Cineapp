@@ -1,7 +1,8 @@
 import customtkinter as ctk
 import threading
 from concurrent.futures import ThreadPoolExecutor
-from frontend import utils, menubar as MB
+from frontend import utils,menubar as MB
+from . import utils_cartelera as UC
 from backend.database import obtener_id_titulo_pelicula_bd
 
 def crear_cartelera(base, columnas: int):
@@ -15,16 +16,20 @@ def crear_cartelera(base, columnas: int):
 
     directorio_imagenes = "frontend\\cartelera\\portadas_peliculas"
     
-    with ThreadPoolExecutor() as executor:
+    
+    with ThreadPoolExecutor(max_workers=8) as executor:
         for index, (id_pelicula, titulo_pelicula) in enumerate(peliculas):
             fila = index // columnas + 1
             columna = index % columnas
             executor.submit(cargar_y_mostrar_imagen, base, directorio_imagenes, id_pelicula, titulo_pelicula, fila, columna)
-            
+
+
+
 
 def cargar_y_mostrar_imagen(base, directorio_imagenes,id_pelicula, titulo_pelicula, fila, columna):
     try:
-        imagen = utils.conseguir_imagen_portada_ctk(directorio_imagenes, id_pelicula, titulo_pelicula, 250, 300)
+        imagen = UC.conseguir_imagen_portada_ctk(directorio_imagenes, id_pelicula, titulo_pelicula, 250, 300)
+        
         crear_boton_pelicula(base, imagen, titulo_pelicula, fila, columna, id_pelicula)
     except Exception as e:
         print(f"Error al obtener la imagen de {titulo_pelicula}: {e}")
@@ -44,8 +49,11 @@ def crear_boton_pelicula(base, imagen, titulo, fila, columna, id_pelicula):
     boton_pelicula.grid(row=fila, column=columna, padx=10, pady=0)
 
 def iniciar_hilo_mostrar_peliculas(base: ctk.CTk):
-    hilo = threading.Thread(target=mostrar_peliculas, args=(base,))
+    utils.limpiar_widgets_base(base)
+
+    hilo = threading.Thread(target=mostrar_peliculas, daemon=True, args=(base,))
     hilo.start()
+
 
 def mostrar_peliculas(base: ctk.CTk):
     utils.limpiar_widgets_base(base)

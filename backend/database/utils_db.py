@@ -1,5 +1,21 @@
 from .crear_conexion import abrir_conexion
 from frontend.utils import mostrar_error
+import os
+
+def eliminar_imagen(nombre_imagen):
+    from frontend.cartelera import corregir_nombre_archivo
+    nombre_imagen = corregir_nombre_archivo(nombre_imagen)
+    directorio = "frontend\\cartelera\\portadas_peliculas"
+    ruta_archivo = f"{directorio}\\{nombre_imagen}.png"
+    print(ruta_archivo)
+    try:
+        if os.path.exists(ruta_archivo):
+            os.remove(ruta_archivo)
+            print(f"Archivo {ruta_archivo} eliminado exitosamente.")
+        else:
+            print(f"El archivo {ruta_archivo} no existe.")
+    except Exception as e:
+        print(f"Error al intentar eliminar el archivo {ruta_archivo}: {e}")
 
 def ejecutar_query_obtener(query, tabla, datos=None):
     try:
@@ -59,12 +75,20 @@ def ejecutar_query_editar(query, nuevos_datos, tabla):
                 str(datos_actuales[7]),   
                 datos_actuales[0], 
             )
+                imagen_actual = datos_actuales[0]
+                imagen_nueva = nuevos_datos[0]
+                nombre_pelicula = nuevos_datos[1]
+                if imagen_actual != imagen_nueva:
+                    eliminar_imagen(nombre_pelicula)
+                
+                
             if datos_actuales == nuevos_datos:
                 mostrar_error("Error al editar funcion", "No se ha modificado ningún campo de la funcion.")
                 return False
 
             cursor.execute(query, nuevos_datos)
             conexion.commit()
+            
         return True
     except Exception as e:
         mostrar_error("Error al editar funcion", f"No se pudo editar la funcion en la base de datos: {e}")
@@ -82,7 +106,10 @@ def ejecutar_query_eliminar(query, id_dato, tabla):
             if datos_sala is None:
                 mostrar_error(f"Error al eliminar {tabla[:-1]}", f"No se ha encontrado la {tabla[:-1]} a eliminar.")
                 return False
-            
+            if tabla == "peliculas":
+                nombre_pelicula = datos_sala[2]
+                eliminar_imagen(nombre_pelicula)
+                
             cursor.execute(query, (id_dato,))
             conexion.commit()
         return True

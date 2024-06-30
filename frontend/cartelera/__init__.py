@@ -1,2 +1,2 @@
 from .interfaz_cartelera import iniciar_hilo_mostrar_peliculas
-from . import datos_peliculas
+from .utils_cartelera import corregir_nombre_archivo

@@ -11,7 +11,7 @@
 
 
 -- CREATE TABLE salas (
---     id INT AUTO_INCREMENT PRIMARY KEY,
+--     id INT PRIMARY KEY,
 --     nombre VARCHAR(255) NOT NULL UNIQUE,
 --     filas INT,
 --     columnas INT
@@ -19,7 +19,7 @@
 
 
 -- CREATE TABLE funciones (
---     id INT AUTO_INCREMENT PRIMARY KEY,
+--     id INT PRIMARY KEY,
 --     pelicula_id INT,
 --     sala_id INT,
 --     fecha_hora DATETIME,
@@ -28,7 +28,7 @@
 -- );
 
 -- CREATE TABLE asientos_reservados (
---     id INT AUTO_INCREMENT PRIMARY KEY,
+--     id INT PRIMARY KEY,
 --     funcion_id INT,
 --     asientos JSON,
 --     FOREIGN KEY (funcion_id) REFERENCES funciones(id) ON DELETE CASCADE
