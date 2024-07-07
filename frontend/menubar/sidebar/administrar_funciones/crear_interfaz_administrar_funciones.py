@@ -3,9 +3,15 @@ from tkinter import ttk
 from tkcalendar import DateEntry
 from CTkSpinbox import *
 
-from backend.database import obtener_id_titulo_pelicula_bd,obtener_titulo_pelicula_por_id,obtener_id_nombre_sala_bd,obtener_nombre_sala_por_id
+from .utils_administrar_funciones import obtener_id_nombre_sala_bd, obtener_titulo_pelicula_por_id, obtener_nombre_sala_por_id
 from . import funciones_administrar_funciones as FAF
 from ..utils_menu_bar import agregar_separador
+
+from backend.database import ejecutar_query_obtener
+
+def obtener_id_titulo_pelicula_bd():
+    query = "SELECT id, titulo FROM peliculas"
+    return ejecutar_query_obtener(query,"peliculas")
 
 def administrar_funciones(base):
     
@@ -68,10 +74,10 @@ def entries_datos_funcion(frame_formulario,base):
     combobox_id_sala.set(" ")
     
     
-    label_fecha = ctk.CTkLabel(frame_formulario, text="Fecha:", font=("Arial", 16))
-    label_fecha.grid(row=5, column=0, pady=10, padx=20)
-    entry_fecha = DateEntry(frame_formulario, font=("Arial", 16), date_pattern='y-mm-dd')
-    entry_fecha.grid(row=5, column=1, pady=10, padx=20, sticky="nsew")
+    # label_fecha = ctk.CTkLabel(frame_formulario, text="Fecha:", font=("Arial", 16))
+    # label_fecha.grid(row=5, column=0, pady=10, padx=20)
+    # entry_fecha = DateEntry(frame_formulario, font=("Arial", 16), date_pattern='y-mm-dd')
+    # entry_fecha.grid(row=5, column=1, pady=10, padx=20, sticky="nsew")
 
 
     label_hora = ctk.CTkLabel(frame_formulario, text="Hora:", font=("Arial", 16))
@@ -92,7 +98,7 @@ def entries_datos_funcion(frame_formulario,base):
         "id": entry_id,
         "id pelicula": combobox_id_pelicula,
         "id sala": combobox_id_sala,
-        "fecha": entry_fecha,
+        # "fecha": entry_fecha,
         "hora": spinbox_hora,
         "minuto": spinbox_minuto,
     }
@@ -118,7 +124,7 @@ def treeview_funciones(frame_administrar_salas,base):
     frame_tree.grid(row=0, column=1, padx=5, pady=10, sticky="nsew")
     frame_tree.grid_propagate(False)
 
-    columnas_nombres = [key.capitalize() for key in base.entries_funciones.keys() if key != "hora" and key != "minuto"]
+    columnas_nombres = [key.capitalize() for key in base.entries_funciones.keys() if key != "hora" and key != "minuto"]+["Hora"]
     
     ancho_columnas = {
         "Id": 100,
@@ -150,7 +156,7 @@ def seleccionar_fila(event, entries, tree):
 
         item_seleccionado = tree.focus()
         values = tree.item(item_seleccionado)["values"]
-
+        print(values)
         entries["id"].delete(0, "end")
         entries["id"].insert(0, values[0])
 
@@ -168,15 +174,14 @@ def seleccionar_fila(event, entries, tree):
         entries["id sala"].set(nombre_id_sala)
 
         # Actualizar fecha y hora
-        fecha = values[3].split(" ")[0]
-        hora = values[3].split(" ")[1]
+        hora = values[3]
         
         horas = int(hora.split(":")[0])
         
         minutos = int(hora.split(":")[1])
         
-        entries["fecha"].delete(0, "end")
-        entries["fecha"].insert(0, fecha)
+        # entries["fecha"].delete(0, "end")
+        # entries["fecha"].insert(0, fecha)
         
         entries["hora"].set(horas)
         

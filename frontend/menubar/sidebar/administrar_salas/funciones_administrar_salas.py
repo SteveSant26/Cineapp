@@ -9,16 +9,16 @@ def conseguir_datos_sala(base):
         filas = base.entries_salas["filas"].get()
         columnas = base.entries_salas["columnas"].get()
         
-        if not (id and nombre and filas and columnas):
+        if not (nombre and filas and columnas):
             mostrar_error("Error de Validación", "Todos los campos obligatorios deben estar llenos.")
             return
-        datos = (int(id), nombre, filas, columnas)
+        datos = (id, nombre, filas, columnas)
         return datos
     except Exception as e:
         mostrar_error("Error", f"Se produjo un error: {e}")
 
 def agregar_sala(base):
-    datos = conseguir_datos_sala(base)
+    datos = conseguir_datos_sala(base)[1:]
     try:
         if not DB.agregar_sala_bd(datos):
             return

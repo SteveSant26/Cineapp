@@ -1,10 +1,9 @@
 import customtkinter as ctk
 import tkinter as tk
 
-from frontend.cartelera import datos_peliculas as DP
 from frontend.utils import Colores_Temas as CT
-
 from .import asientos as A
+from .utils_pc import obtener_salas,obtener_funciones,obtener_funcion_id_por_sala_pelicula_id,obtener_sala_id_por_nombre_bd
 
 
 from . import funcion_botones_opciones as FBO
@@ -16,21 +15,22 @@ def crear_combobox(base)->None:
     titulo_combobox = ctk.CTkLabel(
         base.frame_opciones, text="Seleccione la sala", font=("Arial", 20))
     titulo_combobox.grid(row=2, column=0, pady=10, padx=20)
-    #Se pasan las salas de la pelicula seleccionada a la lista salas
     
-    base.salas = list(
-        DP.PELICULAS[base.titulo_pelicula]["salas"].keys())
-    #Se inicializa la sala actual con la primera sala de la lista
+    if base.salas is None:
+        base.salas = obtener_salas(base.pelicula_id)
+        print(base.salas)
+
     if base.sala_actual is None:
-        base.sala_actual = str(base.salas[0])
+        base.sala_actual = base.salas[0]
+        base.sala_actual_id = obtener_sala_id_por_nombre_bd(base.sala_actual)[0][0]
         
-    #Se obtiene la lista de las funciones de la sala actual
-    base.funciones = list(
-            DP.PELICULAS[base.titulo_pelicula]["salas"][base.sala_actual].keys())
+        
+    base.funciones = obtener_funciones(base.pelicula_id,base.sala_actual)
 
-    #Se inicializa la función actual con la primera función de la lista
-    base.funcion_actual = str(base.funciones[0])
 
+    base.funcion_actual = base.funciones[0]
+    base.funcion_actual_id = obtener_funcion_id_por_sala_pelicula_id(base.sala_actual_id,base.pelicula_id,base.funcion_actual)
+    
 
     # Se crea el combobox con las salas de la pelicula seleccionada
     base.combobox_sala = ctk.CTkComboBox(base.frame_opciones,

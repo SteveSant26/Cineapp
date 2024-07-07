@@ -1,2 +1,3 @@
+import customtkinter as ctk
 
-    base.titulo_pelicula
+def inicializar_app():

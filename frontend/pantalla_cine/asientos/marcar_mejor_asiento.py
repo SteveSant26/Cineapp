@@ -22,12 +22,11 @@ def encontrar_mejor_asiento(base) -> tuple:
     centro = base.columnas_sala // 2
 
     # Se crea una lista de tuplas con las coordenadas de los asientos disponibles
-    
     asientos_disponibles = [
         (i, j) for i in range(2,base.filas_sala+2) for j in range(1,base.columnas_sala+1)
-        if (i, j) not in DP.PELICULAS[base.titulo_pelicula]["salas"][base.sala_actual][base.funcion_actual]["reservados"]
+        if (i, j) not in base.asientos_reservados
         # Si se desea también excluir los asientos ya seleccionados, descomentar la siguiente línea:
-        # and (i, j) not in Datos.PELICULAS[base.titulo_pelicula]["salas"][base.sala_actual][base.funcion_actual]["seleccionados"]
+        # and (i, j) not in base.asientos_seleccionados
     ]
 
     # Si no hay asientos disponibles se muestra un mensaje de error

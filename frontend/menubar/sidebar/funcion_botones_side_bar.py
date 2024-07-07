@@ -48,6 +48,9 @@ def cambiar_tema(switch: ctk.CTkSwitch, base: ctk.CTk):
 
 
 
-def salir(base:ctk.CTkFrame):
+def cerrar_sesion(base:ctk.CTkFrame):
     """ Cierra la aplicación."""
-    base.destroy()
+    from frontend import login
+    utils.limpiar_widgets_base(base)
+    utils.configurar_ventana_login(base)
+    login.crear_login(base)

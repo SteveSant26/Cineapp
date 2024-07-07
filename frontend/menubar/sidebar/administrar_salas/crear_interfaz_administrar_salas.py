@@ -53,14 +53,14 @@ def entries_datos_sala(frame_formulario,base):
     label_filas = ctk.CTkLabel(frame_formulario, text="Filas sala:", font=("Arial",16))
     label_filas.grid(row=4, column=0, pady=10, padx=20)
     
-    spinbox_filas = CTkSpinbox(frame_formulario, min_value=1, max_value=20, start_value=4,button_color="#329ADF",button_hover_color="#31AF9C",font=("Arial",16))
+    spinbox_filas = CTkSpinbox(frame_formulario, min_value=1, max_value=10, start_value=4,button_color="#329ADF",button_hover_color="#31AF9C",font=("Arial",16))
     spinbox_filas.grid(row=4, column=1, pady=10, padx=20, sticky="nsew")
     
     
     label_columnas = ctk.CTkLabel(frame_formulario, text="Columnas sala:", font=("Arial",16))
     label_columnas.grid(row=5, column=0, pady=10, padx=20)
     
-    spinbox_columnas = CTkSpinbox(frame_formulario, min_value=1, max_value=20, start_value=4,button_color="#329ADF",button_hover_color="#31AF9C",font=("Arial",16))
+    spinbox_columnas = CTkSpinbox(frame_formulario, min_value=1, max_value=10, start_value=4,button_color="#329ADF",button_hover_color="#31AF9C",font=("Arial",16))
     spinbox_columnas.grid(row=5, column=1, pady=10, padx=20, sticky="nsew")
     
     

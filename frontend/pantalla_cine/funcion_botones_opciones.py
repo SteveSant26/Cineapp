@@ -1,12 +1,11 @@
 import customtkinter as ctk
 
-from frontend.cartelera import datos_peliculas as DP
 
 from frontend import utils
 
 from . import asientos as A
 from . import frame_vista_cine as FVC 
-
+from .utils_pc import obtener_funcion_id_por_sala_pelicula_id,obtener_funciones,obtener_sala_id_por_nombre_bd
 
 def actualizar_sala_por_combobox(event, base)->None:
     """
@@ -23,19 +22,25 @@ def actualizar_sala_por_combobox(event, base)->None:
 
     nueva_sala = base.combobox_sala.get()
     if nueva_sala != base.sala_actual:
-        
+    
         # Se actualiza la sala actual, se cambia el mejor asiento a none otra vez
         base.mejor_asiento = None
 
+
         base.sala_actual = nueva_sala
-        #Se obtiene la primera funcion de la sala actual
-        base.funciones = list(
-            DP.PELICULAS[base.titulo_pelicula]["salas"][base.sala_actual].keys())
+        base.sala_actual_id = obtener_sala_id_por_nombre_bd(base.sala_actual)[0][0]
         
+        
+        base.funciones = obtener_funciones(base.pelicula_id,nueva_sala)
         base.funcion_actual = base.funciones[0]
+
+        base.funcion_actual_id = obtener_funcion_id_por_sala_pelicula_id(base.sala_actual_id,base.pelicula_id,base.funcion_actual)
+
+
         
         # Se actualizan los botones de las funciones
         actualizar_botones_funciones(base)
+        
         base.frame_sala.destroy()
         
         base.frame_opciones.destroy()
@@ -49,10 +54,11 @@ def actualizar_botones_funciones(base)->None:
     utils.limpiar_widgets_base(base.frame_funciones)
 
     #Se obtienen las funciones de la sala actual
-    base.funciones = list(
-        DP.PELICULAS[base.titulo_pelicula]['salas'][base.sala_actual].keys())
-    #Se obtiene la primera funcion de la sala actual
+    base.funciones = obtener_funciones(base.pelicula_id,base.sala_actual)
+
     base.funcion_actual = base.funciones[0]
+    base.funcion_actual_id = obtener_funcion_id_por_sala_pelicula_id(base.sala_actual_id,base.pelicula_id,base.funcion_actual)
+
 
     # Se crean los botones de las funciones
     for idx, funcion in enumerate(base.funciones):
@@ -84,6 +90,7 @@ def actualizar_sala_por_funcion(funcion:str, base)->None:
     # Se verifica que la funcion seleccionada sea diferente a la funcion actual
     if funcion != base.funcion_actual:
         
+        
         # Se actualiza la sala actual, se cambia el mejor asiento a none otra vez
         base.mejor_asiento = None
         #Se habilita el boton de la funcion actual ya que se selecciono otra funcion
@@ -93,6 +100,9 @@ def actualizar_sala_por_funcion(funcion:str, base)->None:
         base.botones_funciones[funcion].configure(state="disabled", fg_color="#248CD3")
         #Se actualiza la funcion actual
         base.funcion_actual = funcion
+        print(base.funcion_actual)
+        base.funcion_actual_id = obtener_funcion_id_por_sala_pelicula_id(base.sala_actual_id,base.pelicula_id,base.funcion_actual)
+        print(base.funcion_actual_id)
         #Se generan los asientos de la sala actual
         A.crear_asientos(base)
 

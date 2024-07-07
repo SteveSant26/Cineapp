@@ -32,6 +32,7 @@ def ejecutar_query_obtener(query, tabla, datos=None):
         return []
     
 def ejecutar_query_agregar(query, datos, tabla):
+    print(datos)
     try:
         conexion = abrir_conexion()
         with conexion.cursor() as cursor:
@@ -53,7 +54,7 @@ def ejecutar_query_editar(query, nuevos_datos, tabla):
             cursor.execute(f"SELECT * from {tabla} WHERE id = %s", (id_query,))
             datos_actuales = cursor.fetchone()
 
-            if datos_actuales is None:
+            if datos_actuales is None and tabla != "asientos_reservados":
                 mostrar_error(f"Error al editar {tabla[:-1]}", f"No se ha encontrado la {tabla[:-1]} a editar.")
                 return False
             
@@ -122,24 +123,25 @@ def ejecutar_query_eliminar(query, id_dato, tabla):
 
 def verificar_funcion_existente(cursor, parametros,operacion):
     try:
-        cursor.execute("SELECT id, sala_id, fecha_hora FROM funciones")
+        cursor.execute("SELECT id, sala_id, hora FROM funciones")
         resultado = cursor.fetchall()
-
-        for id,sala_id, fecha_hora in resultado:
-            fecha_hora_str = str(fecha_hora)
+        print(f"Resultado: {parametros}")
+        for id,sala_id, hora in resultado:
+            hora_str = str(hora)
             if operacion == "agregar":
-                sala_id_nueva = parametros[2]
-                fecha_hora_nueva = parametros[3]
-                if sala_id_nueva == sala_id and fecha_hora_nueva == fecha_hora_str:
-                    mostrar_error(f"Error al agregar {operacion}", "Ya existe una función en esa sala y en ese horario.")
+                sala_id_nueva = parametros[1]
+                hora_nueva = parametros[2]
+                print(f"Sala id nueva: {sala_id_nueva}, hora nueva: {hora_nueva}, sala id: {sala_id}, hora: {hora_str}")
+                if sala_id_nueva == sala_id and hora_nueva == hora_str:
+                    mostrar_error(f"Error al agregar  la funcion", "Ya existe una función en esa sala y en ese horario.")
                     return False
             elif operacion == "editar":
                 id_funcion = parametros[3]
                 sala_id_nueva = parametros[1]
-                fecha_hora_nueva = parametros[2]
-                print(id_funcion,sala_id_nueva, fecha_hora_nueva, id, sala_id, fecha_hora_str)
-                if sala_id_nueva == sala_id and fecha_hora_nueva == fecha_hora_str and id_funcion != id:
-                    mostrar_error(f"Error al editar {operacion}", "Ya existe una función en esa sala y en ese horario.")
+                hora_nueva = parametros[2]
+                print(f"Sala id nueva: {sala_id_nueva}, hora nueva: {hora_nueva}, sala id: {sala_id}, hora: {hora_str}")
+                if sala_id_nueva == sala_id and hora_nueva == hora_str and id_funcion != id:
+                    mostrar_error(f"Error al editar la funcion", "Ya existe una función en esa sala y en ese horario.")
                     return False
         
         return True

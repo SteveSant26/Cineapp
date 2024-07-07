@@ -3,10 +3,9 @@ import threading
 from concurrent.futures import ThreadPoolExecutor
 from frontend import utils,menubar as MB
 from . import utils_cartelera as UC
-from backend.database import obtener_id_titulo_pelicula_bd
 
 def crear_cartelera(base, columnas: int):
-    peliculas = obtener_id_titulo_pelicula_bd()
+    peliculas = UC.obtener_id_titulo_pelicula_bd()
     filas = (len(peliculas) + columnas - 1) // columnas
 
     for i in range(filas):
@@ -44,7 +43,7 @@ def crear_boton_pelicula(base, imagen, titulo, fila, columna, id_pelicula):
         text_color=("black", "White"),
         font=("Arial", 15, "bold"),
         fg_color="transparent",
-        command=lambda p=titulo: seleccionar_pelicula(base, p),
+        command=lambda p=titulo: seleccionar_pelicula(base, p,id_pelicula),
     )
     boton_pelicula.grid(row=fila, column=columna, padx=10, pady=0)
 
@@ -59,7 +58,7 @@ def mostrar_peliculas(base: ctk.CTk):
     utils.limpiar_widgets_base(base)
     
     base.frame_peliculas = ctk.CTkScrollableFrame(base, fg_color="transparent", border_color="black")
-    MB.crear_menu_bar(base, busqueda=True)
+    MB.crear_menu_bar(base) #busqueda=True para mostrar searchbar
     
     base.frame_peliculas.pack(fill="both", expand=True)
     base.frame_peliculas.pack_propagate(False)
@@ -71,12 +70,13 @@ def mostrar_peliculas(base: ctk.CTk):
 
     crear_cartelera(base, columnas=5)
 
-def seleccionar_pelicula(base: ctk.CTk, pelicula: str):
+def seleccionar_pelicula(base: ctk.CTk, pelicula: str,id_pelicula:int):
     from frontend import pantalla_cine as PC
 
     base.sala_actual = None
+    base.salas = None
     base.mejor_asiento = None
     base.botones_funciones = {}
     base.titulo_pelicula = pelicula
-    
+    base.pelicula_id = id_pelicula
     PC.crear_vista_cine(base)

@@ -12,10 +12,10 @@ def conseguir_imagen_ctk(path_light: str, ancho: int, largo: int, path_dark: str
         if imagen_dark is None:
             print(f"Error al cargar la imagen del modo oscuro: {path_dark}")
         imagen_ctk = ctk.CTkImage(light_image=imagen_light, dark_image=imagen_dark, size=(ancho, largo))
+        return imagen_ctk
     else:
         imagen_ctk = ctk.CTkImage(light_image=imagen_light, size=(ancho, largo))
-    
-    return imagen_ctk
+        return imagen_ctk
 
 
 def conseguir_imagen_local(path: str):

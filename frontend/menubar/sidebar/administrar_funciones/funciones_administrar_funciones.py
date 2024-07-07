@@ -7,21 +7,21 @@ def conseguir_datos_funcion(base):
         id = base.entries_funciones["id"].get()
         id_pelicula = (base.entries_funciones["id pelicula"].get().split(" - ")[0])
         id_sala = (base.entries_funciones["id sala"].get().split(" - ")[0])
-        fecha = base.entries_funciones["fecha"].get()
         horas = base.entries_funciones["hora"].get()
         minutos = base.entries_funciones["minuto"].get()
-        fecha_hora = f"{fecha} {horas}:{minutos}:00"
+        hora = f"{horas:02}:{minutos:02}:00"
+        print(id)
         
-        if not (id and id_pelicula and id_sala and fecha_hora):
+        if not (id_pelicula and id_sala and hora):
             mostrar_error("Error de Validación", "Todos los campos obligatorios deben estar llenos.")
             return
-        datos = (int(id), int(id_pelicula), int(id_sala), fecha_hora)
+        datos = (id, int(id_pelicula), int(id_sala), hora)
         return datos
     except Exception as e:
         mostrar_error("Error", f"Se produjo un error: {e}")
 
 def agregar_funcion(base):
-    datos_funcion = conseguir_datos_funcion(base)
+    datos_funcion = conseguir_datos_funcion(base)[1:]
     try:
         if not DB.agregar_funcion_bd(datos_funcion):
             return

@@ -1,4 +1,5 @@
-from tkinter import messagebox,ttk
+from tkinter import messagebox
+
 
 import customtkinter as ctk
 
@@ -10,6 +11,14 @@ def mostrar_mensaje(titulo:str, mensaje:str)->None:
     """ Muestra mensaje en un messagebox y en consola."""
     messagebox.showinfo(titulo, mensaje)
     print(mensaje)
+    
+def configurar_ventana_login(base: ctk.CTk)->None:
+    """ Se configura la ventana principal de la aplicación."""
+    limpiar_widgets_base(base)
+    base.geometry("400x700")
+    base.state("normal")
+    base.resizable(False, False)
+    
 def configurar_ventana(base: ctk.CTk)->None:
     """ Se configurar la ventana principal de la aplicación."""
     from frontend.menubar.sidebar import configurar_treeview_oscuro
@@ -19,10 +28,6 @@ def configurar_ventana(base: ctk.CTk)->None:
     
     base.state("zoomed")
     configurar_treeview_oscuro()
-    
-    
-
-
 
 def limpiar_widgets_base(base:ctk.CTk)->None:
     """ Esta funcion elimina todos los widgets de la base."""
@@ -40,3 +45,4 @@ def cambiar_color_texto(boton)->None:
         boton.configure(text_color="white")
     else:
         boton.configure(text_color="black")
+        

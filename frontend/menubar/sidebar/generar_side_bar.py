@@ -148,7 +148,7 @@ def colocar_boton_salir(base: ctk.CTk):
         None
     """
     boton_salir = ctk.CTkButton(base.toggle_menu,
-                                text="Salir",
+                                text="Cerrar sesión",
                                 width=250,
                                 height=40,
                                 fg_color="#329ADF",
@@ -157,7 +157,7 @@ def colocar_boton_salir(base: ctk.CTk):
                                 border_color="black",
                                 font=("Arial", 15, "bold"),
                                 hover_color="#31AF9C",
-                                command=lambda: BSB.salir(base))
+                                command=lambda: BSB.cerrar_sesion(base))
     boton_salir.place(x=20, y=330)
 
 

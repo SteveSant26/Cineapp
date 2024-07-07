@@ -10,6 +10,7 @@ from ..utils_menu_bar import limpiar_treeview, configurar_insertar_columnas_tree
 from ...barra_busqueda import enter_hover_boton_busqueda, leave_hover_boton_busqueda, crear_busqueda_img as CBI
 from backend import API
 
+
 executor = ThreadPoolExecutor(max_workers=8)
 
 
