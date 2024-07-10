@@ -57,7 +57,7 @@ def entries_datos_pelicula(frame_formulario, base):
 
     label_sinopsis = ctk.CTkLabel(frame_formulario, text="Sinopsis:", font=("Arial", 16))
     label_sinopsis.grid(row=5, column=0, columnspan=2, pady=10, padx=20, sticky="nsew")
-    texbox_sinopsis = ctk.CTkTextbox(frame_formulario, font=("Arial", 14, "bold"), height=50)
+    texbox_sinopsis = ctk.CTkTextbox(frame_formulario, font=("Arial", 14, "bold"), height=50,wrap="word")
     texbox_sinopsis.grid(row=6, column=0, columnspan=2, pady=(0, 10), padx=20, sticky="nsew")
     
     label_genero = ctk.CTkLabel(frame_formulario, text="Genero:", font=("Arial", 16))

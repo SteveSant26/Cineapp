@@ -66,8 +66,8 @@ def crear_frame_opciones(base)->None:
         base.frame_opciones.grid_propagate(False)
 
         # Se crea el titulo del menu de las opciones
-        titulo_menu = ctk.CTkLabel(base.frame_opciones, text=f"MENU - {base.titulo_pelicula}",
-                                font=("Arial", 30, "bold"))
+        titulo_menu = ctk.CTkLabel(base.frame_opciones, text=f"{base.titulo_pelicula}",
+                                font=("Arial", 30, "bold"),wraplength=400)
 
         titulo_menu.grid(row=0, column=0, pady=20, padx=20,
                         columnspan=2, sticky="nsew")

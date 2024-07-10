@@ -7,8 +7,17 @@ def  validar_login(usuario_entry:ctk.CTkEntry,contrasena_entry:ctk.CTkEntry,base
     """ Valida el login del usuario"""
     try:
         #Se obtiene el usuario y contraseña ingresados y se limpian los entrys
-        usuario = usuario_entry.get()
-        contrasena = contrasena_entry.get()
+        # usuario = usuario_entry.get()
+        # contrasena = contrasena_entry.get()
+        
+        
+        #Admin para pruebas
+        # usuario = "SteveSant"
+        # contrasena = "bryan123"
+        
+        #Cliente para pruebas
+        usuario = "Steven123"
+        contrasena = "steven26"
 
 
         for usuario_db in obtener_usuarios_bd():
@@ -17,6 +26,7 @@ def  validar_login(usuario_entry:ctk.CTkEntry,contrasena_entry:ctk.CTkEntry,base
             
                 base.usuario = usuario_db[3]
                 base.tipo_usuario = usuario_db[5]
+                base.usuario_id = usuario_db[0]
                 utils.configurar_ventana(base)
                 
                 usuario_entry.delete(0, "end")

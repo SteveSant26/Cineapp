@@ -5,3 +5,4 @@ from .gestion_salas import obtener_salas_bd, agregar_sala_bd, editar_sala_bd, el
 from .gestion_funciones import obtener_funciones_bd, agregar_funcion_bd, editar_funcion_bd, eliminar_funcion_bd
 from .gestion_asientos import obtener_asientos_reservados, crear_asientos_reservados, editar_asiento_reservado
 from .gestion_usuarios import obtener_usuarios_bd, agregar_usuario_bd
+from .gestion_comentarios import obtener_comentarios_pelicula, agregar_comentario_pelicula

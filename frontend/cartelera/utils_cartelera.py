@@ -54,8 +54,8 @@ def buscar_imagen_recursivamente(directorio: str, archivo_png: str) -> bool:
             elif os.path.isfile(path) and archivo_dir == archivo_png:
                 return True
     except PermissionError:
-        pass
-    return False
+        print(f"Error de permisos al buscar la imagen: {archivo_png}")
+        return False
 
 def descargar_imagen(url: str, directorio_destino: str, archivo_png: str) -> str:
     if not os.path.exists(directorio_destino):

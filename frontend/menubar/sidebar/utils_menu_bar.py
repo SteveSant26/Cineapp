@@ -28,14 +28,14 @@ def configurar_treeview_oscuro()->None:
     style.theme_use("clam")
     
     style.configure("Treeview", 
-                    font=("Arial", 14),
+                    font=("Arial", 16),
                     rowheight=50,
                     background="#1c1c1c",
                     fieldbackground="#1c1c1c",
                     foreground="white")
     
     style.configure("Treeview.Heading", 
-                    font=("Arial", 16, "bold"),
+                    font=("Arial", 20, "bold"),
                     background="#329ADF",
                     foreground="white",
                     relief="flat")

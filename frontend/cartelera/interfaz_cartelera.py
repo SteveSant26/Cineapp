@@ -3,6 +3,7 @@ import threading
 from concurrent.futures import ThreadPoolExecutor
 from frontend import utils,menubar as MB
 from . import utils_cartelera as UC
+from .descripcion_peliculas.interfaz_descripcion_peliculas import crear_descripcion_peliculas
 
 def crear_cartelera(base, columnas: int):
     peliculas = UC.obtener_id_titulo_pelicula_bd()
@@ -34,16 +35,22 @@ def cargar_y_mostrar_imagen(base, directorio_imagenes,id_pelicula, titulo_pelicu
         print(f"Error al obtener la imagen de {titulo_pelicula}: {e}")
         
 def crear_boton_pelicula(base, imagen, titulo, fila, columna, id_pelicula):
+    maxima_longitud = 30
+    titulo_ajustado = titulo
+    if len(titulo_ajustado) > maxima_longitud:
+        titulo_ajustado = titulo[:maxima_longitud] + "..."
+    
+        
     boton_pelicula = ctk.CTkButton(
         base.frame_peliculas,
         image=imagen,
         hover_color="#31AF9C",
         compound="top",
-        text=titulo,
+        text=titulo_ajustado,
         text_color=("black", "White"),
         font=("Arial", 15, "bold"),
         fg_color="transparent",
-        command=lambda p=titulo: seleccionar_pelicula(base, p,id_pelicula),
+        command=lambda titulo_pelicula=titulo: seleccionar_pelicula(base, titulo_pelicula,id_pelicula),
     )
     boton_pelicula.grid(row=fila, column=columna, padx=10, pady=0)
 
@@ -79,4 +86,9 @@ def seleccionar_pelicula(base: ctk.CTk, pelicula: str,id_pelicula:int):
     base.botones_funciones = {}
     base.titulo_pelicula = pelicula
     base.pelicula_id = id_pelicula
-    PC.crear_vista_cine(base)
+    
+    if base.tipo_usuario == "admin":
+        return PC.crear_vista_cine(base)
+    if base.tipo_usuario == "cliente":
+        return crear_descripcion_peliculas(base, id_pelicula,pelicula)
+    

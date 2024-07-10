@@ -4,6 +4,8 @@ from typing import Dict
 BASE_URL = "https://api.themoviedb.org/3"
 IMAGE_BASE_URL = "https://image.tmdb.org/t/p/original/"
 DEFAULT_IMAGE_URL = "https://www.publicdomainpictures.net/pictures/280000/velka/not-found-image-15383864787lu.jpg"
+
+
 HEADERS = {
     "accept": "application/json",
     "Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI0MDE4NDJkMTJhYzgxZDFmN2Y3ZGE2YzQzNzEwYzgwZSIsInN1YiI6IjY2NmNkNDFiYzkyNjg4ZDhmYmNlMjNkNiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.svnAGa6VzB2wayS8IQ__rneq5TelmDvMJwg7vhCj0uA"
@@ -51,3 +53,12 @@ def obtener_datos_pelicula(pelicula_id: int) -> Dict:
     else:
         print("Error al obtener detalles de la película")
         return None
+
+def obtener_trailer(pelicula_id: int) -> str:
+    response_json = hacer_consulta_api(f"movie/{pelicula_id}/videos", {"language": "es-ES"})
+    if response_json:
+        for video in response_json.get("results", []):
+            if video.get("type") == "Trailer" and video.get("site") == "YouTube":
+                return video.get("key")
+    return None
+

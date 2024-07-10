@@ -4,7 +4,7 @@ def inicializar_app():
     """ 
     Inicializa la aplicación de la sala de cines.
     Creo diferentes instancias de base para el manejo mas sencillo de las ventanas.
-        
+    
     base.titulo_pelicula
     base.frame_opciones_sala
     base.frame_opciones
