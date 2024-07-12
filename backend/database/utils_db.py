@@ -81,6 +81,8 @@ def ejecutar_query_editar(query, nuevos_datos, tabla):
                 nombre_pelicula = nuevos_datos[1]
                 if imagen_actual != imagen_nueva:
                     eliminar_imagen(nombre_pelicula)
+            elif tabla == "usuarios":
+                datos_actuales = (datos_actuales[1], datos_actuales[2], datos_actuales[3], datos_actuales[4], datos_actuales[0])
                 
                 
             if datos_actuales == nuevos_datos:

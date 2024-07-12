@@ -1,6 +1,14 @@
 import customtkinter as ctk
 from frontend import utils
 
+def crear_frame_editar_perfil(base:ctk.CTkFrame):
+    """ Edita el perfil del usuario."""
+    from frontend import menubar as MB
+    from . import editar_perfil as EP
+    utils.limpiar_widgets_base(base)
+    MB.crear_menu_bar(base)
+    EP.editar_perfil(base)
+
 
 
 def crear_frame_administrar_peliculas(base: ctk.CTkFrame):

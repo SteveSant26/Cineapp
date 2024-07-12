@@ -44,6 +44,20 @@ def colocar_boton_inicio(base: ctk.CTk):
     boton_inicio.place(x=20, y=30)
 
 
+
+def colocar_boton_editar_perfil(base: ctk.CTk):
+    boton_editar_perfil = ctk.CTkButton(base.toggle_menu,
+                                                text="Editar perfil",
+                                                width=250,
+                                                height=40,
+                                                border_width=1,
+                                                border_color="black",
+                                                fg_color="#329ADF",
+                                                font=("Arial", 15, "bold"),
+                                                hover_color="#31AF9C",
+                                                command=lambda: BSB.crear_frame_editar_perfil(base))
+    boton_editar_perfil.place(x=20, y=90)
+
 def colocar_boton_administrar_peliculas(base: ctk.CTk):
     boton_administrar_peliculas = ctk.CTkButton(base.toggle_menu,
                                                 text="Administrar peliculas",
@@ -55,7 +69,7 @@ def colocar_boton_administrar_peliculas(base: ctk.CTk):
                                                 font=("Arial", 15, "bold"),
                                                 hover_color="#31AF9C",
                                                 command=lambda: BSB.crear_frame_administrar_peliculas(base))
-    boton_administrar_peliculas.place(x=20, y=90)
+    boton_administrar_peliculas.place(x=20, y=150)
 
 def colocar_boton_administrar_salas(base: ctk.CTk):
     """
@@ -78,7 +92,7 @@ def colocar_boton_administrar_salas(base: ctk.CTk):
                                             font=("Arial", 15, "bold"),
                                             hover_color="#31AF9C",
                                             command=lambda: BSB.crear_frame_administrar_salas(base))
-    boton_administrar_salas.place(x=20, y=150)
+    boton_administrar_salas.place(x=20, y=210)
 
 def colocar_boton_administrar_funciones(base: ctk.CTk):
     """
@@ -100,7 +114,7 @@ def colocar_boton_administrar_funciones(base: ctk.CTk):
                                                 font=("Arial", 15, "bold"),
                                                 hover_color="#31AF9C",
                                                 command=lambda: BSB.crear_frame_administrar_funciones(base))
-    boton_administrar_funciones.place(x=20, y=210)
+    boton_administrar_funciones.place(x=20, y=270)
 
 
 
@@ -133,11 +147,13 @@ def colocar_boton_cambiar_tema(base: ctk.CTk):
         switch_tema.deselect()
     else:
         switch_tema.select()
+    if base.tipo_usuario == "cliente":
+        switch_tema.place(x=20, y=150)
+    else:
+        switch_tema.place(x=20, y=330)
 
-    switch_tema.place(x=20, y=270)
 
-
-def colocar_boton_salir(base: ctk.CTk):
+def colocar_boton_cerrar_sesion(base: ctk.CTk):
     """
     Coloca un botón de salida en la interfaz gráfica.
 
@@ -158,17 +174,31 @@ def colocar_boton_salir(base: ctk.CTk):
                                 font=("Arial", 15, "bold"),
                                 hover_color="#31AF9C",
                                 command=lambda: BSB.cerrar_sesion(base))
-    boton_salir.place(x=20, y=330)
+    if base.tipo_usuario == "cliente":
+        boton_salir.place(x=20, y=210)
+    else:
+        boton_salir.place(x=20, y=390)
 
 
 def crear_opciones_side_bar(base: ctk.CTk):
+    botones_comunes = [
+        colocar_boton_inicio,
+        colocar_boton_editar_perfil,
+        colocar_boton_cambiar_tema,
+        colocar_boton_cerrar_sesion
+    ]
 
-    colocar_boton_inicio(base)
-    colocar_boton_administrar_peliculas(base)
-    colocar_boton_administrar_funciones(base)
-    colocar_boton_administrar_salas(base)
-    colocar_boton_cambiar_tema(base)
-    colocar_boton_salir(base)
+    if base.tipo_usuario == "cliente":
+        botones_especificos = []
+    else:
+        botones_especificos = [
+            colocar_boton_administrar_peliculas,
+            colocar_boton_administrar_funciones,
+            colocar_boton_administrar_salas
+        ]
+
+    for boton in botones_comunes + botones_especificos:
+        boton(base)
 
 def ocultar_side_bar(base: ctk.CTk, separador):
     """

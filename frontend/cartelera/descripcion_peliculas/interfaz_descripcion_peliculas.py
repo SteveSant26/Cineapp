@@ -3,7 +3,7 @@ import customtkinter as ctk
 from .. import utils_cartelera as UC
 from .utils_interfaz_descripcion_peliculas import obtener_pelicula_por_id, agregar_separador
 from frontend import utils, menubar as MB
-from . import botones_funciones_descripcion_peliculas as BFDP
+from . import botones_descripcion_peliculas as BFDP
 
 
 
@@ -24,6 +24,8 @@ def crear_descripcion_peliculas(base, id_pelicula: int, pelicula: str):
     
     crear_frame_foto_pelicula(frame_foto_descripcion, id_pelicula, pelicula)
     crear_frame_descripcion_pelicula(base,frame_foto_descripcion, id_pelicula, pelicula)
+    
+    
 
 def crear_frame_foto_pelicula(frame_foto_descripcion, id_pelicula: int, pelicula: str):
     directorio_imagenes = "frontend\\cartelera\\portadas_peliculas"
@@ -95,9 +97,10 @@ def crear_frame_descripcion_pelicula(base,frame_foto_descripcion, id_pelicula: i
 
     BFDP.boton_reservar_asientos(base,frame_botones)
     BFDP.boton_ver_trailer(frame_botones, id_pelicula)
-    BFDP.boton_agregar_comentario(frame_botones, id_pelicula,base.usuario_id)
+    BFDP.boton_agregar_comentario(base,frame_botones, id_pelicula)
     BFDP.boton_salir(base,frame_botones)
-    BFDP.crear_comentarios(frame_descripcion_pelicula, id_pelicula)
+    BFDP.crear_comentarios(base,frame_descripcion_pelicula, id_pelicula)
 
+    base.frame_descripcion_pelicula = frame_descripcion_pelicula
 
 

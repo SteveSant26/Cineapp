@@ -20,12 +20,15 @@ def  validar_login(usuario_entry:ctk.CTkEntry,contrasena_entry:ctk.CTkEntry,base
         contrasena = "steven26"
 
 
+
         for usuario_db in obtener_usuarios_bd():
             if usuario_db[3] == usuario and usuario_db[4] == contrasena:
             
             
                 base.usuario = usuario_db[3]
                 base.tipo_usuario = usuario_db[5]
+                # base.tipo_usuario = "admin"
+                print(base.tipo_usuario)
                 base.usuario_id = usuario_db[0]
                 utils.configurar_ventana(base)
                 

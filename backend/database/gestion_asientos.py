@@ -13,4 +13,4 @@ def crear_asientos_reservados(funcion_id:int):
 def editar_asiento_reservado(id_asientos,asientos:json):
     datos = (asientos,id_asientos)
     query = "UPDATE asientos_reservados SET asientos = %s WHERE id = %s"
-    return ejecuwtar_query_editar(query,datos,"asientos_reservados")
+    return ejecutar_query_editar(query,datos,"asientos_reservados")
