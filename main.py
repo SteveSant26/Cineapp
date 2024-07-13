@@ -54,3 +54,9 @@ def inicializar_app():
 
 if __name__ == "__main__":
     inicializar_app()
+
+
+
+# [{"user": "Bryan26", "asientos": [[2, 4], [3, 4], [2, 6], [3, 6], [2, 5], [3, 5]]}, 
+#  {"user": "SteveSant", "asientos": [[3, 8], [2, 7], [3, 7], [2, 8]]}, 
+#  {"user": "Saori", "asientos": [[2, 7], [3, 7], [2, 6], [3, 6], [2, 5]]}]

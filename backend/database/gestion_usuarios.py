@@ -15,4 +15,4 @@ def editar_usuario_bd(datos_usuario: tuple):
 
 def eliminar_usuario_bd(id_usuario: int):
     query = "DELETE FROM usuarios WHERE id = %s"
-    return ejecutar_query_eliminar(query, (id_usuario,), "usuarios")
+    return ejecutar_query_eliminar(query, id_usuario, "usuarios")

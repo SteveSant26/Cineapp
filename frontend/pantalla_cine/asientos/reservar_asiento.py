@@ -1,38 +1,56 @@
 import customtkinter as ctk
 from tkinter import messagebox
-from frontend.cartelera import datos_peliculas as DP
 from frontend import utils
+from fpdf import FPDF
+import datetime
 from . import crear_asientos_img as CAI
-from . import utils_asientos as U
+from . import utils_asientos as UA
+from . generar_asientos import actualizar_asientos
 
 def obtener_asiento(frame_sala, fila, columna):
     """Obtiene el asiento de la grilla en la posición dada."""
     return frame_sala.grid_slaves(row=fila, column=columna)[0]
+
+def generar_pdf_asientos(asientos_seleccionados, usuario):
+    pdf = FPDF()
+    pdf.add_page()
+    pdf.set_font("Arial", size=12)
+    
+    pdf.cell(200, 10, txt="Confirmación de Reservación de Asientos", ln=True, align='C')
+    pdf.cell(200, 10, txt=f"Usuario: {usuario}", ln=True, align='L')
+    pdf.cell(200, 10, txt="Asientos Reservados:", ln=True, align='L')
+    
+    for asiento in asientos_seleccionados:
+        fila, columna = asiento
+        pdf.cell(200, 10, txt=f"Fila: {fila}, Columna: {columna}", ln=True, align='L')
+    tiempo_actual = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+    pdf.output(f"tickets\\Asientos_Reservados({usuario})_{tiempo_actual}.pdf")
+    messagebox.showinfo("PDF Generado", "Se ha generado un PDF con los asientos reservados.")
 
 def reservar_asientos(base: ctk.CTk) -> None:
     """Reserva los asientos seleccionados en la sala de cine."""
     if base.mejor_asiento:
         base.asientos_seleccionados.add(base.mejor_asiento)
         fila, columna = base.mejor_asiento
-        U.unbind_asiento(obtener_asiento(base.frame_sala, fila, columna))
+        UA.unbind_asiento(obtener_asiento(base.frame_sala, fila, columna))
         base.mejor_asiento = None
 
     for asiento in base.asientos_seleccionados:
         fila, columna = asiento
         widget = obtener_asiento(base.frame_sala, fila, columna)
-        U.unbind_asiento(widget)
-        widget.configure(image=CAI.ASIENTOS_IMAGEN["asiento_reservado"], state="disabled")
+        UA.unbind_asiento(widget)
+        widget.configure(image=CAI.ASIENTOS_IMAGEN["asiento_reservado"], state="disabled", border_color=("white", "black"))
+        if base.tipo_usuario == "cliente":
+            widget.configure(image=CAI.ASIENTOS_IMAGEN["asiento_ocupado"], state="disabled", border_color="#C15F44")
 
-    numero_asientos_seleccionados = len(base.asientos_seleccionados)
-
-    U.agregar_asientos(base.asientos_reservados_id, base.asientos_seleccionados, base.usuario, habilitar=base.asientos_habilitados)
-    messagebox.showinfo("Asientos reservados", f"Usted ha reservado {numero_asientos_seleccionados} asient{'os' if numero_asientos_seleccionados > 1 else 'o'}")
-
-    print(f"Asientos reservados: {base.asientos_seleccionados}")
-    base.asientos_seleccionados.clear()
-    base.asientos_habilitados = False
-    base.asientos_reservados = U.obtener_todos_asientos_reservados(base.funcion_actual_id)
-
+    print(base.asientos_habilitados)
+    
+    UA.agregar_asientos(base.asientos_reservados_id, base.asientos_seleccionados, base.usuario, habilitar=base.asientos_habilitados)
+    
+    generar_pdf_asientos(base.asientos_seleccionados, base.usuario)
+    actualizar_asientos(base)
+    
+    
 def preguntar_reservar(base) -> None:
     """Pregunta al usuario si desea reservar los asientos seleccionados."""
     if not base.asientos_seleccionados and not base.mejor_asiento:
@@ -49,12 +67,13 @@ def habilitar_reservados(base: ctk.CTk) -> None:
         return
 
     base.asientos_habilitados = True
-    for (fila, columna) in base.asientos_reservados:
+
+    for fila, columna in base.asientos_reservados:
         base.asientos_seleccionados.add((fila, columna))
         asiento_reservado = obtener_asiento(base.frame_sala, fila, columna)
-        asiento_reservado.configure(image=CAI.ASIENTOS_IMAGEN["asiento_habilitado"], state="normal")
+        asiento_reservado.configure(image=CAI.ASIENTOS_IMAGEN["asiento_habilitado"], state="normal", border_color="#C15F44")
         asiento_reservado.bind("<Button-1>", lambda event, row=fila, col=columna: click_en_asiento(row, col, base))
-        U.bind_asiento(asiento_reservado, CAI.ASIENTOS_IMAGEN["asiento_libre"], CAI.ASIENTOS_IMAGEN["asiento_habilitado"])
+        UA.bind_asiento(asiento_reservado, CAI.ASIENTOS_IMAGEN["asiento_libre"], CAI.ASIENTOS_IMAGEN["asiento_habilitado"])
 
 def click_en_asiento(fila: int, columna: int, base: ctk.CTk) -> None:
     """Función llamada cuando se hace clic en un asiento habilitado."""
@@ -62,8 +81,8 @@ def click_en_asiento(fila: int, columna: int, base: ctk.CTk) -> None:
         if (fila, columna) in base.asientos_seleccionados:
             asiento = obtener_asiento(base.frame_sala, fila, columna)
             asiento.unbind("<Button-1>")
-            U.unbind_asiento(asiento)
-            asiento.configure(image=CAI.ASIENTOS_IMAGEN["asiento_libre"], state="normal")
-            U.bind_asiento(asiento, CAI.ASIENTOS_IMAGEN["asiento_hover"], CAI.ASIENTOS_IMAGEN["asiento_libre"])
+            UA.unbind_asiento(asiento)
+            asiento.configure(image=CAI.ASIENTOS_IMAGEN["asiento_libre"], state="normal", border_color="#31AF5D")
+            UA.bind_asiento(asiento, CAI.ASIENTOS_IMAGEN["asiento_hover"], CAI.ASIENTOS_IMAGEN["asiento_libre"])
             print(f"Asiento en la fila {fila}, columna {columna} deseleccionado")
             base.asientos_seleccionados.add((fila, columna))

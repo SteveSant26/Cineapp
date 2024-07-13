@@ -26,7 +26,7 @@ def crear_vista_cine(base:ctk.CTk)->None:
         # Se actualizan todos los frames
         actualizar_frames(base)
     except Exception as e:
-        mostrar_error("Error al crear la vista del cine", "Ocurrió un error al intentar crear la vista del cine", e)
+        mostrar_error(f"Error al crear la vista del cine", f"Ocurrió un error al intentar crear la vista del cine: {e}")
     
 def crear_frame_vista_cine(base)->None:
     """Se crea el frame que almacena las opciones y la sala.

@@ -40,7 +40,7 @@ def crear_frame_administrar_funciones(base:ctk.CTkFrame):
 
 
 
-def cambiar_tema(switch: ctk.CTkSwitch, base: ctk.CTk):
+def cambiar_tema(switch: ctk.CTkSwitch):
     """Cambia el tema de la aplicación."""
     from .utils_menu_bar import configurar_treeview_claro, configurar_treeview_oscuro
     try:

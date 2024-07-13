@@ -139,7 +139,7 @@ def colocar_boton_cambiar_tema(base: ctk.CTk):
         text="Cambiar tema",
         button_hover_color="#31AF9C",
         font=("Arial", 15, "bold"),
-        command=lambda: BSB.cambiar_tema(switch_tema, base)
+        command=lambda: BSB.cambiar_tema(switch_tema)
     )
 
     # Establece el estado inicial del switch

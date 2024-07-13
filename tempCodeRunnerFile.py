@@ -1,3 +1,6 @@
 
 
-        base.resizable(False, False)
+
+
+
+if __name__ == "__main__":

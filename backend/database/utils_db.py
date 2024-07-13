@@ -32,7 +32,6 @@ def ejecutar_query_obtener(query, tabla, datos=None):
         return []
     
 def ejecutar_query_agregar(query, datos, tabla):
-    print(datos)
     try:
         conexion = abrir_conexion()
         with conexion.cursor() as cursor:
@@ -83,10 +82,9 @@ def ejecutar_query_editar(query, nuevos_datos, tabla):
                     eliminar_imagen(nombre_pelicula)
             elif tabla == "usuarios":
                 datos_actuales = (datos_actuales[1], datos_actuales[2], datos_actuales[3], datos_actuales[4], datos_actuales[0])
-                
-                
+
             if datos_actuales == nuevos_datos:
-                mostrar_error("Error al editar funcion", "No se ha modificado ningún campo de la funcion.")
+                mostrar_error(f"Error al editar {tabla[:-1]}", f"No se ha modificado ningún campo de la tabla {tabla}.")
                 return False
 
             cursor.execute(query, nuevos_datos)

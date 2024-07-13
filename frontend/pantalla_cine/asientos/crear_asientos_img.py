@@ -13,4 +13,5 @@ ASIENTOS_IMAGEN = {
             "asiento_mejor": conseguir_imagen_ctk(RUTA_ASIENTOS["asiento_mejor_path"], 50, 50),
             "asiento_reservado": conseguir_imagen_ctk(RUTA_ASIENTOS["asiento_libre_path"], 50, 50, path_dark=RUTA_ASIENTOS["asiento_reservado_path"]),
             "asiento_habilitado": conseguir_imagen_ctk(RUTA_ASIENTOS["asiento_habilitado_path"], 50, 50),
+            "asiento_ocupado": conseguir_imagen_ctk(RUTA_ASIENTOS["asiento_habilitado_path"], 50, 50),
             }

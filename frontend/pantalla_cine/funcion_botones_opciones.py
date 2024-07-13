@@ -100,9 +100,7 @@ def actualizar_sala_por_funcion(funcion:str, base)->None:
         base.botones_funciones[funcion].configure(state="disabled", fg_color="#248CD3")
         #Se actualiza la funcion actual
         base.funcion_actual = funcion
-        print(base.funcion_actual)
         base.funcion_actual_id = obtener_funcion_id_por_sala_pelicula_id(base.sala_actual_id,base.pelicula_id,base.funcion_actual)
-        print(base.funcion_actual_id)
         #Se generan los asientos de la sala actual
         A.crear_asientos(base)
 

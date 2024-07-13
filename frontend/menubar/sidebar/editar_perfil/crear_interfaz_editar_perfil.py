@@ -2,7 +2,7 @@ import customtkinter as ctk
 from tkinter import messagebox
 from frontend.login import crear_login_img as CLI, crear_login
 from backend.database import ejecutar_query_obtener, editar_usuario_bd,eliminar_usuario_bd
-from frontend.utils import mostrar_error, mostrar_mensaje
+from frontend.utils import mostrar_error, mostrar_mensaje,limpiar_widgets_base
 from frontend.cartelera import iniciar_hilo_mostrar_peliculas
 
 
@@ -23,7 +23,7 @@ def editar_perfil(base: ctk.CTk):
 
     datos_usuario = obtener_usuario_por_id(base.usuario_id)
     
-    label_nombre = ctk.CTkLabel(frame_formulario, text="Nuevo nombre:", font=("Arial", 16))
+    label_nombre = ctk.CTkLabel(frame_formulario, text="Nombre:", font=("Arial", 16))
     label_nombre.grid(row=0, column=0, padx=15, pady=15,sticky="nsew")
     entry_nombre = ctk.CTkEntry(frame_formulario, width=150,font=("Arial", 16),)
     entry_nombre.grid(row=0, column=1, padx=15, pady=15,sticky="nsew")
@@ -114,6 +114,7 @@ def eliminar_cuenta(base):
     try:
         if eliminar_usuario_bd(base.usuario_id):
             mostrar_mensaje("Éxito", "Usuario eliminado correctamente")
+            limpiar_widgets_base(base)
             crear_login(base)
         else:
             return

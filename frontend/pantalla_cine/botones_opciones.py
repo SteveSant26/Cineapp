@@ -1,7 +1,7 @@
 import customtkinter as ctk
 import tkinter as tk
 
-from frontend.utils import Colores_Temas as CT
+from . import colores_asientos as CA
 from .import asientos as A
 from .utils_pc import obtener_salas,obtener_funciones,obtener_funcion_id_por_sala_pelicula_id,obtener_sala_id_por_nombre_bd
 
@@ -18,7 +18,6 @@ def crear_combobox(base)->None:
     
     if base.salas is None:
         base.salas = obtener_salas(base.pelicula_id)
-        print(base.salas)
 
     if base.sala_actual is None:
         base.sala_actual = base.salas[0]
@@ -45,30 +44,54 @@ def dibujar_canvas(canvas, color):
     canvas.create_rectangle(1, 1, 39, 39, fill=color, outline="black",width=1)
     
 def referencia_colores(base):
-    COLORES = {}
-    
-    if ctk.get_appearance_mode().lower() == "dark":
-        COLORES = CT.COLORES_ASIENTO_TEMA_OSCURO
-    else:
-        COLORES = CT.COLORES_ASIENTO_TEMA_CLARO
-    
+    def actualizar_colores():
+        COLORES = {}
+        
+        if ctk.get_appearance_mode().lower() == "dark":
+            if base.tipo_usuario == "admin":
+                COLORES = CA.COLORES_ASIENTO_TEMA_OSCURO_ADMIN
+            else:
+                COLORES = CA.COLORES_ASIENTO_TEMA_OSCURO_CLIENTE
+        else:
+            if base.tipo_usuario == "admin":
+                COLORES = CA.COLORES_ASIENTO_TEMA_CLARO_ADMIN
+            else:
+                COLORES = CA.COLORES_ASIENTO_TEMA_CLARO_CLIENTE
+                
+        
+        for widget in frame_colores.winfo_children():
+            widget.destroy()
+        
+        canvas = {}
+        fila_index = 0
+        columna_index = 0
+        for nombre, color in COLORES.items():
+            canvas[nombre] = tk.Canvas(frame_colores, width=30, height=30, background="black", borderwidth=1, highlightthickness=0)
+            
+            dibujar_canvas(canvas[nombre], color)
+            label = ctk.CTkLabel(frame_colores, text=f"{nombre}:", font=("Arial", 15, "bold"))
+            label.grid(row=fila_index, column=columna_index * 2, padx=10, pady=5, sticky="w")
+            canvas[nombre].grid(row=fila_index, column=columna_index * 2 + 1, padx=10, pady=5, sticky="nsew")
+            columna_index += 1
+            if columna_index >= 2:
+                columna_index = 0
+                fila_index += 1
+
+    def verificar_cambio_tema():
+        nonlocal ultimo_tema
+        tema_actual = ctk.get_appearance_mode().lower()
+        if tema_actual != ultimo_tema:
+            ultimo_tema = tema_actual
+            actualizar_colores()
+        frame_colores.after(500, verificar_cambio_tema)
+
     frame_colores = ctk.CTkFrame(base.frame_opciones)
     frame_colores.grid(row=1, column=0, columnspan=2, pady=10, padx=10, sticky="nsew")
+
+    ultimo_tema = ctk.get_appearance_mode().lower()
+    actualizar_colores()
     
-    canvas = {}
-    fila_index = 0
-    columna_index = 0
-    for nombre, color in COLORES.items():
-        canvas[nombre] = tk.Canvas(frame_colores, width=30,height=30,background="black", borderwidth=1, highlightthickness=0)
-        
-        dibujar_canvas(canvas[nombre], color)
-        label = ctk.CTkLabel(frame_colores, text=f"{nombre}:", font=("Arial", 15,"bold"))
-        label.grid(row=fila_index, column=columna_index * 2, padx=10, pady=5, sticky="w")
-        canvas[nombre].grid(row=fila_index, column=columna_index * 2 + 1, padx=10, pady=5, sticky="nsew")
-        columna_index += 1
-        if columna_index >= 2:
-            columna_index = 0
-            fila_index += 1
+    verificar_cambio_tema()
 
 
 def colocar_boton_mejor_asiento(base)->None:
@@ -99,6 +122,7 @@ def colocar_boton_habilitar_reservar(base)->None:
     # Se crea el boton de habilitar reservados
     boton_eliminar_reserva = ctk.CTkButton(
         base.frame_opciones, text="Habilitar reservados", fg_color="#329ADF",hover_color="#31AF9C",command=lambda: A.habilitar_reservados(base), height=45, font=("Arial", 16, "bold"))
+    
     boton_eliminar_reserva.grid(
         row=8, column=0, columnspan=2, pady=10, padx=10, sticky="nsew")
 
@@ -121,8 +145,12 @@ def colocar_boton_regresar(base)->None:
         height=45,
         command=lambda: FBO.regresar(base)
     )
-    boton_regresar.grid(row=9, column=0, columnspan=2,
-                        pady=15, padx=10, sticky="ew")
+    if base.tipo_usuario == "admin":
+        boton_regresar.grid(row=9, column=0, columnspan=2,
+                            pady=15, padx=10, sticky="ew")
+    else:
+        boton_regresar.grid(row=8, column=0, columnspan=2,
+                            pady=15, padx=10, sticky="ew")
 
 def colocar_botones(base)->None:
     """ Se recolectan los botones de las opciones y se encapsulan en una funcion"""
@@ -132,5 +160,6 @@ def colocar_botones(base)->None:
     crear_frame_funciones(base)
     colocar_boton_mejor_asiento(base)
     colocar_boton_reservar(base)
-    colocar_boton_habilitar_reservar(base)
+    if base.tipo_usuario == "admin":
+        colocar_boton_habilitar_reservar(base)
     colocar_boton_regresar(base)

@@ -34,6 +34,26 @@
 --     FOREIGN KEY (funcion_id) REFERENCES funciones(id) ON DELETE CASCADE
 -- );
 
+-- CREATE TABLE usuarios (
+--     id INT PRIMARY KEY AUTO_INCREMENT,
+--     nombre VARCHAR(255) NOT NULL,
+--     apellido VARCHAR(255) NOT NULL,
+--     usuario VARCHAR(255) NOT NULL UNIQUE,
+--     password VARCHAR(255) NOT NULL,
+--     tipo_usuario ENUM('admin', 'cliente') NOT NULL
+-- );
+
+
+-- CREATE TABLE comentarios (
+--     id INT PRIMARY KEY AUTO_INCREMENT,
+--     usuario_id INT,
+--     pelicula_id INT,
+--     comentario TEXT,
+--     fecha_hora DATETIME DEFAULT CURRENT_TIMESTAMP,
+--     FOREIGN KEY (pelicula_id) REFERENCES peliculas(id) ON DELETE CASCADE,
+--     FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE CASCADE
+-- );
+
 -- INSERT INTO peliculas (id, ruta_imagen, titulo, sinopsis, genero, duracion, estreno, promedio_votos) 
 -- VALUES(1154598,'https://image.tmdb.org/t/p/original//4ba3Kw9isyWvu6cupzUagm8ejw2.jpg', 'LEGO Marvel Avengers: Código rojo', 'En un multiverso amenazado por el enigmático Fantasma Rojo, los LEGO Vengadores se unen a sus homólogos para detener el caos de la realidad', 'Animación, Acción, Familia', 46, '2023-10-26', 6.665),
 -- INSERT INTO salas (nombre, filas, columnas) VALUES ('Sala 1', 10, 10);
