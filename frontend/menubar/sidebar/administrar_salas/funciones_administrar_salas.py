@@ -12,7 +12,7 @@ def conseguir_datos_sala(base):
         if not (nombre and filas and columnas):
             mostrar_error("Error de Validación", "Todos los campos obligatorios deben estar llenos.")
             return
-        datos = (id, nombre, filas, columnas)
+        datos = (int(id), nombre, filas, columnas)
         return datos
     except Exception as e:
         mostrar_error("Error", f"Se produjo un error: {e}")

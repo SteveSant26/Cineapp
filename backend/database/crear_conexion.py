@@ -1,6 +1,12 @@
 import mysql.connector
 
-def abrir_conexion():
+def abrir_conexion() -> mysql.connector.connection.MySQLConnection:
+    """
+    Abre una conexión a la base de datos del cine.
+
+    Returns:
+        mysql.connector.connection.MySQLConnection: El objeto de conexión si tiene éxito, None en caso contrario.
+    """
     try:
         conexion =  mysql.connector.connect(
                                             host = '127.0.0.1',

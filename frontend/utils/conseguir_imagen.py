@@ -2,6 +2,19 @@ from PIL import Image
 import customtkinter as ctk
 
 def conseguir_imagen_ctk(path_light: str, ancho: int, largo: int, path_dark: str = None) -> ctk.CTkImage:
+    """
+    Crea un objeto CTkImage con las rutas de imagen y dimensiones proporcionadas.
+
+    Args:
+        path_light (str): La ruta de la imagen en modo claro.
+        ancho (int): El ancho de la imagen.
+        largo (int): La altura de la imagen.
+        path_dark (str, opcional): La ruta de la imagen en modo oscuro. Por defecto es None.
+
+    Returns:
+        ctk.CTkImage: El objeto CTkImage creado con los parámetros proporcionados.
+    """
+    
     imagen_light = conseguir_imagen_local(path_light)
     if imagen_light is None:
         print(f"Error al cargar la imagen: {path_light}")
@@ -20,8 +33,13 @@ def conseguir_imagen_ctk(path_light: str, ancho: int, largo: int, path_dark: str
 
 def conseguir_imagen_local(path: str):
     """
-    Función de ejemplo para conseguir una imagen local.
-    Esta función debería estar definida en tu código.
+    Abre y devuelve una imagen desde la ruta local especificada.
+    
+    Args:
+        path (str): La ruta al archivo de imagen.
+        
+    Returns:
+        PIL.Image.Image or None: La imagen abierta si tiene éxito, None en caso contrario.
     """
     try:
         return Image.open(path)

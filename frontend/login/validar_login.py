@@ -2,15 +2,25 @@ import customtkinter as ctk
 from backend.database import obtener_usuarios_bd
 from frontend import utils, cartelera
 
-def  validar_login(usuario_entry:ctk.CTkEntry,contrasena_entry:ctk.CTkEntry,base:ctk.CTk)->bool:
+def validar_login(usuario_entry: ctk.CTkEntry, contrasena_entry: ctk.CTkEntry, base: ctk.CTk) -> bool:
+    """
+    Valida las credenciales de inicio de sesión ingresadas por el usuario.
 
-    """ Valida el login del usuario"""
+    Args:
+        usuario_entry (ctk.CTkEntry): El campo de entrada para el nombre de usuario.
+        contrasena_entry (ctk.CTkEntry): El campo de entrada para la contraseña.
+        base (ctk.CTk): La ventana base de la aplicación.
+
+    Returns:
+        bool: True si el inicio de sesión es exitoso, False en caso contrario.
+    """
     try:
-        #Se obtiene el usuario y contraseña ingresados y se limpian los entrys
+        # Obtener el nombre de usuario y la contraseña ingresados y limpiar los campos de entrada
         usuario = usuario_entry.get()
         contrasena = contrasena_entry.get()
-        
-        
+
+
+
         #Admin para pruebas
         # usuario = "SteveSant"
         # contrasena = "bryan123"
@@ -27,17 +37,16 @@ def  validar_login(usuario_entry:ctk.CTkEntry,contrasena_entry:ctk.CTkEntry,base
 
         # usuario = "Naomi"
         # contrasena = "nao123"
-
-
+        
+        
         for usuario_db in obtener_usuarios_bd():
             if usuario_db[3] == usuario and usuario_db[4] == contrasena:
-            
-            
+                # Establecer la información del usuario en la ventana base
                 base.usuario = usuario_db[3]
                 base.tipo_usuario = usuario_db[5]
                 base.usuario_id = usuario_db[0]
                 utils.configurar_ventana(base)
-                
+
                 usuario_entry.delete(0, "end")
                 contrasena_entry.delete(0, "end")
                 if base.tipo_usuario == "cliente":
@@ -47,7 +56,7 @@ def  validar_login(usuario_entry:ctk.CTkEntry,contrasena_entry:ctk.CTkEntry,base
 
                 return cartelera.iniciar_hilo_mostrar_peliculas(base)
         else:
-            return utils.mostrar_error("Error de login", "Usuario o contraseña incorrectos")
-            
+            return utils.mostrar_error("Error de inicio de sesión", "Usuario o contraseña incorrectos")
+
     except Exception as e:
-        utils.mostrar_error("Error de login", f"Ocurrió un error al intentar validar el login:\n{e}")
+        utils.mostrar_error("Error de inicio de sesión", f"Ocurrió un error al intentar validar el inicio de sesión:\n{e}")

@@ -5,13 +5,15 @@ from .utils_interfaz_descripcion_peliculas import obtener_pelicula_por_id, agreg
 from frontend import utils, menubar as MB
 from . import botones_descripcion_peliculas as BFDP
 
-
-
-
-
-
-
 def crear_descripcion_peliculas(base, id_pelicula: int, pelicula: str):
+    """
+    Crea la interfaz de descripción de películas.
+
+    Args:
+        base: El widget base donde se creará la interfaz.
+        id_pelicula (int): El ID de la película.
+        pelicula (str): El título de la película.
+    """
     utils.limpiar_widgets_base(base)
     frame_foto_descripcion = ctk.CTkFrame(base, fg_color="transparent", border_color="black")
     MB.crear_menu_bar(base)
@@ -21,25 +23,37 @@ def crear_descripcion_peliculas(base, id_pelicula: int, pelicula: str):
     frame_foto_descripcion.rowconfigure(0, weight=1)
     frame_foto_descripcion.columnconfigure(1, weight=1)
 
-    
     crear_frame_foto_pelicula(frame_foto_descripcion, id_pelicula, pelicula)
     crear_frame_descripcion_pelicula(base,frame_foto_descripcion, id_pelicula, pelicula)
-    
-    
 
 def crear_frame_foto_pelicula(frame_foto_descripcion, id_pelicula: int, pelicula: str):
+    """
+    Crea el frame de la foto de la película.
+
+    Args:
+        frame_foto_descripcion: El frame donde se colocará la foto de la película.
+        id_pelicula (int): El ID de la película.
+        pelicula (str): El título de la película.
+    """
     directorio_imagenes = "frontend\\cartelera\\portadas_peliculas"
     imagen = UC.conseguir_imagen_portada_ctk(directorio_imagenes, id_pelicula, pelicula, 500, 800)
     
-    
-    foto_pelicula = ctk.CTkLabel(frame_foto_descripcion, image=imagen, text="",)
+    foto_pelicula = ctk.CTkLabel(frame_foto_descripcion, image=imagen, text="")
     foto_pelicula.grid(row=0, column=0, sticky="nsew")
 
 def crear_frame_descripcion_pelicula(base,frame_foto_descripcion, id_pelicula: int, titulo_pelicula: str):
+    """
+    Crea el frame de la descripción de la película.
+
+    Args:
+        base: El widget base donde se creará el frame de la descripción.
+        frame_foto_descripcion: El frame donde se colocará el frame de la descripción.
+        id_pelicula (int): El ID de la película.
+        titulo_pelicula (str): El título de la película.
+    """
     frame_descripcion_pelicula = ctk.CTkScrollableFrame(frame_foto_descripcion, border_width=2, border_color="black")
     frame_descripcion_pelicula.grid(row=0, column=1, sticky="nsew",padx=(10,0))
     
-
     titulo_pelicula = ctk.CTkLabel(frame_descripcion_pelicula, text=titulo_pelicula, font=("Arial", 40, "bold"), wraplength=1000)
     titulo_pelicula.pack(pady=10)
     
@@ -53,8 +67,6 @@ def crear_frame_descripcion_pelicula(base,frame_foto_descripcion, id_pelicula: i
     fecha_estreno = datos[6]
     prom_votos = datos[7]
     
-
-    
     sinopsis_label = ctk.CTkLabel(frame_descripcion_pelicula, text=sinopsis, font=("Arial", 25), wraplength=1000, justify="left")
     sinopsis_label.pack(pady=10)
     
@@ -66,7 +78,6 @@ def crear_frame_descripcion_pelicula(base,frame_foto_descripcion, id_pelicula: i
     genero_texto.grid(row=0, column=0, pady=10,padx=10, sticky="w")
     generos_label = ctk.CTkLabel(frame_genero, text=generos, font=("Arial", 20))
     generos_label.grid(row=0, column=1, pady=10, sticky="w")
-
 
     frame_duracion = ctk.CTkFrame(frame_descripcion_pelicula)
     frame_duracion.pack(anchor="w")
@@ -93,7 +104,6 @@ def crear_frame_descripcion_pelicula(base,frame_foto_descripcion, id_pelicula: i
     
     frame_botones = ctk.CTkFrame(frame_descripcion_pelicula)
     frame_botones.pack(pady=10)
-
 
     BFDP.boton_reservar_asientos(base,frame_botones)
     BFDP.boton_ver_trailer(frame_botones, id_pelicula)

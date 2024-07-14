@@ -11,7 +11,7 @@ LOGIN_IMAGENES = {"imagen_login":conseguir_imagen_ctk(LOGIN_RUTAS["login_path"],
                   "mostrar_contrasena": conseguir_imagen_ctk(LOGIN_RUTAS["mostrar_claro_path"], 20, 20,path_dark=LOGIN_RUTAS["mostrar_oscuro_path"]),
                   "ocultar_contrasena": conseguir_imagen_ctk(LOGIN_RUTAS["ocultar_claro_path"], 20, 20,path_dark=LOGIN_RUTAS["ocultar_oscuro_path"])}
 
-def boton_mostrar_contrasena(frame, contrasena_entry):
+def boton_mostrar_contrasena(frame:ctk.CTkFrame, contrasena_entry:ctk.CTkEntry)->None:
     """
     Función que crea un botón para mostrar la contraseña en un campo de entrada.
 
@@ -32,7 +32,7 @@ def boton_mostrar_contrasena(frame, contrasena_entry):
     boton_mostrar.pack(pady=5, side="left")
     
     
-def mostrar_contrasena(contrasena_entry, boton_mostrar):
+def mostrar_contrasena(contrasena_entry:ctk.CTkEntry, boton_mostrar:ctk.CTkButton)->None:
     """
     Muestra u oculta la contraseña en el campo de entrada de contraseña.
 
