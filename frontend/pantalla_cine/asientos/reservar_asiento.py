@@ -1,7 +1,11 @@
 import customtkinter as ctk
+import datetime
+from jinja2 import Template
+import os
+import pdfkit
+import re
 from tkinter import messagebox
 from frontend import utils
-from fpdf import FPDF
 import datetime
 from . import crear_asientos_img as CAI
 from . import utils_asientos as UA
@@ -11,21 +15,122 @@ def obtener_asiento(frame_sala, fila, columna):
     """Obtiene el asiento de la grilla en la posición dada."""
     return frame_sala.grid_slaves(row=fila, column=columna)[0]
 
-def generar_pdf_asientos(asientos_seleccionados, usuario):
-    pdf = FPDF()
-    pdf.add_page()
-    pdf.set_font("Arial", size=12)
-    
-    pdf.cell(200, 10, txt="Confirmación de Reservación de Asientos", ln=True, align='C')
-    pdf.cell(200, 10, txt=f"Usuario: {usuario}", ln=True, align='L')
-    pdf.cell(200, 10, txt="Asientos Reservados:", ln=True, align='L')
-    
-    for asiento in asientos_seleccionados:
-        fila, columna = asiento
-        pdf.cell(200, 10, txt=f"Fila: {fila}, Columna: {columna}", ln=True, align='L')
+def corregir_nombre_archivo(filename: str) -> str:
+    """
+    Replace or remove characters that are invalid in filenames.
+    """
+    return re.sub(r'[<>:"/\\|?*]', '', filename)
+
+def generar_pdf_asientos(asientos_seleccionados, usuario, titulo_pelicula, funcion) -> None:
+    plantilla_html = """
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Reservación Intercine</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .ticket-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            width: 100vw;
+        }
+        .ticket {
+            background-color: #ffffff;
+            border-radius: 10px;
+            border: 1px solid #dcdcdc;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+        }
+        .highlight {
+            background-color: #55B7EC;
+            color: #ffffff;
+            font-weight: bold;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        .content p {
+            margin: 10px 0;
+        }
+        .content strong {
+            display: block;
+            margin-top: 20px;
+            font-size: 18px;
+        }
+        .movie-details {
+            margin-top: 10px;
+            font-size: 16px;
+            color: #333;
+        }
+        hr {
+            border: none;
+            border-top: 1px solid #dcdcdc;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="ticket-container">
+        <div class="ticket">
+            <div class="highlight">INTERCINES</div>
+            <div class="content">
+                <hr>
+                <p><strong>¡¡DISFRUTA TU PELÍCULA!!</strong></p>
+                <p>--{{ titulo }}--</p>
+                <hr>
+                <p><strong>Usuario:</strong> {{ usuario }}</p>
+                <p><strong>Hora:</strong> {{ hora }}</p>
+                <p><strong>Asientos Reservados:</strong></p>
+                {% for fila, columna in asientos %}
+                    <p class="movie-details">Fila: {{ fila }}, Columna: {{ columna }}</p>
+                {% endfor %}
+                <hr>
+            </div>
+            <div class="highlight">Gracias por tu compra</div>
+        </div>
+    </div>
+</body>
+</html>
+    """
+
+    plantilla = Template(plantilla_html)
+    html_renderizado = plantilla.render(usuario=usuario, titulo=titulo_pelicula, hora=funcion, asientos=asientos_seleccionados)
+
     tiempo_actual = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-    pdf.output(f"tickets\\Asientos_Reservados({usuario})_{tiempo_actual}.pdf")
-    messagebox.showinfo("PDF Generado", "Se ha generado un PDF con los asientos reservados.")
+    titulo_pelicula = corregir_nombre_archivo(titulo_pelicula)
+    
+    filename = f"tickets\\Asientos_Reservados({usuario})_{titulo_pelicula}_{tiempo_actual}.pdf"
+    
+    config = pdfkit.configuration(wkhtmltopdf='C:\\Program Files\\wkhtmltopdf\\bin\\wkhtmltopdf.exe')
+    
+    options = {
+        'enable-local-file-access': None,
+    }
+    
+    try:
+        pdfkit.from_string(html_renderizado, filename, options=options, configuration=config)
+        utils.mostrar_mensaje("PDF Generado", "Se ha generado un archivo PDF con los asientos reservados.")
+        os.startfile(os.path.realpath(filename))
+    
+    except Exception as e:
+        utils.mostrar_mensaje("Error", f"Se ha producido un error al generar el PDF: {str(e)}")
+
+
 
 def reservar_asientos(base: ctk.CTk) -> None:
     """Reserva los asientos seleccionados en la sala de cine."""
@@ -47,8 +152,12 @@ def reservar_asientos(base: ctk.CTk) -> None:
     
     UA.agregar_asientos(base.asientos_reservados_id, base.asientos_seleccionados, base.usuario, habilitar=base.asientos_habilitados)
     
-    generar_pdf_asientos(base.asientos_seleccionados, base.usuario)
+    if messagebox.askyesno("Descargar ticket de boletos", "¿Desea descargar el ticket de los asientos reservados?"):
+        generar_pdf_asientos(base.asientos_seleccionados, base.usuario, base.titulo_pelicula,base.funcion_actual)
+    
     actualizar_asientos(base)
+    
+    
     
     
 def preguntar_reservar(base) -> None:

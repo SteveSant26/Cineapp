@@ -2,7 +2,7 @@ import customtkinter as ctk
 from tkinter import messagebox
 from frontend.login import crear_login_img as CLI, crear_login
 from backend.database import ejecutar_query_obtener, editar_usuario_bd,eliminar_usuario_bd
-from frontend.utils import mostrar_error, mostrar_mensaje,limpiar_widgets_base
+from frontend.utils import mostrar_error, mostrar_mensaje,limpiar_widgets_base,configurar_ventana_login
 from frontend.cartelera import iniciar_hilo_mostrar_peliculas
 
 
@@ -115,6 +115,7 @@ def eliminar_cuenta(base):
         if eliminar_usuario_bd(base.usuario_id):
             mostrar_mensaje("Éxito", "Usuario eliminado correctamente")
             limpiar_widgets_base(base)
+            configurar_ventana_login(base)
             crear_login(base)
         else:
             return

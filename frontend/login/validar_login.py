@@ -7,8 +7,8 @@ def  validar_login(usuario_entry:ctk.CTkEntry,contrasena_entry:ctk.CTkEntry,base
     """ Valida el login del usuario"""
     try:
         #Se obtiene el usuario y contraseña ingresados y se limpian los entrys
-        # usuario = usuario_entry.get()
-        # contrasena = contrasena_entry.get()
+        usuario = usuario_entry.get()
+        contrasena = contrasena_entry.get()
         
         
         #Admin para pruebas
@@ -16,8 +16,8 @@ def  validar_login(usuario_entry:ctk.CTkEntry,contrasena_entry:ctk.CTkEntry,base
         # contrasena = "bryan123"
         
         #Cliente para pruebas
-        usuario = "Bryan26"
-        contrasena = "bryan123"
+        # usuario = "Bryan26"
+        # contrasena = "bryan123"
         
         # usuario = "Saori"
         # contrasena = "sao123"
@@ -40,7 +40,10 @@ def  validar_login(usuario_entry:ctk.CTkEntry,contrasena_entry:ctk.CTkEntry,base
                 
                 usuario_entry.delete(0, "end")
                 contrasena_entry.delete(0, "end")
-                
+                if base.tipo_usuario == "cliente":
+                    base.title("INTERCINES - Cliente")
+                else:
+                    base.title("INTERCINES - Administrador")
 
                 return cartelera.iniciar_hilo_mostrar_peliculas(base)
         else:

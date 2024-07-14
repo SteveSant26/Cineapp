@@ -3,7 +3,7 @@ import webbrowser
 import pyautogui
 import time
 import customtkinter as ctk
-from tkinter import messagebox
+from frontend.utils import mostrar_mensaje,mostrar_error
 from .utils_interfaz_descripcion_peliculas import actualizar_comentarios,limpiar_comentario
 
 def ventana_agregar_comentario(base,id_pelicula: int, id_usuario: int):
@@ -34,7 +34,7 @@ def agregar_comentario(base,ventana_comentario, id_pelicula: int, id_usuario: in
         agregar_comentario_pelicula(id_pelicula, id_usuario, comentario)
         ventana_comentario.destroy()
         actualizar_comentarios(base,id_pelicula)
-        messagebox.showinfo("Comentario agregado","Comentario agregado con éxito")
+        mostrar_mensaje("Comentario agregado","Comentario agregado con éxito")
     except Exception as e:
         print(f"Error al guardar el comentario: {e}")
 
@@ -88,6 +88,8 @@ def reproducir_trailer(id_pelicula: int):
             # Esperar un momento para asegurarse de que el navegador abra la página
             time.sleep(2)
             pyautogui.press('f')
+        else:
+            mostrar_error("Trailer no disponible","El trailer de esta película no está disponible")
     except Exception as e:
         print(f"Error al abrir el navegador para reproducir el trailer: {e}")
 

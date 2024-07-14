@@ -2,8 +2,16 @@ import customtkinter as ctk
 import threading
 from concurrent.futures import ThreadPoolExecutor
 from frontend import utils,menubar as MB
+from backend.database import ejecutar_query_obtener
 from . import utils_cartelera as UC
 from .descripcion_peliculas.interfaz_descripcion_peliculas import crear_descripcion_peliculas
+
+def obtener_todas_funciones_pelicula(id_pelicula):
+    query = "Select * from funciones where pelicula_id = %s"
+    if ejecutar_query_obtener(query, "funciones", (id_pelicula,)):
+        return True
+    else:
+        return False
 
 def crear_cartelera(base, columnas: int):
     peliculas = UC.obtener_id_titulo_pelicula_bd()
@@ -18,16 +26,22 @@ def crear_cartelera(base, columnas: int):
     
     
     with ThreadPoolExecutor(max_workers=8) as executor:
-        for index, (id_pelicula, titulo_pelicula) in enumerate(peliculas):
+        index = 0
+        for (id_pelicula, titulo_pelicula) in peliculas:
             fila = index // columnas + 1
             columna = index % columnas
+            if base.tipo_usuario == "cliente":
+                if not obtener_todas_funciones_pelicula(id_pelicula):
+                    continue
             executor.submit(cargar_y_mostrar_imagen, base, directorio_imagenes, id_pelicula, titulo_pelicula, fila, columna)
+            index += 1
 
 
 
 
 def cargar_y_mostrar_imagen(base, directorio_imagenes,id_pelicula, titulo_pelicula, fila, columna):
     try:
+
         imagen = UC.conseguir_imagen_portada_ctk(directorio_imagenes, id_pelicula, titulo_pelicula, 250, 300)
         
         crear_boton_pelicula(base, imagen, titulo_pelicula, fila, columna, id_pelicula)

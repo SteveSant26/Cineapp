@@ -13,15 +13,16 @@ def mostrar_mensaje(titulo:str, mensaje:str)->None:
     print(mensaje)
     
 def configurar_ventana_login(base: ctk.CTk)->None:
-    """ Se configura la ventana principal de la aplicación."""
+    """ Se configura la ventana principal de la aplicación para el login."""
     limpiar_widgets_base(base)
     base.geometry("400x700")
     base.state("normal")
     base.resizable(False, False)
     
 def configurar_ventana(base: ctk.CTk)->None:
-    """ Se configurar la ventana principal de la aplicación."""
+    """ Se configurar la ventana principal de la aplicación para la interfaz principal."""
     from frontend.menubar.sidebar import configurar_treeview_oscuro
+    
     ancho = base.winfo_screenwidth()
     alto = base.winfo_screenheight() - 65
     base.geometry(f"{ancho}x{alto}+0+0")
@@ -30,19 +31,11 @@ def configurar_ventana(base: ctk.CTk)->None:
     configurar_treeview_oscuro()
 
 def limpiar_widgets_base(base:ctk.CTk)->None:
-    """ Esta funcion elimina todos los widgets de la base."""
+    """ Esta funcion elimina todos los widgets de un widget padre."""
     for widget in base.winfo_children():
         widget.destroy()
         
-def configurar_apariencia()->None:
+def configurar_tema_default()->None:
     """ Se configura la apariencia de la aplicación."""
     ctk.set_appearance_mode("dark")  # light, dark
     ctk.set_default_color_theme("dark-blue")  # blue, green, dark-blue
-    
-def cambiar_color_texto(boton)->None:
-    """ Cambia el color del texto de un widget."""
-    if ctk.get_appearance_mode() == "Dark":
-        boton.configure(text_color="white")
-    else:
-        boton.configure(text_color="black")
-        
