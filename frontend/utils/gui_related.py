@@ -20,14 +20,17 @@ def configurar_ventana_login(base: ctk.CTk)->None:
     
 def configurar_ventana(base: ctk.CTk)->None:
     """ Se configurar la ventana principal de la aplicación para la interfaz principal."""
-    from frontend.menubar.sidebar import configurar_treeview_oscuro
+    from frontend.menubar.sidebar import configurar_treeview_oscuro, configurar_treeview_claro
     
     ancho = base.winfo_screenwidth()
     alto = base.winfo_screenheight() - 65
     base.geometry(f"{ancho}x{alto}+0+0")
     
     base.state("zoomed")
-    configurar_treeview_oscuro()
+    if ctk.get_appearance_mode().lower() == "light":
+        configurar_treeview_claro()
+    else:
+        configurar_treeview_oscuro()
 
 def limpiar_widgets_base(base:ctk.CTk)->None:
     """ Esta funcion elimina todos los widgets de un widget padre."""

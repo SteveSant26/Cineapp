@@ -1,4 +1,3 @@
-from . import datos_pelicula as DP
 from frontend import utils 
 
 from . import crear_asientos_img as CAI
