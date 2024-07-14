@@ -1,4 +1,5 @@
 import customtkinter as ctk
+
 from frontend.utils import mostrar_error, mostrar_mensaje
 from backend.database import agregar_usuario_bd, obtener_usuarios_bd
 from . import crear_login_img as CLI
@@ -90,7 +91,7 @@ def opciones_crear_cuenta(ventana_crear_cuenta: ctk.CTkToplevel):
     boton_crear_cuenta.grid(row=6, column=0, columnspan=2, sticky="nsew", padx=30, pady=15)
 
 
-def validar_datos(entries: dict[any], ventana_crear_cuenta: ctk.CTkToplevel):
+def validar_datos(entries: dict, ventana_crear_cuenta: ctk.CTkToplevel):
     """
     Valida los datos ingresados para crear una cuenta.
 

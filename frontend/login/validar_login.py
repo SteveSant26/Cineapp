@@ -1,6 +1,7 @@
 import customtkinter as ctk
-from backend.database import obtener_usuarios_bd
+
 from frontend import utils, cartelera
+from backend.database import obtener_usuarios_bd
 
 def validar_login(usuario_entry: ctk.CTkEntry, contrasena_entry: ctk.CTkEntry, base: ctk.CTk) -> bool:
     """

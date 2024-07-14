@@ -1,5 +1,6 @@
-from frontend.utils import conseguir_imagen_ctk
 import customtkinter as ctk
+
+from frontend.utils import conseguir_imagen_ctk
 
 LOGIN_RUTAS = {"login_path" : "frontend\\login\\img\\login.webp",
                "mostrar_oscuro_path" : "frontend\\login\\img\\mostrar_oscuro.png",

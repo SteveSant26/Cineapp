@@ -4,7 +4,15 @@ from . import nueva_cuenta as NC
 from . import crear_login_img as CLI
 
 def crear_login(base: ctk.CTk) -> ctk.CTkFrame:
-    """ Se crea un frame para login en la ventana principal de la aplicación."""
+    """
+    Crea un frame para login en la ventana principal de la aplicación.
+
+    Args:
+        base (ctk.CTk): La ventana principal de la aplicación.
+
+    Returns:
+        ctk.CTkFrame: El frame creado para el login.
+    """
 
     
     #Se crea el frame de login
