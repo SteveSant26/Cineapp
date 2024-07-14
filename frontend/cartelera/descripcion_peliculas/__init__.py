@@ -1,0 +1,1 @@
+from .interfaz_descripcion_peliculas import crear_descripcion_peliculas

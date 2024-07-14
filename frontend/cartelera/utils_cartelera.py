@@ -1,11 +1,13 @@
-from frontend.utils import conseguir_imagen_local
 import os
 import re
 import requests
 from PIL import Image
 from io import BytesIO
 import customtkinter as ctk
+
+
 from backend.database import ejecutar_query_obtener
+from frontend.utils import conseguir_imagen_local
 
 def obtener_id_titulo_pelicula_bd() -> list:
     """
@@ -17,7 +19,7 @@ def obtener_id_titulo_pelicula_bd() -> list:
     query = "SELECT id, titulo FROM peliculas"
     return ejecutar_query_obtener(query,"peliculas")
 
-def obtener_imagen_pelicula_por_id(id_pelicula: int):
+def obtener_imagen_pelicula_por_id(id_pelicula: int) -> str:
     """
     Obtiene la ruta de la imagen de una película dado su ID.
 

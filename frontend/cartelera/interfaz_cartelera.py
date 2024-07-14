@@ -2,12 +2,13 @@ import customtkinter as ctk
 import threading
 from concurrent.futures import ThreadPoolExecutor
 
-from frontend import utils,menubar as MB
 from backend.database import ejecutar_query_obtener
-from . import utils_cartelera as UC
-from .descripcion_peliculas.interfaz_descripcion_peliculas import crear_descripcion_peliculas
+from frontend import utils,menubar as MB
 
-def cargar_y_mostrar_imagen(base:ctk.CTk, directorio_imagenes:str, id_pelicula:int, titulo_pelicula:str, fila:int, columna:int):
+from . import utils_cartelera as UC
+from .descripcion_peliculas import crear_descripcion_peliculas
+
+def cargar_y_mostrar_imagen(base:ctk.CTk, directorio_imagenes:str, pelicula_id:int, pelicula_titulo:str, fila:int, columna:int):
     """
     Carga y muestra la imagen de la película.
 
@@ -20,12 +21,12 @@ def cargar_y_mostrar_imagen(base:ctk.CTk, directorio_imagenes:str, id_pelicula:i
         columna (int): El índice de columna en la cuadrícula de películas.
     """
     try:
-        imagen = UC.conseguir_imagen_portada_ctk(directorio_imagenes, id_pelicula, titulo_pelicula, 250, 300)
-        crear_boton_pelicula(base, imagen, titulo_pelicula, fila, columna, id_pelicula)
+        imagen = UC.conseguir_imagen_portada_ctk(directorio_imagenes, pelicula_id, pelicula_titulo, 250, 300)
+        crear_boton_pelicula(base, imagen, pelicula_titulo, fila, columna, pelicula_id)
     except Exception as e:
-        print(f"Error al obtener la imagen de {titulo_pelicula}: {e}")
+        print(f"Error al obtener la imagen de {pelicula_titulo}: {e}")
         
-def crear_boton_pelicula(base:ctk.CTk, imagen:ctk.CTkImage, titulo:str, fila:int, columna:int, id_pelicula:int):
+def crear_boton_pelicula(base:ctk.CTk, imagen:ctk.CTkImage, pelicula_titulo:str, fila:int, columna:int, pelicula_id:int):
     """
     Crea un botón para la película.
 
@@ -38,9 +39,9 @@ def crear_boton_pelicula(base:ctk.CTk, imagen:ctk.CTkImage, titulo:str, fila:int
         id_pelicula (int): El ID de la película.
     """
     maxima_longitud = 30
-    titulo_ajustado = titulo
+    titulo_ajustado = pelicula_titulo
     if len(titulo_ajustado) > maxima_longitud:
-        titulo_ajustado = titulo[:maxima_longitud] + "..."
+        titulo_ajustado = pelicula_titulo[:maxima_longitud] + "..."
     
         
     boton_pelicula = ctk.CTkButton(
@@ -52,11 +53,11 @@ def crear_boton_pelicula(base:ctk.CTk, imagen:ctk.CTkImage, titulo:str, fila:int
         text_color=("black", "White"),
         font=("Arial", 15, "bold"),
         fg_color="transparent",
-        command=lambda titulo_pelicula=titulo: seleccionar_pelicula(base, titulo_pelicula, id_pelicula),
+        command=lambda titulo_pelicula=pelicula_titulo: seleccionar_pelicula(base, titulo_pelicula, pelicula_id),
     )
     boton_pelicula.grid(row=fila, column=columna, padx=10, pady=0)
     
-def obtener_todas_funciones_pelicula(id_pelicula:int) -> bool:
+def obtener_todas_funciones_pelicula(pelicula_id:int) -> bool:
     """
     Obtiene todas las funciones de una película dado su ID.
 
@@ -67,7 +68,7 @@ def obtener_todas_funciones_pelicula(id_pelicula:int) -> bool:
     bool: True si se encontraron funciones para la película, False en caso contrario.
     """
     query = "Select * from funciones where pelicula_id = %s"
-    if ejecutar_query_obtener(query, "funciones", (id_pelicula,)):
+    if ejecutar_query_obtener(query, "funciones", (pelicula_id,)):
         return True
     else:
         return False
@@ -107,7 +108,7 @@ def crear_cartelera(base:ctk.CTk, columnas: int):
 
 
 
-def cargar_y_mostrar_imagen(base:ctk.CTk, directorio_imagenes:str, id_pelicula:int, titulo_pelicula:str, fila:int, columna:int):
+def cargar_y_mostrar_imagen(base:ctk.CTk, directorio_imagenes:str, pelicula_id:int, pelicula_titulo:str, fila:int, columna:int):
     """
     Carga y muestra una imagen de portada de una película en la interfaz gráfica.
 
@@ -120,12 +121,12 @@ def cargar_y_mostrar_imagen(base:ctk.CTk, directorio_imagenes:str, id_pelicula:i
         columna (int): Columna en la que se mostrará la imagen en la interfaz gráfica.
     """
     try:
-        imagen = UC.conseguir_imagen_portada_ctk(directorio_imagenes, id_pelicula, titulo_pelicula, 250, 300)
-        crear_boton_pelicula(base, imagen, titulo_pelicula, fila, columna, id_pelicula)
+        imagen = UC.conseguir_imagen_portada_ctk(directorio_imagenes, pelicula_id, pelicula_titulo, 250, 300)
+        crear_boton_pelicula(base, imagen, pelicula_titulo, fila, columna, pelicula_id)
     except Exception as e:
-        print(f"Error al obtener la imagen de {titulo_pelicula}: {e}")
+        print(f"Error al obtener la imagen de {pelicula_titulo}: {e}")
         
-def crear_boton_pelicula(base:ctk.CTk, imagen:ctk.CTkImage, titulo:str, fila:int, columna:int, id_pelicula:int):
+def crear_boton_pelicula(base:ctk.CTk, imagen:ctk.CTkImage, pelicula_titulo:str, fila:int, columna:int, pelicula_id:int):
     """
     Crea un botón de película en la interfaz de cartelera.
 
@@ -141,9 +142,9 @@ def crear_boton_pelicula(base:ctk.CTk, imagen:ctk.CTkImage, titulo:str, fila:int
         None
     """
     maxima_longitud = 30
-    titulo_ajustado = titulo
+    titulo_ajustado = pelicula_titulo
     if len(titulo_ajustado) > maxima_longitud:
-        titulo_ajustado = titulo[:maxima_longitud] + "..."
+        titulo_ajustado = pelicula_titulo[:maxima_longitud] + "..."
 
     boton_pelicula = ctk.CTkButton(
         base.frame_peliculas,
@@ -154,7 +155,7 @@ def crear_boton_pelicula(base:ctk.CTk, imagen:ctk.CTkImage, titulo:str, fila:int
         text_color=("black", "White"),
         font=("Arial", 15, "bold"),
         fg_color="transparent",
-        command=lambda titulo_pelicula=titulo: seleccionar_pelicula(base, titulo_pelicula, id_pelicula),
+        command=lambda titulo_pelicula=pelicula_titulo: seleccionar_pelicula(base, titulo_pelicula, pelicula_id),
     )
     boton_pelicula.grid(row=fila, column=columna, padx=10, pady=0)
 
@@ -198,7 +199,7 @@ def mostrar_peliculas(base: ctk.CTk):
 
     crear_cartelera(base, columnas=5)
 
-def seleccionar_pelicula(base: ctk.CTk, pelicula: str, id_pelicula: int):
+def seleccionar_pelicula(base: ctk.CTk, pelicula_titulo: str, pelicula_id: int):
     """
     Selecciona una película y realiza acciones basadas en el tipo de usuario.
 
@@ -217,11 +218,11 @@ def seleccionar_pelicula(base: ctk.CTk, pelicula: str, id_pelicula: int):
     base.salas = None
     base.mejor_asiento = None
     base.botones_funciones = {}
-    base.titulo_pelicula = pelicula
-    base.pelicula_id = id_pelicula
+    base.titulo_pelicula = pelicula_titulo
+    base.pelicula_id = pelicula_id
     
     if base.tipo_usuario == "admin":
         return PC.crear_vista_cine(base)
     if base.tipo_usuario == "cliente":
-        return crear_descripcion_peliculas(base, id_pelicula, pelicula)
+        return crear_descripcion_peliculas(base, pelicula_id, pelicula_titulo)
     
