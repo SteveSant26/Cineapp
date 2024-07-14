@@ -4,7 +4,7 @@ from .crear_conexion import abrir_conexion
 from frontend.utils import mostrar_error
 
 
-def eliminar_imagen(nombre_imagen: str):
+def eliminar_imagen(nombre_imagen: str) -> None:
     """
     Elimina una imagen del directorio de portadas de películas.
 
@@ -44,12 +44,14 @@ def ejecutar_query_obtener(query:str, tabla:str, datos:tuple=None) -> list:
     try:
         conexion = abrir_conexion()
         with conexion.cursor() as cursor:
-            if datos is None:
-                cursor.execute(query)
-            else:
+            if datos:
                 cursor.execute(query, datos)
+            else:
+                cursor.execute(query)
+
             datos = cursor.fetchall()
         return datos
+    
     except Exception as e:
         mostrar_error(f"Error al obtener {tabla[:-1]}", f"No se pudo obtener las {tabla[:-1]} de la base de datos: {e}")
         return []
@@ -129,6 +131,7 @@ def ejecutar_query_editar(query: str, nuevos_datos:tuple, tabla:str)-> bool:
                 nombre_pelicula = nuevos_datos[1]
                 if imagen_actual != imagen_nueva:
                     eliminar_imagen(nombre_pelicula)
+                    
             elif tabla == "usuarios":
                 datos_actuales = (
                     datos_actuales[1],
@@ -185,7 +188,7 @@ def ejecutar_query_eliminar(query:str, id_dato:int, tabla:str) -> bool:
         return False
 
 
-def verificar_funcion_existente(cursor, parametros:tuple, operacion:str):
+def verificar_funcion_existente(cursor, parametros:tuple, operacion:str) -> bool:
     """
     Verifica si ya existe una función en la base de datos con la misma sala y horario.
 
@@ -200,13 +203,11 @@ def verificar_funcion_existente(cursor, parametros:tuple, operacion:str):
     try:
         cursor.execute("SELECT id, sala_id, hora FROM funciones")
         resultado = cursor.fetchall()
-        print(f"Resultado: {parametros}")
         for id, sala_id, hora in resultado:
             hora_str = str(hora)
             if operacion == "agregar":
                 sala_id_nueva = parametros[1]
                 hora_nueva = parametros[2]
-                print(f"Sala id nueva: {sala_id_nueva}, hora nueva: {hora_nueva}, sala id: {sala_id}, hora: {hora_str}")
                 if sala_id_nueva == sala_id and hora_nueva == hora_str:
                     mostrar_error(f"Error al agregar  la funcion", "Ya existe una función en esa sala y en ese horario.")
                     return False
@@ -214,7 +215,6 @@ def verificar_funcion_existente(cursor, parametros:tuple, operacion:str):
                 id_funcion = parametros[3]
                 sala_id_nueva = parametros[1]
                 hora_nueva = parametros[2]
-                print(f"Sala id nueva: {sala_id_nueva}, hora nueva: {hora_nueva}, sala id: {sala_id}, hora: {hora_str}")
                 if sala_id_nueva == sala_id and hora_nueva == hora_str and id_funcion != id:
                     mostrar_error(f"Error al editar la funcion", "Ya existe una función en esa sala y en ese horario.")
                     return False
