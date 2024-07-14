@@ -1,5 +1,4 @@
 from .utils_db import ejecutar_query_obtener, ejecutar_query_agregar, ejecutar_query_editar
-import json
 
 def obtener_asientos_reservados(funcion_id:int) -> list:
     """

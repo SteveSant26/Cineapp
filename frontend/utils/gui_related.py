@@ -1,6 +1,5 @@
 from tkinter import messagebox
 
-
 import customtkinter as ctk
 
 def mostrar_error(titulo:str, mensaje:str)->None:
