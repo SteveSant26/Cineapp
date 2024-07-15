@@ -1,66 +1,51 @@
 import customtkinter as ctk
-
-
 from frontend import utils
-
 from . import asientos as A
 from . import frame_vista_cine as FVC 
-from .utils_pc import obtener_funcion_id_por_sala_pelicula_id,obtener_funciones,obtener_sala_id_por_nombre_bd
+from .utils_pc import obtener_funcion_id_por_sala_pelicula_id, obtener_funciones, obtener_sala_id_por_nombre_bd
 
-def actualizar_sala_por_combobox(event, base)->None:
+def actualizar_sala_por_combobox(event: object, base: dict) -> None:
     """
     Actualiza la sala de cine seleccionada en el combobox.
 
     Args:
-        event: El evento que disparó la función.
+        event (object): El evento que disparó la función.
         base (dict): Un diccionario con las variables del programa.
 
     Returns:
         None
     """
-
-
     nueva_sala = base.combobox_sala.get()
     if nueva_sala != base.sala_actual:
-    
-        # Se actualiza la sala actual, se cambia el mejor asiento a none otra vez
         base.mejor_asiento = None
-
-
         base.sala_actual = nueva_sala
         base.sala_actual_id = obtener_sala_id_por_nombre_bd(base.sala_actual)[0][0]
-        
-        
-        base.funciones = obtener_funciones(base.pelicula_id,nueva_sala)
+        base.funciones = obtener_funciones(base.pelicula_id, nueva_sala)
         base.funcion_actual = base.funciones[0]
-
-        base.funcion_actual_id = obtener_funcion_id_por_sala_pelicula_id(base.sala_actual_id,base.pelicula_id,base.funcion_actual)
-
-
+        base.funcion_actual_id = obtener_funcion_id_por_sala_pelicula_id(base.sala_actual_id, base.pelicula_id, base.funcion_actual)
         
-        # Se actualizan los botones de las funciones
         actualizar_botones_funciones(base)
         
         base.frame_sala.destroy()
-        
         base.frame_opciones.destroy()
-        # Actualiza los frames de la sala y opciones
+        
         FVC.actualizar_frames(base)
 
+def actualizar_botones_funciones(base: dict) -> None:
+    """
+    Actualiza los botones de las funciones de la sala de cine.
 
-def actualizar_botones_funciones(base)->None:
-    """ Actualiza los botones de las funciones de la sala de cine."""
-    # Se eliminan los botones de las funciones actuales
+    Args:
+        base (dict): Un diccionario con las variables del programa.
+
+    Returns:
+        None
+    """
     utils.limpiar_widgets_base(base.frame_funciones)
-
-    #Se obtienen las funciones de la sala actual
-    base.funciones = obtener_funciones(base.pelicula_id,base.sala_actual)
-
+    base.funciones = obtener_funciones(base.pelicula_id, base.sala_actual)
     base.funcion_actual = base.funciones[0]
-    base.funcion_actual_id = obtener_funcion_id_por_sala_pelicula_id(base.sala_actual_id,base.pelicula_id,base.funcion_actual)
+    base.funcion_actual_id = obtener_funcion_id_por_sala_pelicula_id(base.sala_actual_id, base.pelicula_id, base.funcion_actual)
 
-
-    # Se crean los botones de las funciones
     for idx, funcion in enumerate(base.funciones):
         boton = ctk.CTkButton(base.frame_funciones,
                               font=("Arial", 16),
@@ -69,49 +54,44 @@ def actualizar_botones_funciones(base)->None:
                               fg_color="#79B6DF",
                               command=lambda f=funcion: actualizar_sala_por_funcion(f, base))
         boton.grid(row=0, column=idx, padx=5, pady=5)
-        #En caso de que haya mas de 3 funciones en una fila, se muestran en la siguiente fila
         if idx >= 3:
-            boton.grid(row=1, column=idx-3, padx=5, pady=5)
+            boton.grid(row=1, column=idx - 3, padx=5, pady=5)
 
-        # Se agrega el boton al diccionario de botones de funciones
         base.botones_funciones[funcion] = boton
         if funcion == base.funcion_actual:
-        # Se configura el boton de la funcion actual como desabilitado ya que es el seleccionado
             boton.configure(state="disabled", fg_color="#248CD3")
         else:
-        # Se configura el boton de la funcion actual como normal
-            boton.configure(
-                state="normal",fg_color="#79B6DF")
+            boton.configure(state="normal", fg_color="#79B6DF")
 
+def actualizar_sala_por_funcion(funcion: str, base: dict) -> None:
+    """
+    Actualiza la sala de cine seleccionada por la función seleccionada.
 
-def actualizar_sala_por_funcion(funcion:str, base)->None:
-    """ Actualiza la sala de cine seleccionada por la función seleccionada."""
+    Args:
+        funcion (str): La función seleccionada.
+        base (dict): Un diccionario con las variables del programa.
 
-    # Se verifica que la funcion seleccionada sea diferente a la funcion actual
+    Returns:
+        None
+    """
     if funcion != base.funcion_actual:
-        
-        
-        # Se actualiza la sala actual, se cambia el mejor asiento a none otra vez
         base.mejor_asiento = None
-        #Se habilita el boton de la funcion actual ya que se selecciono otra funcion
-        base.botones_funciones[base.funcion_actual].configure(state="normal",fg_color="#79B6DF",
-)
-        #se deshabilita el boton de la funcion seleccionada ya que es la funcion actual
+        base.botones_funciones[base.funcion_actual].configure(state="normal", fg_color="#79B6DF")
         base.botones_funciones[funcion].configure(state="disabled", fg_color="#248CD3")
-        #Se actualiza la funcion actual
         base.funcion_actual = funcion
-        base.funcion_actual_id = obtener_funcion_id_por_sala_pelicula_id(base.sala_actual_id,base.pelicula_id,base.funcion_actual)
-        #Se generan los asientos de la sala actual
+        base.funcion_actual_id = obtener_funcion_id_por_sala_pelicula_id(base.sala_actual_id, base.pelicula_id, base.funcion_actual)
         A.crear_asientos(base)
 
+def regresar(base: ctk.CTkFrame) -> None:
+    """
+    Regresa al frame principal de la aplicación.
 
-def regresar(base:ctk.CTkFrame)->None:
+    Args:
+        base (ctk.CTkFrame): El frame principal de la aplicación.
+
+    Returns:
+        None
+    """
     from frontend import cartelera
-    """ Regresa al frame principal de la aplicación."""
-    # Se eliminan los widgets del frame principal
     utils.limpiar_widgets_base(base)
-    #Se importa la funcion de Cartelera.py para mostrar las peliculas
     cartelera.iniciar_hilo_mostrar_peliculas(base)
-
-
-

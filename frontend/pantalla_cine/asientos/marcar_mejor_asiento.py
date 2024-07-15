@@ -1,11 +1,11 @@
 from frontend import utils 
-
+import customtkinter as ctk
 from . import crear_asientos_img as CAI
 from . import utils_asientos as UA
 
 
 
-def encontrar_mejor_asiento(base) -> tuple:
+def encontrar_mejor_asiento(base:ctk.CTk) -> tuple:
     """
     Encuentra el mejor asiento disponible en la sala de cine empezando por la primera fila.
     Si se desea cambiar el orden de las filas en el que se empieza a mostrar el mejor asiento, 
@@ -36,12 +36,10 @@ def encontrar_mejor_asiento(base) -> tuple:
     # Se ordenan los asientos disponibles por fila y por la distancia al centro
     asientos_disponibles.sort(key=lambda x: (x[0], abs(x[1] - centro)))  # Se puede cambiar x[0] a -x[0] para cambiar el orden de las filas
 
-    # Ajustar la fila y columna a los índices correctos (considerando el desplazamiento)
-
 
     return asientos_disponibles[0]
 
-def select_mejor_asiento(base) -> None:
+def select_mejor_asiento(base:ctk.CTk) -> None:
     """
     Marca el mejor asiento disponible en la sala de cine.
 

@@ -6,22 +6,54 @@ import pdfkit
 import re
 from tkinter import messagebox
 from frontend import utils
-import datetime
 from . import crear_asientos_img as CAI
 from . import utils_asientos as UA
 from . generar_asientos import actualizar_asientos
 
-def obtener_asiento(frame_sala, fila, columna):
-    """Obtiene el asiento de la grilla en la posición dada."""
+def obtener_asiento(frame_sala: ctk.CTk, fila: int, columna: int) -> ctk.CTk:
+    """
+    Obtiene el asiento de la grilla en la posición dada.
+
+    Args:
+        frame_sala (ctk.CTk): El contenedor de la sala de cine.
+        fila (int): La fila del asiento.
+        columna (int): La columna del asiento.
+
+    Returns:
+        ctk.CTk: El widget del asiento.
+    """
     return frame_sala.grid_slaves(row=fila, column=columna)[0]
 
 def corregir_nombre_archivo(filename: str) -> str:
     """
-    Replace or remove characters that are invalid in filenames.
+    Reemplaza o elimina caracteres que son inválidos en nombres de archivo.
+
+    Args:
+        filename (str): El nombre del archivo a corregir.
+
+    Returns:
+        str: El nombre del archivo corregido.
     """
     return re.sub(r'[<>:"/\\|?*]', '', filename)
 
-def generar_pdf_asientos(asientos_seleccionados, usuario, titulo_pelicula, funcion) -> None:
+def generar_pdf_asientos(asientos_reservaods: set, usuario: str, titulo_pelicula: str, funcion: str) -> None:
+    """
+    Genera un archivo PDF con la información de los asientos reservados.
+
+    Args:
+        asientos_seleccionados (Set[Tuple[int, int]]): Conjunto de asientos seleccionados.
+        usuario (str): Nombre del usuario.
+        titulo_pelicula (str): Título de la película.
+        funcion (str): Hora de la función.
+    """
+    ABECEDARIO = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    asientos_reservados_formato = set()
+    for asiento in asientos_reservaods:
+        fila, columna = asiento
+        print(fila, columna)
+        asientos_reservados_formato.add((ABECEDARIO[fila-1], columna))
+        print(asientos_reservados_formato)
+
     plantilla_html = """
 <!DOCTYPE html>
 <html lang="es">
@@ -109,7 +141,7 @@ def generar_pdf_asientos(asientos_seleccionados, usuario, titulo_pelicula, funci
     """
 
     plantilla = Template(plantilla_html)
-    html_renderizado = plantilla.render(usuario=usuario, titulo=titulo_pelicula, hora=funcion, asientos=asientos_seleccionados)
+    html_renderizado = plantilla.render(usuario=usuario, titulo=titulo_pelicula, hora=funcion, asientos=asientos_reservados_formato)
 
     tiempo_actual = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
     titulo_pelicula = corregir_nombre_archivo(titulo_pelicula)
@@ -130,10 +162,13 @@ def generar_pdf_asientos(asientos_seleccionados, usuario, titulo_pelicula, funci
     except Exception as e:
         utils.mostrar_mensaje("Error", f"Se ha producido un error al generar el PDF: {str(e)}")
 
-
-
 def reservar_asientos(base: ctk.CTk) -> None:
-    """Reserva los asientos seleccionados en la sala de cine."""
+    """
+    Reserva los asientos seleccionados en la sala de cine.
+
+    Args:
+        base (ctk.CTk): La instancia base del sistema.
+    """
     if base.mejor_asiento:
         base.asientos_seleccionados.add(base.mejor_asiento)
         fila, columna = base.mejor_asiento
@@ -148,20 +183,20 @@ def reservar_asientos(base: ctk.CTk) -> None:
         if base.tipo_usuario == "cliente":
             widget.configure(image=CAI.ASIENTOS_IMAGEN["asiento_ocupado"], state="disabled", border_color="#C15F44")
 
-    print(base.asientos_habilitados)
-    
     UA.agregar_asientos(base.asientos_reservados_id, base.asientos_seleccionados, base.usuario, habilitar=base.asientos_habilitados)
     
     if messagebox.askyesno("Descargar ticket de boletos", "¿Desea descargar el ticket de los asientos reservados?"):
-        generar_pdf_asientos(base.asientos_seleccionados, base.usuario, base.titulo_pelicula,base.funcion_actual)
+        generar_pdf_asientos(base.asientos_seleccionados, base.usuario, base.titulo_pelicula, base.funcion_actual)
     
     actualizar_asientos(base)
-    
-    
-    
-    
-def preguntar_reservar(base) -> None:
-    """Pregunta al usuario si desea reservar los asientos seleccionados."""
+
+def preguntar_reservar(base: ctk.CTk) -> None:
+    """
+    Pregunta al usuario si desea reservar los asientos seleccionados.
+
+    Args:
+        base (ctk.CTk): La instancia base del sistema.
+    """
     if not base.asientos_seleccionados and not base.mejor_asiento:
         utils.mostrar_error("Sin selecciones", "No ha seleccionado ningún asiento para reservar")
         return
@@ -170,7 +205,12 @@ def preguntar_reservar(base) -> None:
         reservar_asientos(base)
 
 def habilitar_reservados(base: ctk.CTk) -> None:
-    """Deselecciona los asientos reservados."""
+    """
+    Deselecciona los asientos reservados.
+
+    Args:
+        base (ctk.CTk): La instancia base del sistema.
+    """
     if not base.asientos_reservados:
         utils.mostrar_error("Sin asientos reservados", "No hay asientos reservados")
         return
@@ -185,7 +225,14 @@ def habilitar_reservados(base: ctk.CTk) -> None:
         UA.bind_asiento(asiento_reservado, CAI.ASIENTOS_IMAGEN["asiento_libre"], CAI.ASIENTOS_IMAGEN["asiento_habilitado"])
 
 def click_en_asiento(fila: int, columna: int, base: ctk.CTk) -> None:
-    """Función llamada cuando se hace clic en un asiento habilitado."""
+    """
+    Función llamada cuando se hace clic en un asiento habilitado.
+
+    Args:
+        fila (int): La fila del asiento.
+        columna (int): La columna del asiento.
+        base (ctk.CTk): La instancia base del sistema.
+    """
     if (fila, columna) in base.asientos_reservados:
         if (fila, columna) in base.asientos_seleccionados:
             asiento = obtener_asiento(base.frame_sala, fila, columna)
@@ -193,5 +240,4 @@ def click_en_asiento(fila: int, columna: int, base: ctk.CTk) -> None:
             UA.unbind_asiento(asiento)
             asiento.configure(image=CAI.ASIENTOS_IMAGEN["asiento_libre"], state="normal", border_color="#31AF5D")
             UA.bind_asiento(asiento, CAI.ASIENTOS_IMAGEN["asiento_hover"], CAI.ASIENTOS_IMAGEN["asiento_libre"])
-            print(f"Asiento en la fila {fila}, columna {columna} deseleccionado")
             base.asientos_seleccionados.add((fila, columna))

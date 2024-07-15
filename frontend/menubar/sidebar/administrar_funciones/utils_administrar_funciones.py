@@ -23,7 +23,7 @@ def obtener_nombre_sala_por_id(id_sala: int) -> str:
     """
     query = "SELECT nombre FROM salas WHERE id = %s"
     resultado = ejecutar_query_obtener(query, "salas", datos=(id_sala,))
-    return resultado[0][0] if resultado else None
+    return resultado if resultado else None
 
 def obtener_titulo_pelicula_por_id(id_pelicula: int) -> str:
     """
@@ -37,4 +37,4 @@ def obtener_titulo_pelicula_por_id(id_pelicula: int) -> str:
     """
     query = "SELECT titulo FROM peliculas WHERE id = %s"
     resultado = ejecutar_query_obtener(query, "peliculas", datos=(id_pelicula,))
-    return resultado[0][0] if resultado else None
+    return resultado if resultado else None
