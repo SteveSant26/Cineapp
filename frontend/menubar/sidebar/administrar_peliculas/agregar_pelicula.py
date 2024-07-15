@@ -5,8 +5,10 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 
 from backend import API
 from backend.database import agregar_pelicula_bd
-from frontend.utils import mostrar_error, mostrar_mensaje
-from ...barra_busqueda import enter_hover_boton_busqueda, leave_hover_boton_busqueda, crear_busqueda_img as CBI
+from frontend.utils import crear_icono_busqueda as CBI, mostrar_error, mostrar_mensaje, enter_hover_boton_busqueda, leave_hover_boton_busqueda
+
+
+
 from ..utils_menu_bar import limpiar_treeview, configurar_insertar_columnas_treeview
 from .funciones_administrar_peliculas import insertar_peliculas_tree
 
@@ -55,8 +57,8 @@ def frame_opciones_agregar_pelicula(ventana_agregar_pelicula: ctk.CTkToplevel, b
                                  text=" ", 
                                  font=("Arial", 20, "bold"), 
                                  width=10,
-                                 border_width=2,
-                                 border_color="black",
+                                 border_width=1,
+                                 border_color=("black", "white"),
                                  fg_color="transparent",
                                  hover=False,
                                  corner_radius=15,

@@ -4,6 +4,7 @@ from concurrent.futures import ThreadPoolExecutor
 
 from backend.database import ejecutar_query_obtener
 from frontend import utils,menubar as MB
+from .barra_busqueda import crear_barra_busqueda
 
 from . import utils_cartelera as UC
 from .descripcion_peliculas import crear_descripcion_peliculas
@@ -188,6 +189,7 @@ def mostrar_peliculas(base: ctk.CTk):
     
     base.frame_peliculas = ctk.CTkScrollableFrame(base, fg_color="transparent", border_color="black")
     MB.crear_menu_bar(base) #busqueda=True para mostrar searchbar
+    crear_barra_busqueda(base)
     
     base.frame_peliculas.pack(fill="both", expand=True)
     base.frame_peliculas.pack_propagate(False)

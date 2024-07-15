@@ -1,2 +1,3 @@
 from .interfaz_cartelera import iniciar_hilo_mostrar_peliculas
 from .utils_cartelera import corregir_nombre_archivo
+from .barra_busqueda import crear_barra_busqueda

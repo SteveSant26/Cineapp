@@ -1,15 +1,13 @@
 import customtkinter as ctk
-from . import barra_busqueda as BB
 from . import sidebar as SB
 
 
-def crear_menu_bar(base: ctk.CTk, busqueda: bool = False) -> None:
+def crear_menu_bar(base: ctk.CTk) -> None:
     """
     Crea la barra de menú de la aplicación.
 
     Args:
         base (ctk.CTk): El objeto base de la aplicación.
-        busqueda (bool, optional): Indica si se debe incluir la barra de búsqueda. Por defecto es False.
 
     Returns:
         None
@@ -34,8 +32,6 @@ def crear_menu_bar(base: ctk.CTk, busqueda: bool = False) -> None:
     titulo_app = ctk.CTkLabel(base.menu_bar_frame, text="INTERCINES", font=("Arial", 30, "bold"))
     titulo_app.pack(side="left", padx=10)
     
-    if busqueda:
-        BB.crear_barra_busqueda(base)
 
     separator = ctk.CTkFrame(base, height=2, fg_color="black")
     separator.pack(side="top", fill="x")
