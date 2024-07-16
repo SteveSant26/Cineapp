@@ -63,7 +63,8 @@ def obtener_peliculas_bd_por_nombre(nombre_pelicula: str) -> list:
         list: Una lista de películas que coinciden con el nombre de la película.
     """
     query = "SELECT id,titulo FROM peliculas WHERE titulo LIKE %s"
-    return ejecutar_query_obtener(query, "peliculas", datos=(nombre_pelicula + '%',))
+    nombre_busqueda = f"%{nombre_pelicula}%"
+    return ejecutar_query_obtener(query, "peliculas", datos=(nombre_busqueda,))
 
 
 def buscar_peliculas_por_nombre(base: ctk.CTk, nombre_pelicula: str) -> None:
