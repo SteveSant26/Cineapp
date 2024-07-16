@@ -50,8 +50,9 @@ def generar_pdf_asientos(asientos_reservaods: set, usuario: str, titulo_pelicula
     asientos_reservados_formato = set()
     for asiento in asientos_reservaods:
         fila, columna = asiento
+
         print(fila, columna)
-        asientos_reservados_formato.add((ABECEDARIO[fila-1], columna))
+        asientos_reservados_formato.add((ABECEDARIO[fila-2], columna))
         print(asientos_reservados_formato)
 
     plantilla_html = """

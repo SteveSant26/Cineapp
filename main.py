@@ -25,7 +25,5 @@ def inicializar_app() -> None:
 
 
 
-
-
 if __name__ == "__main__":
     inicializar_app()

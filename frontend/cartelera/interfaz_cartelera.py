@@ -4,10 +4,26 @@ from concurrent.futures import ThreadPoolExecutor
 
 from backend.database import ejecutar_query_obtener
 from frontend import utils,menubar as MB
-from .barra_busqueda import crear_barra_busqueda
+from .generar_barra_busqueda import crear_barra_busqueda
 
 from . import utils_cartelera as UC
-from .descripcion_peliculas import crear_descripcion_peliculas
+
+
+def obtener_todas_funciones_pelicula(pelicula_id:int) -> bool:
+    """
+    Obtiene todas las funciones de una película dado su ID.
+
+    Parameters:
+    id_pelicula (int): El ID de la película.
+
+    Returns:
+    bool: True si se encontraron funciones para la película, False en caso contrario.
+    """
+    query = "Select * from funciones where pelicula_id = %s"
+    if ejecutar_query_obtener(query, "funciones", (pelicula_id,)):
+        return True
+    else:
+        return False
 
 def cargar_y_mostrar_imagen(base:ctk.CTk, directorio_imagenes:str, pelicula_id:int, pelicula_titulo:str, fila:int, columna:int):
     """
@@ -57,24 +73,13 @@ def crear_boton_pelicula(base:ctk.CTk, imagen:ctk.CTkImage, pelicula_titulo:str,
         command=lambda titulo_pelicula=pelicula_titulo: seleccionar_pelicula(base, titulo_pelicula, pelicula_id),
     )
     boton_pelicula.grid(row=fila, column=columna, padx=10, pady=0)
+    if base.tipo_usuario == "admin":
+        if not obtener_todas_funciones_pelicula(pelicula_id):
+            boton_pelicula.configure(state="disabled")
     
-def obtener_todas_funciones_pelicula(pelicula_id:int) -> bool:
-    """
-    Obtiene todas las funciones de una película dado su ID.
 
-    Parameters:
-    id_pelicula (int): El ID de la película.
 
-    Returns:
-    bool: True si se encontraron funciones para la película, False en caso contrario.
-    """
-    query = "Select * from funciones where pelicula_id = %s"
-    if ejecutar_query_obtener(query, "funciones", (pelicula_id,)):
-        return True
-    else:
-        return False
-
-def crear_cartelera(base:ctk.CTk, columnas: int):
+def crear_cartelera(base:ctk.CTk, columnas: int,peliculas: list):
     """
     Crea la cartelera de películas en la interfaz gráfica.
 
@@ -85,7 +90,7 @@ def crear_cartelera(base:ctk.CTk, columnas: int):
     Returns:
         None
     """
-    peliculas = UC.obtener_id_titulo_pelicula_bd()
+    
     filas = (len(peliculas) + columnas - 1) // columnas
 
     for i in range(filas):
@@ -107,60 +112,7 @@ def crear_cartelera(base:ctk.CTk, columnas: int):
             index += 1
 
 
-
-
-def cargar_y_mostrar_imagen(base:ctk.CTk, directorio_imagenes:str, pelicula_id:int, pelicula_titulo:str, fila:int, columna:int):
-    """
-    Carga y muestra una imagen de portada de una película en la interfaz gráfica.
-
-    Args:
-        base (objeto): Objeto base de la interfaz gráfica.
-        directorio_imagenes (str): Directorio donde se encuentran las imágenes de las películas.
-        id_pelicula (int): ID de la película.
-        titulo_pelicula (str): Título de la película.
-        fila (int): Fila en la que se mostrará la imagen en la interfaz gráfica.
-        columna (int): Columna en la que se mostrará la imagen en la interfaz gráfica.
-    """
-    try:
-        imagen = UC.conseguir_imagen_portada_ctk(directorio_imagenes, pelicula_id, pelicula_titulo, 250, 300)
-        crear_boton_pelicula(base, imagen, pelicula_titulo, fila, columna, pelicula_id)
-    except Exception as e:
-        print(f"Error al obtener la imagen de {pelicula_titulo}: {e}")
-        
-def crear_boton_pelicula(base:ctk.CTk, imagen:ctk.CTkImage, pelicula_titulo:str, fila:int, columna:int, pelicula_id:int):
-    """
-    Crea un botón de película en la interfaz de cartelera.
-
-    Args:
-        base (objeto): Objeto base de la interfaz.
-        imagen (objeto): Imagen de la película.
-        titulo (str): Título de la película.
-        fila (int): Fila en la que se ubicará el botón.
-        columna (int): Columna en la que se ubicará el botón.
-        id_pelicula (int): ID de la película.
-
-    Returns:
-        None
-    """
-    maxima_longitud = 30
-    titulo_ajustado = pelicula_titulo
-    if len(titulo_ajustado) > maxima_longitud:
-        titulo_ajustado = pelicula_titulo[:maxima_longitud] + "..."
-
-    boton_pelicula = ctk.CTkButton(
-        base.frame_peliculas,
-        image=imagen,
-        hover_color="#31AF9C",
-        compound="top",
-        text=titulo_ajustado,
-        text_color=("black", "White"),
-        font=("Arial", 15, "bold"),
-        fg_color="transparent",
-        command=lambda titulo_pelicula=pelicula_titulo: seleccionar_pelicula(base, titulo_pelicula, pelicula_id),
-    )
-    boton_pelicula.grid(row=fila, column=columna, padx=10, pady=0)
-
-def iniciar_hilo_mostrar_peliculas(base: ctk.CTk):
+def iniciar_hilo_mostrar_peliculas(base: ctk.CTk,peliculas = None):
     """
     Inicia un hilo para mostrar las películas en la interfaz de la cartelera.
 
@@ -172,10 +124,11 @@ def iniciar_hilo_mostrar_peliculas(base: ctk.CTk):
     """
     utils.limpiar_widgets_base(base)
 
-    hilo = threading.Thread(target=mostrar_peliculas, daemon=True, args=(base,))
+    hilo = threading.Thread(target=mostrar_peliculas, daemon=True, args=(base,peliculas))
     hilo.start()
 
-def mostrar_peliculas(base: ctk.CTk):
+
+def mostrar_peliculas(base: ctk.CTk, peliculas):
     """
     Muestra los listados de películas en la interfaz de usuario.
 
@@ -198,8 +151,10 @@ def mostrar_peliculas(base: ctk.CTk):
 
     titulo_cartelera = ctk.CTkLabel(base.frame_peliculas, text="Cartelera", font=("Arial", 40, "bold"))
     titulo_cartelera.grid(row=0, column=0, columnspan=5, pady=10)
-
-    crear_cartelera(base, columnas=5)
+    if not peliculas:
+        peliculas = UC.obtener_id_titulo_pelicula_bd()
+        
+    crear_cartelera(base, 5,peliculas)
 
 def seleccionar_pelicula(base: ctk.CTk, pelicula_titulo: str, pelicula_id: int):
     """
@@ -226,5 +181,7 @@ def seleccionar_pelicula(base: ctk.CTk, pelicula_titulo: str, pelicula_id: int):
     if base.tipo_usuario == "admin":
         return PC.crear_vista_cine(base)
     if base.tipo_usuario == "cliente":
-        return crear_descripcion_peliculas(base, pelicula_id, pelicula_titulo)
+        from . import descripcion_peliculas  as DP
+        
+        return DP.crear_descripcion_peliculas(base, pelicula_id, pelicula_titulo)
     

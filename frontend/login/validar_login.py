@@ -23,8 +23,8 @@ def validar_login(usuario_entry: ctk.CTkEntry, contrasena_entry: ctk.CTkEntry, b
 
 
         #Admin para pruebas
-        # usuario = "SteveSant"
-        # contrasena = "bryan123"
+        usuario = "SteveSant"
+        contrasena = "bryan123"
         
         #Cliente para pruebas
         # usuario = "Bryan26"

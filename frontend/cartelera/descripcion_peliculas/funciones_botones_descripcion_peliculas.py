@@ -63,7 +63,6 @@ def reproducir_trailer(id_pelicula: int) -> None:
         id_pelicula (int): El ID de la película cuyo trailer se quiere reproducir.
     """
     trailer = obtener_trailer(id_pelicula)
-    print(trailer)
     try:
         if trailer:
             ruta_trailer = f"https://www.youtube.com/embed/{trailer}?autoplay=1"

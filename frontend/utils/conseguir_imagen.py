@@ -53,10 +53,6 @@ def conseguir_imagen_local(path: str):
 
 
 
-
-
-
-
 # Usando os.walk, que básicamente recorre un directorio y sus subdirectorios hasta encontrar el archivo
 # def buscar_imagen_en_directorio(directorio: str, nombre_imagen: str) -> bool:
 
@@ -65,9 +61,3 @@ def conseguir_imagen_local(path: str):
 #         if nombre_imagen in files:
 #             return True
 #     return False
-
-
-
-
-
-
