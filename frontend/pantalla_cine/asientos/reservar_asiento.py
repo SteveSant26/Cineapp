@@ -1,8 +1,7 @@
 import customtkinter as ctk
 import datetime
 from jinja2 import Template
-import os
-import pdfkit
+import webbrowser
 import re
 from tkinter import messagebox
 from frontend import utils
@@ -51,9 +50,7 @@ def generar_pdf_asientos(asientos_reservaods: set, usuario: str, titulo_pelicula
     for asiento in asientos_reservaods:
         fila, columna = asiento
 
-        print(fila, columna)
         asientos_reservados_formato.add((ABECEDARIO[fila-2], columna))
-        print(asientos_reservados_formato)
 
     plantilla_html = """
 <!DOCTYPE html>
@@ -61,7 +58,6 @@ def generar_pdf_asientos(asientos_reservaods: set, usuario: str, titulo_pelicula
 <head>
     <meta charset="UTF-8">
     <title>Reservación Intercine</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: 'Roboto', sans-serif;
@@ -147,21 +143,18 @@ def generar_pdf_asientos(asientos_reservaods: set, usuario: str, titulo_pelicula
     tiempo_actual = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
     titulo_pelicula = corregir_nombre_archivo(titulo_pelicula)
     
-    filename = f"tickets\\Asientos_Reservados({usuario})_{titulo_pelicula}_{tiempo_actual}.pdf"
-    
-    config = pdfkit.configuration(wkhtmltopdf='C:\\Program Files\\wkhtmltopdf\\bin\\wkhtmltopdf.exe')
-    
-    options = {
-        'enable-local-file-access': None,
-    }
+    filename = f"tickets\\Asientos_Reservados({usuario})_{titulo_pelicula}_{tiempo_actual}.html"
     
     try:
-        pdfkit.from_string(html_renderizado, filename, options=options, configuration=config)
+        with open(filename, "w", encoding="utf-8") as file:
+            file.write(html_renderizado)
         utils.mostrar_mensaje("PDF Generado", "Se ha generado un archivo PDF con los asientos reservados.")
-        os.startfile(os.path.realpath(filename))
+        webbrowser.open_new_tab(filename)
     
     except Exception as e:
         utils.mostrar_mensaje("Error", f"Se ha producido un error al generar el PDF: {str(e)}")
+
+
 
 def reservar_asientos(base: ctk.CTk) -> None:
     """
