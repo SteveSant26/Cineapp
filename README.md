@@ -1,3 +1,17 @@
+* Activacion o desactivacion de entorno virtual:
+
+Para activar el entorno virtual, ejecuta el siguiente comando desde la terminal:
+
+```bash
+source . env/Scripts/activate
+```
+
+Para desactivar el entorno virtual, ejecuta el siguiente comando desde la terminal:
+
+```bash
+deactivate
+```
+
 * Instalar las dependencias:
 
 Para instalar las dependencias del proyecto, ejecuta el siguiente comando desde la terminal:
@@ -37,16 +51,3 @@ Asegúrate de reemplazar nuevo_host_mysql, nuevo_usuario_mysql, nueva_contraseñ
 Para restaurar la base de datos desde un backup, utiliza el archivo backup.sql que se encuentra en la carpeta backend/database.
 
 
-* Activacion o desactivacion de entorno virtual:
-
-Para activar el entorno virtual, ejecuta el siguiente comando desde la terminal:
-
-```bash
-source . env/Scripts/activate
-```
-
-Para desactivar el entorno virtual, ejecuta el siguiente comando desde la terminal:
-
-```bash
-deactivate
-```
