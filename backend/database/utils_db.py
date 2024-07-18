@@ -74,6 +74,7 @@ def ejecutar_query_agregar(query:str, datos:tuple, tabla:str) -> bool:
         with conexion.cursor() as cursor:
             if tabla == "funciones":
                 if not verificar_funcion_existente(cursor, datos, "agregar"):
+                    print("hola")
                     return False
             cursor.execute(query, datos)
             conexion.commit()
@@ -203,11 +204,17 @@ def verificar_funcion_existente(cursor, parametros:tuple, operacion:str) -> bool
     try:
         cursor.execute("SELECT id, sala_id, hora FROM funciones")
         resultado = cursor.fetchall()
+
         for id, sala_id, hora in resultado:
             hora_str = str(hora)
+            
             if operacion == "agregar":
                 sala_id_nueva = parametros[1]
                 hora_nueva = parametros[2]
+                hora = hora_str.split(":")[0]
+                minutos = hora_str.split(":")[1]
+                hora_str = f"{int(hora):02}:{int(minutos):02}:00"
+                print(hora_str)
                 if sala_id_nueva == sala_id and hora_nueva == hora_str:
                     mostrar_error(f"Error al agregar  la funcion", "Ya existe una función en esa sala y en ese horario.")
                     return False

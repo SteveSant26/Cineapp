@@ -26,6 +26,5 @@ def inicializar_app() -> None:
                       f"El siguiente error ocurrió al intentar crear la app:\n{e}")
 
 
-
 if __name__ == "__main__":
     inicializar_app()
