@@ -94,8 +94,7 @@ def buscar_peliculas_por_nombre(base: ctk.CTk, nombre_pelicula: str) -> None:
     peliculas_busqueda = obtener_peliculas_bd_por_nombre(nombre_pelicula)
 
     if not peliculas_busqueda:
-        mostrar_error("Error de búsqueda", f"No se encontraron películas con el nombre {
-                      nombre_pelicula}")
+        mostrar_error("Error de búsqueda", f"No se encontraron películas con el nombre {nombre_pelicula}")
         return
 
     peliculas_busqueda

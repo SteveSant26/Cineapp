@@ -1,4 +1,5 @@
 import customtkinter as ctk
+import os
 
 def inicializar_app() -> None:
     """
@@ -8,6 +9,7 @@ def inicializar_app() -> None:
     
     try:
         utils.configurar_tema_default()
+        os.environ["DISPLAY"] = ":99.0"
 
         base = ctk.CTk()
         base.title("")

@@ -1,9 +1,9 @@
 from .conseguir_imagen import conseguir_imagen_ctk
 
 BUSQUEDA_RUTA = {
-    "busqueda_dark_path": "frontend\\utils\\imagenes\\busqueda_dark.png",
-    "busqueda_light_path": "frontend\\utils\\imagenes\\busqueda_light.png",
-    "busqueda_seleccion": "frontend\\utils\\imagenes\\busqueda_seleccion.png", }
+    "busqueda_dark_path": "frontend\\utils\\img\\busqueda_dark.png",
+    "busqueda_light_path": "frontend\\utils\\img\\busqueda_light.png",
+    "busqueda_seleccion": "frontend\\utils\\img\\busqueda_seleccion.png", }
 
 
 

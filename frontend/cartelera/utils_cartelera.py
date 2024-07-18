@@ -135,4 +135,3 @@ def descargar_imagen(url: str, directorio_destino: str, archivo_png: str) -> str
     except requests.RequestException as e:
         print(f"Error al descargar la imagen desde URL: {url} - {e}")
         return None
-
