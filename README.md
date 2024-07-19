@@ -33,7 +33,7 @@ pip3 install -r requirements.txt
 
 ## Uso del backup de la base de datos: 
 
-Para restaurar la base de datos desde un backup, utiliza el archivo backup.sql que se encuentra en la carpeta `backend/database`.
+Para restaurar la base de datos desde un backup, utiliza el archivo backup.sql que se encuentra en la carpeta `backend/database` y importalo a tu base de datos mysql.
 
 ## Configuración de la conexión a la base de datos MySQL:
 
