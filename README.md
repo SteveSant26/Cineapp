@@ -3,9 +3,8 @@
 Para activar el entorno virtual, ejecuta el siguiente comando desde la terminal:
 
 ```bash
-source . env/Scripts/activate
+.\env\Scripts\activate
 ```
-
 Para desactivar el entorno virtual, ejecuta el siguiente comando desde la terminal:
 
 ```bash
