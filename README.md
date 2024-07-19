@@ -1,6 +1,6 @@
 # Intercines
 
-## Activacion o desactivacion de entorno virtual:
+## Activacion y desactivacion de entorno virtual:
 * Para activar el entorno virtual, ejecuta el siguiente comando desde la terminal:
 
 ```bash
