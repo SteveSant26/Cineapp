@@ -15,11 +15,11 @@ deactivate
 ## Dependencias de Python:
 1. [Customtkinter](https://github.com/TomSchimansky/CustomTkinter)
 2. [CTkSpinbox](https://github.com/Sheikh-Rashdan/CTkSpinbox)
-3. Jinja2
-4. mysql-connector-python
-5. pillow
-6. PyAutoGUI
-7. requests
+3. [Jinja2](https://github.com/pallets/jinja/)
+4. [Mysql-connector-python](https://pypi.org/project/mysql-connector-python/)
+5. [Plllow](https://github.com/python-pillow/Pillow)
+6. [PyAutoGUI](https://github.com/asweigart/pyautogui?tab=readme-ov-file)
+7. [Requests](https://github.com/psf/requests)
 8. [Tkcalendar](https://github.com/j4321/tkcalendar)
 
 ## Instalar las dependencias:
