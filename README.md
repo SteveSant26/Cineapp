@@ -1,5 +1,13 @@
 <h1 align="center"> INTERCINES </h1>
+Esta es una aplicacion que busca cumplir funcionalidades basicas tanto como para usuarios clientes (como lo  son ver trailers, escribir comentarios, reservar asientos, etc) y para administradores (como gestionar peliculas, gestionar_salas, gestionar funciones, etc).
 
+##Indice
+1. [Activación y desactivación de entorno virtual](#activación-y-desactivación-de-entorno-virtual)
+2. [Dependencias de Python](#dependencias-de-python)
+3. [Instalar las dependencias](#instalar-las-dependencias)
+4. [Uso del backup de la base de datos](#uso-del-backup-de-la-base-de-datos)
+5. [Configuración de la conexión a la base de datos MySQL](#configuración-de-la-conexión-a-la-base-de-datos-mysql)
+6. [Ejecutar el programa](#ejecutar-el-programa)
 
 
 ## Activacion y desactivacion de entorno virtual:
@@ -59,5 +67,14 @@ Para ejecutar el programa, asegurate de que el servicio de mysql esta corriendo 
 
 ```bash
 python3 main.py
+```
+
+Si bien se pueden crear nuevos usuarios ya sea administrador y usuario, hay 2 usuarios de referencia, que son:
+```bash
+usuario_cliente = Bryan26
+contrasena_cliente = bryan123
+
+usuario_admin = SteveSant
+contrasena_Admin = bryan123
 ```
 
