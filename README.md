@@ -1,4 +1,6 @@
-# Intercines
+<h1 align="center"> INTERCINES </h1>
+
+
 
 ## Activacion y desactivacion de entorno virtual:
 * Para activar el entorno virtual, ejecuta el siguiente comando desde la terminal:
@@ -58,3 +60,4 @@ Para ejecutar el programa, asegurate de que el servicio de mysql esta corriendo 
 ```bash
 python3 main.py
 ```
+
