@@ -63,13 +63,13 @@ conexion = mysql.connector.connect(
 
 ## Ejecutar el programa:
 
-Para ejecutar el programa, asegurate de que el servicio de mysql esta corriendo y utiliza el siguiente comando desde la terminal:
+* Para ejecutar el programa, asegurate de que el servicio de mysql esta corriendo y utiliza el siguiente comando desde la terminal:
 
 ```bash
 python3 main.py
 ```
 
-Si bien se pueden crear nuevos usuarios ya sea administrador y usuario, hay 2 usuarios de referencia, que son:
+* Si bien se pueden crear nuevos usuarios ya sea administrador y usuario, hay 2 usuarios de referencia, que son:
 ```bash
 usuario_cliente = Bryan26
 contrasena_cliente = bryan123
