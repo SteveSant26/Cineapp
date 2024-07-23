@@ -1,5 +1,5 @@
 <h1 align="center"> INTERCINES </h1>
-Esta es una aplicacion que busca cumplir funcionalidades basicas tanto como para usuarios clientes (como lo  son ver trailers, escribir comentarios, reservar asientos, etc) y para administradores (como gestionar peliculas, gestionar_salas, gestionar funciones, etc)..
+Esta es una aplicacion que busca cumplir funcionalidades basicas tanto como para usuarios clientes (como lo  son ver trailers, escribir comentarios, reservar asientos, etc) y para administradores (como gestionar peliculas, gestionar_salas, gestionar funciones, etc)...
 
 ## Indice
 1. [Activación y desactivación de entorno virtual](#activación-y-desactivación-de-entorno-virtual)
